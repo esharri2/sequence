@@ -1,4 +1,3 @@
-//Did not use import here since this file isn't going through babel
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
