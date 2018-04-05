@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 
 class Action extends Component {
     render() {
-        return <h1>{this.props.action.title}</h1>
+        return (
+            <div className="action">
+                <input>{this.props.action.title}</input>
+            </div>
+        )
     }
 }
 
