@@ -5,33 +5,60 @@ import Actions from './Actions';
 
 class Player extends Component {
     state = {
-        sequence: {
-            title: "Test sequence",
-            description: "a fake sequence to use for testing",
-            actions: [
-                { title: "do this", duration: 2000 },
-                { title: "do that", duration: 4000 },
-                { title: "do a last thing", duration: 6000 }
-            ]
-        },
         playing: false,
-        index: 0
+        paused: false,
+        sequenceTitle: "Test sequence",
+        sequenceDescription: "a fake sequence to use for testing",
+        actions: [
+            { title: "do this", duration: 62 },
+            { title: "do that", duration: 40 },
+            { title: "do a last thing", duration: 80 }
+        ],
+        currentIndex: 0
     }
 
     togglePlay = () => {
+        //this wrong ... need start play pause, stop
         this.state.playing ? this.setState({ playing: false }) : this.setState({ playing: true })
     }
 
     updateIndex = (index) => {
-        this.setState({ index: index })
+        this.setState({ currentIndex: index })
+    }
+
+    handleInputChange = event => {
+        let { name, value, dataset } = event.target;
+        const newActions = this.state.actions.map((action, index) => {
+            if (index === parseInt(dataset.index)) {
+                const minutes = Math.floor(action.duration / 60);
+                const seconds = Math.floor(action.duration % 60);
+                if (name === "seconds") {
+                    name = "duration";
+                    value = (minutes * 60) + parseInt(value);
+                } else if (name === "minutes") {
+                    name = "duration";
+                    value = seconds + parseInt(value) * 60;
+                }
+                action[name] = value;
+            }
+            return action
+        });
+        this.setState({ actions: newActions });
     }
 
     render() {
         return (
             <div className="player">
-                <Title title={this.state.sequence.title} />
-                <Controls togglePlay={this.togglePlay} updateIndex={this.updateIndex} />
-                <Actions actions={this.state.sequence.actions} playing={this.state.playing} index={this.state.index} />
+                <Title title={this.state.sequenceTitle} />
+                <Controls
+                    togglePlay={this.togglePlay}
+                    updateIndex={this.updateIndex} />
+                <Actions
+                    actions={this.state.actions}
+                    playing={this.state.playing}
+                    currentIndex={this.state.currentIndex}
+                    updateIndex={this.updateIndex}
+                    handleInputChange={this.handleInputChange} />
             </div>
         )
     }
