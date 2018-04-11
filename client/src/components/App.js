@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import Player from './Player';
 
-class App extends Component {
-
-    render() {
-        return <Player />
-    }
-}
+const App = () => <Player />
 
 export default App;

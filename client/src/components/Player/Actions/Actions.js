@@ -11,7 +11,8 @@ const Actions = (props) =>
                 actionIndex={index}
                 currentIndex={props.currentIndex}
                 playing={props.playing}
-                key={action + index} />)}
+                voiceConfig={props.voiceConfig}
+                key={action.title + index} />)}
     </div>;
 
 export default Actions;

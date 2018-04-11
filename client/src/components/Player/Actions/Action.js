@@ -9,7 +9,7 @@ const Action = props => {
     return (
         <div className="action">
             <div className="title">
-                <input
+                <input 
                     onChange={props.handleInputChange}
                     name="title"
                     type="text"
@@ -23,6 +23,7 @@ const Action = props => {
                         minutes={durationMinutes}
                         seconds={durationSeconds}
                         currentIndex={props.currentIndex}
+                        voiceConfig={props.voiceConfig}
                         updateIndex={props.updateIndex} />
                     : <div>
                         <input

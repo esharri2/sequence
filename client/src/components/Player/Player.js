@@ -10,16 +10,31 @@ class Player extends Component {
         sequenceTitle: "Test sequence",
         sequenceDescription: "a fake sequence to use for testing",
         actions: [
-            { title: "do this", duration: 62 },
-            { title: "do that", duration: 40 },
-            { title: "do a last thing", duration: 80 }
+            { title: "do this", duration: 3 },
+            { title: "do that", duration: 3 },
+            { title: "do a last thing", duration: 3 }
         ],
-        currentIndex: 0
+        currentIndex: 0,
+        voice: "US English Female",
+        rate: 1,
+        pitch: 1
     }
 
-    togglePlay = () => {
+
+    componentDidUpdate() {
+        if (this.state.currentIndex === this.state.actions.length) {
+            const { voice, pitch, rate } = this.state;
+            responsiveVoice.speak("Your sequence is over", voice, { rate, pitch, onend: this.stop });
+        }
+    }
+
+    play = () => {
         //this wrong ... need start play pause, stop
         this.state.playing ? this.setState({ playing: false }) : this.setState({ playing: true })
+    }
+
+    stop = () => {
+        this.setState({ currentIndex: 0, playing: false })
     }
 
     updateIndex = (index) => {
@@ -47,18 +62,19 @@ class Player extends Component {
     }
 
     render() {
+        const voiceConfig = { voice: this.state.voice, pitch: this.state.pitch, rate: this.state.rate }
         return (
             <div className="player">
                 <Title title={this.state.sequenceTitle} />
-                <Controls
-                    togglePlay={this.togglePlay}
-                    updateIndex={this.updateIndex} />
+                <Controls play={this.play} />
                 <Actions
                     actions={this.state.actions}
                     playing={this.state.playing}
+                    voiceConfig={voiceConfig}
                     currentIndex={this.state.currentIndex}
                     updateIndex={this.updateIndex}
-                    handleInputChange={this.handleInputChange} />
+                    handleInputChange={this.handleInputChange}
+                />
             </div>
         )
     }

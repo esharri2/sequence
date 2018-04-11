@@ -2,15 +2,12 @@ import React, { Component } from 'react';
 
 class Timer extends Component {
     state = {
-        elapsed: 0,
-        voice: "US English Female",
-        rate: .7,
-        pitch: 1
+        elapsed: 0
     }
 
     duration = (this.props.minutes * 60) + (this.props.seconds);
 
-    tick = () => {
+    tick = () => {  
         if (this.state.elapsed + 1 > this.duration) {
             this.props.updateIndex(this.props.currentIndex + 1);
         } else {
@@ -22,10 +19,9 @@ class Timer extends Component {
         this.timerID = setInterval(() => this.tick(), 1000)
     }
 
-
     componentDidMount() {
-        this.duration = (this.props.minutes * 60) + (this.props.seconds);
-        responsiveVoice.speak(this.props.title, this.state.voice, { rate: this.state.rate, onend: this.speech, pitch: this.state.pitch });
+        const { voice, pitch, rate } = this.props.voiceConfig;
+        responsiveVoice.speak(this.props.title, voice, { rate, pitch, onend: this.speech });
     }
 
     componentWillUnmount() {
