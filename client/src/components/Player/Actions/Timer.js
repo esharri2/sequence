@@ -7,7 +7,7 @@ class Timer extends Component {
 
     duration = (this.props.minutes * 60) + (this.props.seconds);
 
-    tick = () => {  
+    tick = () => {
         if (this.state.elapsed + 1 > this.duration) {
             this.props.updateIndex(this.props.currentIndex + 1);
         } else {
@@ -15,17 +15,34 @@ class Timer extends Component {
         }
     }
 
-    speech = () => {
+    timer = () => {
         this.timerID = setInterval(() => this.tick(), 1000)
     }
 
-    componentDidMount() {
+    sound = () => {
         const { voice, pitch, rate } = this.props.voiceConfig;
-        responsiveVoice.speak(this.props.title, voice, { rate, pitch, onend: this.speech });
+        responsiveVoice.speak(this.props.title, voice, { rate, pitch, onend: this.timer });
+    }
+
+    componentDidMount() {
+        this.sound()
     }
 
     componentWillUnmount() {
         clearInterval(this.timerID);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        //Was paused
+        if (prevProps.paused && !this.props.paused) {
+            console.log('was paused')
+            this.timer();
+        }
+        //Is paused
+        else if (!prevProps.paused && this.props.paused) {
+            console.log('is paused')
+            clearInterval(this.timerID);
+        }
     }
 
     render() {

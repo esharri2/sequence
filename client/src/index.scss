@@ -1,6 +1,151 @@
-$primary-color: gray;
+//COLOR
+$background: #1C1C1C;
+$body-text-color: #ACBA2F;
+$black: #000000;
+$accent-dark: #0B467E;
+$accent-light:#3873AB;
+
+//FONT
+$logo-font:'Raleway', san-serif;
+$body-font:'Roboto', san-serif;
+$body-font-size: 18px;
+
+//SIZE
+$nav-height:50px;
+
+%input-shared {
+    background-color:$background;
+    color: $body-text-color;
+    font-size: $body-font-size;
+    border: none;
+    border-bottom: 1px solid $accent-dark;
+    padding-right:5px;
+}
+
+%input-shared-focus {
+    outline: none;
+    border-bottom: 1px solid $accent-light;
+    box-shadow: 2px 5px 10px $black;
+}
+
+
+* {
+    box-sizing:border-box;
+}
 
 body {
-    background-color: $primary-color;
+    background-color: $background;
+    color: $body-text-color;
+    font-family: $body-font;
+    font-size: $body-font-size;
+}
+
+button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size:20px;
+    .icon {
+        color: $body-text-color;
+    }
+    
+    .move {
+        color:$accent-light;
+        font-size:25px;   
+    }
+}
+
+nav {
+    background-color:$body-text-color;
+    position:fixed;
+    width:100%;
+    height:$nav-height;
+    .logo {
+        font-family:$logo-font;
+        text-transform: uppercase;
+        font-weight:800;
+        font-style:italic;  
+        font-size:50px;
+        color:$background;
+    }
+}
+
+.player {
+    margin: 0 auto;
+    max-width: 800px;
+    padding-top: $nav-height + 10px;
+    font-family: $body-font; 
+}
+ 
+.sequenceTitle {          
+        input {
+            width:100%;
+            font-family:$logo-font;
+            font-size:$body-font-size + 5px;
+            color:$body-text-color;
+            text-transform: uppercase;
+            font-weight:800;
+            font-style:italic; 
+            @extend %input-shared;
+        }
+        input:focus{
+            @extend %input-shared-focus;          
+        }
+}
+.controls {
+        width: 100%;
+        padding: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+}
+.action {
+        padding: 10px; 
+        margin: 10px 0;
+        display:flex;  
+        input {
+            @extend %input-shared;
+        }
+        input:focus{
+            @extend %input-shared-focus;          
+        }
+
+        .title {
+            width:70%;
+            input {
+                width:100%;
+            }
+        }
+
+        .time {
+            width:20%;
+            .time-input {
+                display:inline-block;
+            }
+            input {
+                width: 40px;
+                display:block;
+            }
+            label {
+                color:$accent-light;
+                display:block;
+            }          
+        }
+        
+        
+        .move {
+             margin-left:auto;
+        }
+}  
+
+button.add {
+    margin: 0 auto;
+    display:block; 
+    width:50%;
+    border-radius:3px; 
+    background-color: $body-text-color;       
+    .icon {
+        color:$background;
+    }
 }
 

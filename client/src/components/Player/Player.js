@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Title from './Title';
 import Controls from './Controls';
 import Actions from './Actions';
+import Add from './Add';
 
 class Player extends Component {
     state = {
@@ -12,7 +13,9 @@ class Player extends Component {
         actions: [
             { title: "do this", duration: 3 },
             { title: "do that", duration: 3 },
-            { title: "do a last thing", duration: 3 }
+            { title: "do a last thing", duration: 3 },
+            { title: "doooooo", duration: 5 },
+            { title: "daaaaaa", duration: 8 }
         ],
         currentIndex: 0,
         voice: "US English Female",
@@ -20,28 +23,60 @@ class Player extends Component {
         pitch: 1
     }
 
-
     componentDidUpdate() {
-        if (this.state.currentIndex === this.state.actions.length) {
+        //Check for end of sequence; playing ending message
+        if (this.state.currentIndex === this.state.actions.length && this.state.playing) {
             const { voice, pitch, rate } = this.state;
             responsiveVoice.speak("Your sequence is over", voice, { rate, pitch, onend: this.stop });
         }
     }
 
     play = () => {
-        //this wrong ... need start play pause, stop
-        this.state.playing ? this.setState({ playing: false }) : this.setState({ playing: true })
+        this.setState({ playing: true, paused: false })
+    }
+
+    pause = () => {
+        responsiveVoice.cancel();
+        this.setState({ paused: true })
     }
 
     stop = () => {
+        responsiveVoice.cancel();
         this.setState({ currentIndex: 0, playing: false })
     }
 
+    clear = () => {
+        this.setState({ actions: [] })
+    }
+
+    save = () => {
+        alert("save!")
+    }
+
+    add = () => {
+        this.setState({ actions: [...this.state.actions, { title: "", duration: 30 }] });
+    }
+
+    //Change the index of playing session
     updateIndex = (index) => {
         this.setState({ currentIndex: index })
     }
 
-    handleInputChange = event => {
+    //Change the index of an action in the actions array
+    changeActionIndex = (oldIndex, newIndex) => {
+        const newActions = [...this.state.actions];
+        newActions.splice(newIndex, 0, newActions.splice(oldIndex, 1)[0]);
+        this.setState({ actions: newActions })
+    }
+
+    //Handle changes to sequence details
+    handleSequenceChange = event => {
+        let { name, value} = event.target;
+        this.setState({[name]:value});
+    }
+
+    //Handle changes to name, minutes, and seconds of actions and update actions
+    handleActionsChange = event => {
         let { name, value, dataset } = event.target;
         const newActions = this.state.actions.map((action, index) => {
             if (index === parseInt(dataset.index)) {
@@ -65,16 +100,30 @@ class Player extends Component {
         const voiceConfig = { voice: this.state.voice, pitch: this.state.pitch, rate: this.state.rate }
         return (
             <div className="player">
-                <Title title={this.state.sequenceTitle} />
-                <Controls play={this.play} />
+                <Title 
+                    title={this.state.sequenceTitle} 
+                    handleSequenceChange={this.handleSequenceChange} />
+                <Controls
+                    play={this.play}
+                    pause={this.pause}
+                    stop={this.stop}
+                    clear={this.clear}
+                    save={this.save}
+                    paused={this.state.paused}
+                    playing={this.state.playing}
+                />
                 <Actions
                     actions={this.state.actions}
                     playing={this.state.playing}
+                    paused={this.state.paused}
+                    length={this.state.actions.length}
                     voiceConfig={voiceConfig}
                     currentIndex={this.state.currentIndex}
                     updateIndex={this.updateIndex}
-                    handleInputChange={this.handleInputChange}
+                    handleActionsChange={this.handleActionsChange}
+                    changeActionIndex={this.changeActionIndex}
                 />
+                <Add add={this.add} />
             </div>
         )
     }

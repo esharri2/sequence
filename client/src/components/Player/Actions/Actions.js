@@ -5,14 +5,17 @@ const Actions = (props) =>
     <div className="actions">
         {props.actions.map((action, index) =>
             <Action
-                handleInputChange={props.handleInputChange}
+                handleActionsChange={props.handleActionsChange}
+                changeActionIndex={props.changeActionIndex}
                 updateIndex={props.updateIndex}
                 action={action}
                 actionIndex={index}
+                length={props.length}
                 currentIndex={props.currentIndex}
                 playing={props.playing}
+                paused={props.paused}
                 voiceConfig={props.voiceConfig}
-                key={action.title + index} />)}
+                key={index} />)}
     </div>;
 
 export default Actions;

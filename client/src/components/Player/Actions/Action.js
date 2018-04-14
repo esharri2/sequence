@@ -1,5 +1,6 @@
 import React from 'react';
 import Timer from './Timer';
+import Move from './Move';
 
 const Action = props => {
     const { title, duration } = props.action;
@@ -8,10 +9,11 @@ const Action = props => {
 
     return (
         <div className="action">
-            <div className="title">
-                <input 
-                    onChange={props.handleInputChange}
+            <div className="title input-container">
+                <input
+                    onChange={props.handleActionsChange}
                     name="title"
+                    placeholder="Action"
                     type="text"
                     value={title}
                     data-index={props.actionIndex} />
@@ -24,25 +26,38 @@ const Action = props => {
                         seconds={durationSeconds}
                         currentIndex={props.currentIndex}
                         voiceConfig={props.voiceConfig}
-                        updateIndex={props.updateIndex} />
-                    : <div>
-                        <input
-                            onChange={props.handleInputChange}
-                            name="minutes"
-                            type="number"
-                            data-index={props.actionIndex}
-                            value={durationMinutes}
-                            min="0" />
-                        <input
-                            onChange={props.handleInputChange}
-                            name="seconds"
-                            type="number"
-                            data-index={props.actionIndex}
-                            value={durationSeconds}
-                            min="0" />
+                        updateIndex={props.updateIndex}
+                        paused={props.paused} />
+                    : <div className="time-input-container">
+                        <div className="time-input">
+                            <input
+                                onChange={props.handleActionsChange}
+                                name="minutes"
+                                placeholder="Min"
+                                type="number"
+                                data-index={props.actionIndex}
+                                value={durationMinutes}
+                                min="0" />
+                            <label>Min</label>
+                        </div>
+                        <div className="time-input">
+                            <input
+                                onChange={props.handleActionsChange}
+                                name="seconds"
+                                placeholder="Sec"
+                                type="number"
+                                data-index={props.actionIndex}
+                                value={durationSeconds}
+                                min="0" />
+                            <label>Sec</label>
+                        </div>
                     </div>
                 }
             </div>
+            <Move
+                changeActionIndex={props.changeActionIndex}
+                length={props.length}
+                index={props.actionIndex} />
         </div>
     )
 }
