@@ -7,6 +7,7 @@ const Actions = (props) =>
             <Action
                 handleActionsChange={props.handleActionsChange}
                 changeActionIndex={props.changeActionIndex}
+                remove={props.remove}
                 updateIndex={props.updateIndex}
                 action={action}
                 actionIndex={index}

@@ -4,33 +4,48 @@ $body-text-color: #ACBA2F;
 $black: #000000;
 $accent-dark: #0B467E;
 $accent-light:#3873AB;
-
 //FONT
-$logo-font:'Raleway', san-serif;
-$body-font:'Roboto', san-serif;
-$body-font-size: 18px;
-
+$logo-font:'Raleway',
+san-serif;
+$body-font:'Roboto',
+san-serif;
+$body-font-size: 20px;
 //SIZE
 $nav-height:50px;
-
+$border-radius:3px;
+//TIME
+$anim-time: .2s;
+//EXTENDS
 %input-shared {
-    background-color:$background;
+    background-color: $background;
     color: $body-text-color;
     font-size: $body-font-size;
     border: none;
     border-bottom: 1px solid $accent-dark;
-    padding-right:5px;
+    padding-right: 5px;
+    transition: background-color $anim-time, font-size $anim-time;
 }
 
 %input-shared-focus {
     outline: none;
     border-bottom: 1px solid $accent-light;
-    box-shadow: 2px 5px 10px $black;
+    box-shadow: 1px 2px 3px $black;
 }
 
+//REMOVE DEFAULTS
+button:focus {
+    outline: 0;
+}
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+////
 * {
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
 
 body {
@@ -38,114 +53,363 @@ body {
     color: $body-text-color;
     font-family: $body-font;
     font-size: $body-font-size;
+    overflow: hidden;
 }
 
 button {
     cursor: pointer;
     background: none;
     border: none;
-    font-size:20px;
+    font-size: 20px;
     .icon {
         color: $body-text-color;
     }
-    
-    .move {
-        color:$accent-light;
-        font-size:25px;   
+}
+
+.app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    min-height: 350px;
+}
+
+.splash {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient( rgba(11, 70, 126, 0.8), rgba(0, 0, 0, 0.9)), url("https://images.pexels.com/photos/373984/pexels-photo-373984.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    .logo {
+        color: $body-text-color;
+        font-size: 100px;
+        transition: font-size .1s, color .1s
+    }
+    .logo:hover {
+        font-size: 120px;
+        color: $accent-light;
+    }
+    h2 {
+        font-family: $body-font;
+        font-size: 25px;
+        font-weight: 600
     }
 }
 
+.logo {
+    font-family: $logo-font;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 50px;
+    color: $background;
+    display: inline-block;
+}
+
 nav {
-    background-color:$body-text-color;
-    position:fixed;
-    width:100%;
-    height:$nav-height;
-    .logo {
-        font-family:$logo-font;
+    background-color: $body-text-color;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: $nav-height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .icon {
+        color: $black;
+    }
+    ul {
+        display: flex;
+        align-items:center;
+        height: $nav-height;       
+    }
+    li {
+        vertical-align: middle;
+        height:100%;
+        display: flex;
+        align-items:center;
+        padding: 0 10px;
+    }
+    li:hover {
+        background-color:$background;
+        button{
+            color:$body-text-color;      
+        }
+    }
+    button {
+        font-weight: 800;
+        font-family: $logo-font;
         text-transform: uppercase;
-        font-weight:800;
-        font-style:italic;  
-        font-size:50px;
-        color:$background;
     }
 }
 
 .player {
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 900px;
     padding-top: $nav-height + 10px;
-    font-family: $body-font; 
+    font-family: $body-font;
+    width: 100%;
 }
- 
-.sequenceTitle {          
-        input {
-            width:100%;
-            font-family:$logo-font;
-            font-size:$body-font-size + 5px;
-            color:$body-text-color;
-            text-transform: uppercase;
-            font-weight:800;
-            font-style:italic; 
-            @extend %input-shared;
-        }
-        input:focus{
-            @extend %input-shared-focus;          
-        }
-}
-.controls {
+
+.sequenceTitle {
+    input {
         width: 100%;
-        padding: 10px 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        font-family: $logo-font;
+        font-size: $body-font-size + 5px;
+        color: $body-text-color;
+        text-transform: uppercase;
+        font-weight: 800;
+        font-style: italic;
+        @extend %input-shared;
+    }
+    input:focus {
+        @extend %input-shared-focus;
+    }
 }
+
+.controls {
+    width: 25%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions {
+    overflow-y: auto;
+    height: 60vh;
+}
+
 .action {
-        padding: 10px; 
-        margin: 10px 0;
-        display:flex;  
+    padding: 10px;
+    margin: 10px 0;
+    height: $body-font-size * 2;
+    display: flex;
+    input {
+        @extend %input-shared;
+    }
+    input:focus {
+        @extend %input-shared-focus;
+    }
+    .title {
+        width: 70%;
+        margin-right: 7px;
+        height: 100%;
         input {
-            @extend %input-shared;
+            display: inline-block;
+            width: 90%; // height: 100%;
         }
-        input:focus{
-            @extend %input-shared-focus;          
+    }
+    .time {
+        width: 20%;
+        .time-input {
+            display: inline-block;
+            margin-right: 7px;
         }
+        input {
+            width: 50px;
+            display: inline-block;
+            text-align: right;
+        }
+        label {
+            color: $accent-light;
+            font-size: $body-font-size -2px;
+            display: inline-block;
+        }
+    }
+    .move {
+        margin-left: auto;
+        font-size: $body-font-size + 2px;
+        button {
+            .icon {
+                color: $accent-light;
+            }
+        }
+        button:hover {
+            .icon {
+                color: $accent-dark;
+            }
+        }
+    }
+    .remove {
+        button {
+            .icon {
+                color: $accent-light;
+            }
+        }
+        button:hover {
+            .icon {
+                color: $accent-dark;
+            }
+        }
+    }
+}
 
-        .title {
-            width:70%;
-            input {
-                width:100%;
-            }
-        }
+%active-font {
+    font-size: $body-font-size + 6px;
+    font-weight: 700;
+    border-bottom: none;
+}
 
-        .time {
-            width:20%;
-            .time-input {
-                display:inline-block;
-            }
-            input {
-                width: 40px;
-                display:block;
-            }
-            label {
-                color:$accent-light;
-                display:block;
-            }          
+.actions .action.active {
+    input {
+        @extend %active-font;
+    }
+}
+
+.elapsed {
+    @extend %active-font; // width:70%;  
+    margin: auto; // text-align: center;
+    div {
+        display: inline;
+    }
+}
+
+.play-animation {
+    width: 10%;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    @keyframes bar1 {
+        25% {
+            height: 100%;
         }
-        
-        
-        .move {
-             margin-left:auto;
+        15% {
+            background-color: $body-text-color;
         }
-}  
+    }
+    @keyframes bar2 {
+        50% {
+            height: 100%;
+        }
+        40% {
+            background-color: $body-text-color;
+        }
+    }
+    @keyframes bar3 {
+        75% {
+            height: 100%;
+        }
+        65% {
+            background-color: $body-text-color;
+        }
+    }
+    .bar {
+        background-color: $accent-dark;
+        width: 20%;
+        height: 30%;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+    .bar1 {
+        animation-name: bar1;
+    }
+    .bar2 {
+        animation-name: bar2;
+    }
+    .bar3 {
+        animation-name: bar3;
+    }
+}
 
 button.add {
     margin: 0 auto;
-    display:block; 
-    width:50%;
-    border-radius:3px; 
-    background-color: $body-text-color;       
+    display: block;
+    width: 50%;
+    border-radius: $border-radius;
+    background-color: $body-text-color;
     .icon {
-        color:$background;
+        color: $background;
     }
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: $black;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: $accent-light;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: $accent-dark;
+}
+
+//ANIMATIONS
+// .action {
+//     opacity: 0;
+//     @keyframes fadeIn {
+//         100% {
+//             opacity: 1;
+//         }
+//     }
+//     animation: .1s ease-in fadeIn;
+//     animation-fill-mode: forwards;
+// }
+//Modal shit
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(28, 28, 28, 0.5);
+    overflow-x: hidden;
+    z-index: 1000;
+    .modal-header {
+        font-weight: 800;
+        font-family: $logo-font;
+        text-transform: uppercase;
+        font-size:$body-font-size + 5px;
+        padding:10px 0;
+    }
+    .modal-body {
+        width: 50vw;
+        height: 70vh;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: $accent-dark;
+        z-index: 1010;
+        color: $body-text-color;
+        padding:10px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        animation-name: animatetop;
+        animation-duration: .4s;
+        @keyframes animatetop {
+            from {top: 0; opacity: 0}
+            to {top: 50%; opacity: 1}
+        };
+        p {
+            font-family: $body-font;
+            font-size: $body-font-size;
+            line-height:normal; 
+            margin:1.2em 0;           
+        }
+    }
+    .close-modal {
+        float:right;
+        color: $body-text-color;
+        margin:0 auto;
+        display:block;
+    }
+}
+
+
 

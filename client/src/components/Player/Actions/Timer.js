@@ -47,11 +47,12 @@ class Timer extends Component {
 
     render() {
         const remainingTotal = this.duration - this.state.elapsed;
-        const remainingMinutes = Math.floor(remainingTotal / 60);
-        const remainingSeconds = remainingTotal % 60;
+        //Minutes and seconds, plus prepend 0 to number if it is single digit
+        const remainingMinutes = ("0" + Math.floor(remainingTotal / 60)).slice(-2);
+        const remainingSeconds = ("0" + (remainingTotal % 60)).slice(-2);
         return (
             <div className="elapsed">
-                <div className="minutes">{remainingMinutes}</div>
+                <div className="minutes">{remainingMinutes}: </div>
                 <div className="seconds">{remainingSeconds}</div>
             </div>
         )

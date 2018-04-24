@@ -11,9 +11,9 @@ class Player extends Component {
         sequenceTitle: "Test sequence",
         sequenceDescription: "a fake sequence to use for testing",
         actions: [
-            { title: "do this", duration: 3 },
-            { title: "do that", duration: 3 },
-            { title: "do a last thing", duration: 3 },
+            { title: "test", duration: 666 },
+            { title: "doopy doo", duration: 3 },
+            { title: "petoo petoo", duration: 3 },
             { title: "doooooo", duration: 5 },
             { title: "daaaaaa", duration: 8 }
         ],
@@ -57,6 +57,12 @@ class Player extends Component {
         this.setState({ actions: [...this.state.actions, { title: "", duration: 30 }] });
     }
 
+    remove = (index) => {
+        const newArray = [...this.state.actions];
+        newArray.splice(index,1);
+        this.setState({ actions: newArray });
+    }
+
     //Change the index of playing session
     updateIndex = (index) => {
         this.setState({ currentIndex: index })
@@ -71,8 +77,8 @@ class Player extends Component {
 
     //Handle changes to sequence details
     handleSequenceChange = event => {
-        let { name, value} = event.target;
-        this.setState({[name]:value});
+        let { name, value } = event.target;
+        this.setState({ [name]: value });
     }
 
     //Handle changes to name, minutes, and seconds of actions and update actions
@@ -83,11 +89,18 @@ class Player extends Component {
                 const minutes = Math.floor(action.duration / 60);
                 const seconds = Math.floor(action.duration % 60);
                 if (name === "seconds") {
+                    if (!value) {
+                        value = 0;
+                    }
                     name = "duration";
                     value = (minutes * 60) + parseInt(value);
                 } else if (name === "minutes") {
+                    if (!value) {
+                        value = 0;
+                    }
                     name = "duration";
                     value = seconds + parseInt(value) * 60;
+
                 }
                 action[name] = value;
             }
@@ -100,8 +113,8 @@ class Player extends Component {
         const voiceConfig = { voice: this.state.voice, pitch: this.state.pitch, rate: this.state.rate }
         return (
             <div className="player">
-                <Title 
-                    title={this.state.sequenceTitle} 
+                <Title
+                    title={this.state.sequenceTitle}
                     handleSequenceChange={this.handleSequenceChange} />
                 <Controls
                     play={this.play}
@@ -122,6 +135,7 @@ class Player extends Component {
                     updateIndex={this.updateIndex}
                     handleActionsChange={this.handleActionsChange}
                     changeActionIndex={this.changeActionIndex}
+                    remove={this.remove}                    
                 />
                 <Add add={this.add} />
             </div>
