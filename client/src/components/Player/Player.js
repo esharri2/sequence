@@ -9,6 +9,7 @@ class Player extends Component {
         playing: false,
         paused: false,
         sequenceTitle: "Test sequence",
+        sequenceId: null,
         sequenceDescription: "a fake sequence to use for testing",
         actions: [
             { title: "test", duration: 666 },
@@ -24,6 +25,7 @@ class Player extends Component {
     }
 
     componentDidUpdate() {
+
         //Check for end of sequence; playing ending message
         if (this.state.currentIndex === this.state.actions.length && this.state.playing) {
             const { voice, pitch, rate } = this.state;
@@ -59,7 +61,7 @@ class Player extends Component {
 
     remove = (index) => {
         const newArray = [...this.state.actions];
-        newArray.splice(index,1);
+        newArray.splice(index, 1);
         this.setState({ actions: newArray });
     }
 
@@ -135,7 +137,7 @@ class Player extends Component {
                     updateIndex={this.updateIndex}
                     handleActionsChange={this.handleActionsChange}
                     changeActionIndex={this.changeActionIndex}
-                    remove={this.remove}                    
+                    remove={this.remove}
                 />
                 <Add add={this.add} />
             </div>

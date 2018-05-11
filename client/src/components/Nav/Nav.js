@@ -2,16 +2,21 @@ import React from 'react';
 import UserSequences from './UserSequences';
 import Help from './Help';
 import Login from './Login';
+import Logout from './Logout';
 
-const Nav = () => {
+const Nav = props => {
     return (
         <nav>
             <div className="logo">Sequence</div>
             <ul>
-                <li> <UserSequences /> </li>
+                {props.authenticated
+                    ? <li> <UserSequences /> </li>
+                    : null}
                 <li> <Help /> </li>
-                <li> <Login /></li>
-
+                {props.authenticated
+                    ? <li> <Logout toggleAuth={props.toggleAuth} /></li>
+                    : <li><Login toggleAuth={props.toggleAuth} />   </li>
+                }
             </ul>
         </nav>
     )

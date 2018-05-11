@@ -371,6 +371,15 @@ button.add {
     background-color: rgba(28, 28, 28, 0.5);
     overflow-x: hidden;
     z-index: 1000;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    animation-name: fadein;
+        animation-duration: .2s;
+        @keyframes fadein {
+            from {opacity: 0}
+            to {opacity: 1}
+        };
     .modal-header {
         font-weight: 800;
         font-family: $logo-font;
@@ -380,21 +389,17 @@ button.add {
     }
     .modal-body {
         width: 50vw;
-        height: 70vh;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        height: 70vh;        
         background-color: $accent-dark;
         z-index: 1010;
         color: $body-text-color;
         padding:10px;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-        animation-name: animatetop;
+        animation-name: slidedown;
         animation-duration: .4s;
-        @keyframes animatetop {
-            from {top: 0; opacity: 0}
-            to {top: 50%; opacity: 1}
+        @keyframes slidedown {
+            from {transform: skewY(2deg); opacity: 1}
+            to {opacity: 1}
         };
         p {
             font-family: $body-font;

@@ -3,14 +3,17 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
 
 class Modal extends Component {
-
+//elevate state to parents
     state = {
         isOpen: false
     }
 
     open = () => this.setState({ isOpen: true });
-    close = () => this.setState({ isOpen: false })
-
+    close = event => {
+        if (event.target.classList.contains('modal')) {
+            this.setState({ isOpen: false })
+        }
+    }
 
     render() {
         return (
@@ -19,8 +22,8 @@ class Modal extends Component {
                 {this.state.isOpen
                     ? <div onClick={this.close} className="modal">
                         <div className="modal-body">
-                            <button className="close-modal">
-                                <FontAwesomeIcon onClick={this.close} className="icon close-modal" icon={faTimes} />
+                            <button className="close-modal" onClick={this.close} >
+                                <FontAwesomeIcon className="icon close-modal" icon={faTimes} />
                             </button>
                             <div className="modal-header">
                                 {this.props.title}

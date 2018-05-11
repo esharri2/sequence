@@ -2,6 +2,10 @@ import axios from "axios";
 
 export default {
     test: () => {
-        return axios.get("/api/test")
+        console.log('testing!')
+        return axios.get('/test');
+    },
+    signin: (token) => {
+        return axios.post("/api/signin", { token: token });
     }
 }
