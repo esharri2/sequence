@@ -1,15 +1,15 @@
 //COLOR
-$background: #1C1C1C;
-$body-text-color: #ACBA2F;
-$black: #000000;
-$accent-dark: #0B467E;
-$accent-light:#3873AB;
+$background: #FDF0D5;
+$light: #ebeaea;
+$body-text-color: #3A3335;
+$accent-dark: #3A435E;
+$accent-light:#5f6e9b;
 //FONT
-$logo-font:'Raleway',
-san-serif;
+$logo-font:'Josefin Sans',
+sans-serif;
 $body-font:'Roboto',
 san-serif;
-$body-font-size: 20px;
+$body-font-size: 16px;
 //SIZE
 $nav-height:50px;
 $border-radius:3px;
@@ -21,15 +21,15 @@ $anim-time: .2s;
     color: $body-text-color;
     font-size: $body-font-size;
     border: none;
-    border-bottom: 1px solid $accent-dark;
+    border-bottom: 1px solid $accent-light;
     padding-right: 5px;
     transition: background-color $anim-time, font-size $anim-time;
 }
 
 %input-shared-focus {
     outline: none;
-    border-bottom: 1px solid $accent-light;
-    box-shadow: 1px 2px 3px $black;
+    background-color: $light;
+    border-bottom: 1px solid $accent-light; // box-shadow: 1px 2px 3px $body-text-color;
 }
 
 //REMOVE DEFAULTS
@@ -81,38 +81,34 @@ button {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: linear-gradient( rgba(11, 70, 126, 0.8), rgba(0, 0, 0, 0.9)), url("https://images.pexels.com/photos/373984/pexels-photo-373984.jpeg");
+    background: linear-gradient( rgba(58, 67, 94, 0.8), rgba(36, 41, 58, 0.9)), url("https://images.pexels.com/photos/730905/lily-water-pink-pond-730905.jpeg?cs=srgb&dl=aquatic-aquatic-plant-beautiful-730905.jpg&fm=jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     .logo {
-        color: $body-text-color;
+        color: $background;
         font-size: 100px;
-        transition: font-size .1s, color .1s
-    }
-    .logo:hover {
-        font-size: 120px;
-        color: $accent-light;
     }
     h2 {
         font-family: $body-font;
         font-size: 25px;
-        font-weight: 600
+        font-weight: 100;
+        color: $background;
     }
 }
 
 .logo {
     font-family: $logo-font;
     text-transform: uppercase;
-    font-weight: 800;
+    font-weight: 200;
     font-style: italic;
-    font-size: 50px;
-    color: $background;
+    font-size: 30px;
+    color: $accent-dark;
     display: inline-block;
 }
 
 nav {
-    background-color: $body-text-color;
+    background-color: $background;
     position: fixed;
     top: 0;
     width: 100%;
@@ -120,30 +116,28 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .icon {
-        color: $black;
-    }
     ul {
         display: flex;
-        align-items:center;
-        height: $nav-height;       
+        align-items: center;
+        height: $nav-height;
     }
     li {
         vertical-align: middle;
-        height:100%;
+        height: 100%;
         display: flex;
-        align-items:center;
+        align-items: center;
         padding: 0 10px;
     }
     li:hover {
-        background-color:$background;
-        button{
-            color:$body-text-color;      
+        background-color: $background;
+        button {
+            color: $accent-light;
         }
     }
     button {
-        font-weight: 800;
+        font-weight: 200;
         font-family: $logo-font;
+        color: $accent-dark;
         text-transform: uppercase;
     }
 }
@@ -159,17 +153,23 @@ nav {
 .sequenceTitle {
     input {
         width: 100%;
-        font-family: $logo-font;
-        font-size: $body-font-size + 5px;
-        color: $body-text-color;
-        text-transform: uppercase;
-        font-weight: 800;
+        font-family: $body-font;
+        font-size: $body-font-size + 3px;
+        color: $body-text-color; // text-transform: uppercase; // font-weight: 800;
         font-style: italic;
         @extend %input-shared;
     }
     input:focus {
         @extend %input-shared-focus;
     }
+}
+
+button .icon {
+    color: $accent-dark;
+}
+
+button .icon:hover {
+    color: $accent-light;
 }
 
 .controls {
@@ -225,28 +225,6 @@ nav {
     .move {
         margin-left: auto;
         font-size: $body-font-size + 2px;
-        button {
-            .icon {
-                color: $accent-light;
-            }
-        }
-        button:hover {
-            .icon {
-                color: $accent-dark;
-            }
-        }
-    }
-    .remove {
-        button {
-            .icon {
-                color: $accent-light;
-            }
-        }
-        button:hover {
-            .icon {
-                color: $accent-dark;
-            }
-        }
     }
 }
 
@@ -280,7 +258,7 @@ nav {
             height: 100%;
         }
         15% {
-            background-color: $body-text-color;
+            background-color: $accent-light;
         }
     }
     @keyframes bar2 {
@@ -288,7 +266,7 @@ nav {
             height: 100%;
         }
         40% {
-            background-color: $body-text-color;
+            background-color: $accent-light;
         }
     }
     @keyframes bar3 {
@@ -296,7 +274,7 @@ nav {
             height: 100%;
         }
         65% {
-            background-color: $body-text-color;
+            background-color: $accent-light;
         }
     }
     .bar {
@@ -322,7 +300,7 @@ button.add {
     display: block;
     width: 50%;
     border-radius: $border-radius;
-    background-color: $body-text-color;
+    background-color: $accent-dark;
     .icon {
         color: $background;
     }
@@ -335,7 +313,7 @@ button.add {
 /* Track */
 
 ::-webkit-scrollbar-track {
-    background: $black;
+    background: $body-text-color;
 }
 
 /* Handle */
@@ -371,50 +349,61 @@ button.add {
     background-color: rgba(28, 28, 28, 0.5);
     overflow-x: hidden;
     z-index: 1000;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     animation-name: fadein;
-        animation-duration: .2s;
-        @keyframes fadein {
-            from {opacity: 0}
-            to {opacity: 1}
-        };
+    animation-duration: .2s;
+    @keyframes fadein {
+        from {
+            opacity: 0
+        }
+        to {
+            opacity: 1
+        }
+    }
+    ;
     .modal-header {
-        font-weight: 800;
+        font-weight: 200;
         font-family: $logo-font;
         text-transform: uppercase;
-        font-size:$body-font-size + 5px;
-        padding:10px 0;
+        font-size: $body-font-size + 3px;
+        padding: 10px 0;
     }
     .modal-body {
         width: 50vw;
-        height: 70vh;        
+        height: 70vh;
         background-color: $accent-dark;
         z-index: 1010;
-        color: $body-text-color;
-        padding:10px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        color: $background;
+        padding: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         animation-name: slidedown;
         animation-duration: .4s;
         @keyframes slidedown {
-            from {transform: skewY(2deg); opacity: 1}
-            to {opacity: 1}
-        };
+            from {
+                height:60vh;
+                opacity: 1
+            }
+            to {
+                opacity: 1
+            }
+        }
+        ;
         p {
             font-family: $body-font;
             font-size: $body-font-size;
-            line-height:normal; 
-            margin:1.2em 0;           
+            line-height: normal;
+            margin: 1.2em 0;
         }
     }
     .close-modal {
-        float:right;
-        color: $body-text-color;
-        margin:0 auto;
-        display:block;
+        float: right;
+        color: $background;
+        margin: 0 auto;
+        display: block;
+    }
+    .close-modal:hover {
+        color: $light;
     }
 }
-
-
-

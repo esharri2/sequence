@@ -21,7 +21,6 @@ async function verifyGoogle(token) {
 async function createSession(req, res, userData) {
     const user = await controller.findOrCreateUser(userData);
     req.session.user = userData; 
-    console.log(req.session);   
     res.json({userData});
 }
 

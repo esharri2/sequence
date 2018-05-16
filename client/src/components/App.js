@@ -7,30 +7,34 @@ import api from '../utils/api'
 class App extends Component {
     state = {
         showSplash: false,
-        authenticated: false
+        authenticated: false,
+        sequenceId: null,
     }
 
     componentDidMount() {
         //sign in check!!!! are you signed in?
-    }
+    }    
 
     enter = () => {
         this.setState({ showSplash: false })
     }
 
     toggleAuth = () => {
-        console.log('imma toggle auth!')
         this.state.authenticated
             ? this.setState({ authenticated: false })
             : this.setState({ authenticated: true })
     }
 
+    setSequence = (sequenceId) => {
+        this.setState({sequenceId})
+    }
+  
     render() {
         const components = this.state.showSplash
             ? <div className="app"><Splash enter={this.enter} /></div>
             : <div className="app">
-                <Nav authenticated={this.state.authenticated} toggleAuth={this.toggleAuth} /> 
-                <Player authenticated={this.state.authenticated} />
+                <Nav authenticated={this.state.authenticated} toggleAuth={this.toggleAuth} setSequence={this.setSequence} /> 
+                <Player authenticated={this.state.authenticated} sequenceId={this.state.sequenceId} setSequence={this.setSequence} />
             </div>;
         return components
     }

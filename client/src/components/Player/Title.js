@@ -6,7 +6,8 @@ const Title = (props) => {
             <input
                 onChange={props.handleSequenceChange}
                 type="text"
-                name="sequenceTitle"
+                name="title"
+                placeholder="Name your sequence"
                 value={props.title} />
         </div>
     )

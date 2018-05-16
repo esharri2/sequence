@@ -6,11 +6,7 @@ import Clear from './Clear';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faCoffee from '@fortawesome/fontawesome-free-solid/faCoffee'
 
-
-
-
-
-function Controls(props) {
+const Controls = (props) => {
     return (
         <div className="controls">
             <Play icon={faCoffee} play={props.play} pause={props.pause} paused={props.paused} playing={props.playing} />

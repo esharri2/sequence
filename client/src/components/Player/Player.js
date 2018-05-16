@@ -3,29 +3,27 @@ import Title from './Title';
 import Controls from './Controls';
 import Actions from './Actions';
 import Add from './Add';
+import api from '../../utils/api'
 
 class Player extends Component {
     state = {
         playing: false,
         paused: false,
-        sequenceTitle: "Test sequence",
-        sequenceId: null,
-        sequenceDescription: "a fake sequence to use for testing",
-        actions: [
-            { title: "test", duration: 666 },
-            { title: "doopy doo", duration: 3 },
-            { title: "petoo petoo", duration: 3 },
-            { title: "doooooo", duration: 5 },
-            { title: "daaaaaa", duration: 8 }
-        ],
+        title: "",
+        actions: [],
         currentIndex: 0,
-        voice: "US English Female",
+        voice: "US English Male",
         rate: 1,
         pitch: 1
     }
 
-    componentDidUpdate() {
-
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.sequenceId !== this.props.sequenceId) {
+            api.getSequence(this.props.sequenceId).then(sequence => {
+                const { title, actions } = sequence.data;
+                this.setState({ title, actions });
+            })
+        }
         //Check for end of sequence; playing ending message
         if (this.state.currentIndex === this.state.actions.length && this.state.playing) {
             const { voice, pitch, rate } = this.state;
@@ -52,7 +50,17 @@ class Player extends Component {
     }
 
     save = () => {
-        alert("save!")
+        const sequence = {
+            title: this.state.title,
+            actions: this.state.actions
+        }
+        if (this.props.sequenceId) {
+            console.log("update!")
+            api.update(this.props.sequenceId, sequence)
+        } else {
+            //FIX THIS, don't need user ID
+            api.save("derp", sequence).then(res => this.props.setSequence(res.data.id))
+        }
     }
 
     add = () => {
@@ -116,7 +124,7 @@ class Player extends Component {
         return (
             <div className="player">
                 <Title
-                    title={this.state.sequenceTitle}
+                    title={this.state.title}
                     handleSequenceChange={this.handleSequenceChange} />
                 <Controls
                     play={this.play}

@@ -4,7 +4,6 @@ import api from "../../utils/api";
 class GoogleLogin extends Component {
 
     componentDidMount() {
-        console.log(this.props)
         gapi.signin2.render('g-signin2', {
             'scope': 'https://www.googleapis.com/auth/plus.login',
             // 'width': 200,
@@ -18,7 +17,6 @@ class GoogleLogin extends Component {
     onSignIn = (googleUser) => {
         var id_token = googleUser.getAuthResponse().id_token;
         api.signin(id_token).then(userData => {
-            console.log(userData);
             this.props.toggleAuth();
         });
     }

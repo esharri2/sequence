@@ -1,18 +1,34 @@
 const db = require("../models");
 
 module.exports = {
-    saveSequence: (userId, sequence) => {
-
-        //if sequence id is null...
-        db.User.findOneAndUpdate(
-            { userId: userId },
-            { $push: { sequences: sequence } }
-        )
-
-        //if sequence
+    getSequences: (userId, res) => {
+        db.User.findOne({ userId: userId }).populate("sequences").then(sequences => {
+            res.json(sequences);
+        }).catch(console.error)
+    },
+    getSequence: (id, res) => {
+        db.Sequence.findOne({ _id: id }).then(sequence => {
+            res.json(sequence);
+        })
     },
 
-    updateSequence: (userId, sequence) => {
-     //https://stackoverflow.com/questions/13460765/findone-subdocument-in-mongoose   
+    saveSequence: (userId, sequence, res) => {
+        db.Sequence.create(sequence).then(sequence => {
+            db.User.findOneAndUpdate(
+                { userId: userId },
+                { $push: { sequences: sequence } },
+                { new: true }
+            ).then(data => res.json({ id: data._id }))
+                .catch(console.error)
+        })
+    },
+
+    updateSequence: (sequenceId, sequence, res) => {
+        console.log(sequenceId, sequence)
+        db.Sequence.update(
+            { _id: sequenceId },
+            { $set: { sequence: sequence } }
+        ).then(() => res.sendStatus(200))
+            .catch(console.error)
     }
 }

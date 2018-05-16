@@ -10,7 +10,7 @@ const Nav = props => {
             <div className="logo">Sequence</div>
             <ul>
                 {props.authenticated
-                    ? <li> <UserSequences /> </li>
+                    ? <li> <UserSequences setSequence={props.setSequence} /> </li>
                     : null}
                 <li> <Help /> </li>
                 {props.authenticated
