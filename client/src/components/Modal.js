@@ -22,9 +22,7 @@ class Modal extends Component {
                 {this.state.isOpen
                     ? <div onClick={this.close} className="modal">
                         <div className="modal-body">
-                            <button className="close-modal" onClick={this.close} >
-                                <FontAwesomeIcon className="icon close-modal" icon={faTimes} />
-                            </button>
+                           
                             <div className="modal-header">
                                 {this.props.title}
                             </div>

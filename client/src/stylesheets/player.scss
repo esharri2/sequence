@@ -1,0 +1,155 @@
+.player {
+    margin: 0 auto;
+    max-width: 900px;
+    padding-top: $nav-height + 10px;
+    font-family: $body-font;
+    width: 100%;
+}
+
+.sequenceTitle {
+    input {
+        width: 100%;
+        font-family: $body-font;
+        font-size: $body-font-size + 3px;
+        color: $body-text-color; // text-transform: uppercase; // font-weight: 800;
+        font-style: italic;
+        @extend %input-shared;
+    }
+    input:focus {
+        @extend %input-shared-focus;
+    }
+}
+
+.controls {
+    width: 25%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions {
+    overflow-y: auto;
+    height: 60vh;
+}
+
+.action {
+    padding: 10px;
+    margin: 10px 0;
+    height: $body-font-size * 2;
+    display: flex;
+    input {
+        @extend %input-shared;
+    }
+    input:focus {
+        @extend %input-shared-focus;
+    }
+    .title {
+        width: 70%;
+        margin-right: 7px;
+        height: 100%;
+        input {
+            display: inline-block;
+            width: 90%; // height: 100%;
+        }
+    }
+    .time {
+        width: 20%;
+        .time-input {
+            display: inline-block;
+            margin-right: 7px;
+        }
+        input {
+            width: 50px;
+            display: inline-block;
+            text-align: right;
+        }
+        label {
+            color: $accent-light;
+            font-size: $body-font-size -2px;
+            display: inline-block;
+        }
+    }
+    .move {
+        margin-left: auto;
+        font-size: $body-font-size + 2px;
+    }
+}
+
+%active-font {
+    font-size: $body-font-size + 6px;
+    font-weight: 700;
+    border-bottom: none;
+}
+
+.actions .action.active {
+    input {
+        @extend %active-font;
+    }
+}
+
+.elapsed {
+    @extend %active-font; // width:70%;  
+    margin: auto; // text-align: center;
+    div {
+        display: inline;
+    }
+}
+
+.play-animation {
+    width: 10%;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    @keyframes bar1 {
+        25% {
+            height: 100%;
+        }
+        15% {
+            background-color: $accent-light;
+        }
+    }
+    @keyframes bar2 {
+        50% {
+            height: 100%;
+        }
+        40% {
+            background-color: $accent-light;
+        }
+    }
+    @keyframes bar3 {
+        75% {
+            height: 100%;
+        }
+        65% {
+            background-color: $accent-light;
+        }
+    }
+    .bar {
+        background-color: $accent-dark;
+        width: 20%;
+        height: 30%;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+    .bar1 {
+        animation-name: bar1;
+    }
+    .bar2 {
+        animation-name: bar2;
+    }
+    .bar3 {
+        animation-name: bar3;
+    }
+}
+
+button.add {
+    margin: 0 auto;
+    display: block;
+    width: 50%;
+    border-radius: $border-radius;
+    background-color: $accent-dark;
+    .icon {
+        color: $background;
+    }
+}

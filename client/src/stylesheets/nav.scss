@@ -1,0 +1,34 @@
+nav {
+    background-color: $background;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: $nav-height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    ul {
+        display: flex;
+        align-items: center;
+        height: $nav-height;
+    }
+    li {
+        vertical-align: middle;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+    }
+    li:hover {
+        background-color: $background;
+        button {
+            color: $accent-light;
+        }
+    }
+    button {
+        font-weight: 200;
+        font-family: $logo-font;
+        color: $accent-dark;
+        text-transform: uppercase;
+    }
+}

@@ -31,14 +31,13 @@ class App extends Component {
   
     render() {
         const components = this.state.showSplash
-            ? <div className="app"><Splash enter={this.enter} /></div>
-            : <div className="app">
+            ? <div id="root" className="app"><Splash enter={this.enter} /></div>
+            : <div id="root" className="app">
                 <Nav authenticated={this.state.authenticated} toggleAuth={this.toggleAuth} setSequence={this.setSequence} /> 
                 <Player authenticated={this.state.authenticated} sequenceId={this.state.sequenceId} setSequence={this.setSequence} />
             </div>;
         return components
     }
 }
-
 
 export default App;

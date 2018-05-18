@@ -1,6 +1,6 @@
 import React from 'react';
 import UserSequences from './UserSequences';
-import Help from './Help';
+import About from './About';
 import Login from './Login';
 import Logout from './Logout';
 
@@ -12,7 +12,7 @@ const Nav = props => {
                 {props.authenticated
                     ? <li> <UserSequences setSequence={props.setSequence} /> </li>
                     : null}
-                <li> <Help /> </li>
+                <li> <About /> </li>
                 {props.authenticated
                     ? <li> <Logout toggleAuth={props.toggleAuth} /></li>
                     : <li><Login toggleAuth={props.toggleAuth} />   </li>

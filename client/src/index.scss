@@ -4,17 +4,21 @@ $light: #ebeaea;
 $body-text-color: #3A3335;
 $accent-dark: #3A435E;
 $accent-light:#5f6e9b;
+
 //FONT
 $logo-font:'Josefin Sans',
 sans-serif;
 $body-font:'Roboto',
 san-serif;
 $body-font-size: 16px;
+
 //SIZE
 $nav-height:50px;
 $border-radius:3px;
+
 //TIME
 $anim-time: .2s;
+
 //EXTENDS
 %input-shared {
     background-color: $background;
@@ -32,6 +36,13 @@ $anim-time: .2s;
     border-bottom: 1px solid $accent-light; // box-shadow: 1px 2px 3px $body-text-color;
 }
 
+//IMPORTS
+@import 'stylesheets/splash';
+@import 'stylesheets/nav';
+@import 'stylesheets/player';
+@import 'stylesheets/modal';
+@import 'stylesheets/loader';
+
 //REMOVE DEFAULTS
 button:focus {
     outline: 0;
@@ -40,10 +51,11 @@ button:focus {
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
+    appearance: none;
     margin: 0;
 }
 
-////
+//THEME
 * {
     box-sizing: border-box;
 }
@@ -74,29 +86,6 @@ button {
     min-height: 350px;
 }
 
-.splash {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background: linear-gradient( rgba(58, 67, 94, 0.8), rgba(36, 41, 58, 0.9)), url("https://images.pexels.com/photos/730905/lily-water-pink-pond-730905.jpeg?cs=srgb&dl=aquatic-aquatic-plant-beautiful-730905.jpg&fm=jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    .logo {
-        color: $background;
-        font-size: 100px;
-    }
-    h2 {
-        font-family: $body-font;
-        font-size: 25px;
-        font-weight: 100;
-        color: $background;
-    }
-}
-
 .logo {
     font-family: $logo-font;
     text-transform: uppercase;
@@ -107,63 +96,6 @@ button {
     display: inline-block;
 }
 
-nav {
-    background-color: $background;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: $nav-height;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    ul {
-        display: flex;
-        align-items: center;
-        height: $nav-height;
-    }
-    li {
-        vertical-align: middle;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        padding: 0 10px;
-    }
-    li:hover {
-        background-color: $background;
-        button {
-            color: $accent-light;
-        }
-    }
-    button {
-        font-weight: 200;
-        font-family: $logo-font;
-        color: $accent-dark;
-        text-transform: uppercase;
-    }
-}
-
-.player {
-    margin: 0 auto;
-    max-width: 900px;
-    padding-top: $nav-height + 10px;
-    font-family: $body-font;
-    width: 100%;
-}
-
-.sequenceTitle {
-    input {
-        width: 100%;
-        font-family: $body-font;
-        font-size: $body-font-size + 3px;
-        color: $body-text-color; // text-transform: uppercase; // font-weight: 800;
-        font-style: italic;
-        @extend %input-shared;
-    }
-    input:focus {
-        @extend %input-shared-focus;
-    }
-}
-
 button .icon {
     color: $accent-dark;
 }
@@ -172,139 +104,7 @@ button .icon:hover {
     color: $accent-light;
 }
 
-.controls {
-    width: 25%;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.actions {
-    overflow-y: auto;
-    height: 60vh;
-}
-
-.action {
-    padding: 10px;
-    margin: 10px 0;
-    height: $body-font-size * 2;
-    display: flex;
-    input {
-        @extend %input-shared;
-    }
-    input:focus {
-        @extend %input-shared-focus;
-    }
-    .title {
-        width: 70%;
-        margin-right: 7px;
-        height: 100%;
-        input {
-            display: inline-block;
-            width: 90%; // height: 100%;
-        }
-    }
-    .time {
-        width: 20%;
-        .time-input {
-            display: inline-block;
-            margin-right: 7px;
-        }
-        input {
-            width: 50px;
-            display: inline-block;
-            text-align: right;
-        }
-        label {
-            color: $accent-light;
-            font-size: $body-font-size -2px;
-            display: inline-block;
-        }
-    }
-    .move {
-        margin-left: auto;
-        font-size: $body-font-size + 2px;
-    }
-}
-
-%active-font {
-    font-size: $body-font-size + 6px;
-    font-weight: 700;
-    border-bottom: none;
-}
-
-.actions .action.active {
-    input {
-        @extend %active-font;
-    }
-}
-
-.elapsed {
-    @extend %active-font; // width:70%;  
-    margin: auto; // text-align: center;
-    div {
-        display: inline;
-    }
-}
-
-.play-animation {
-    width: 10%;
-    height: 100%;
-    display: inline-flex;
-    align-items: center;
-    @keyframes bar1 {
-        25% {
-            height: 100%;
-        }
-        15% {
-            background-color: $accent-light;
-        }
-    }
-    @keyframes bar2 {
-        50% {
-            height: 100%;
-        }
-        40% {
-            background-color: $accent-light;
-        }
-    }
-    @keyframes bar3 {
-        75% {
-            height: 100%;
-        }
-        65% {
-            background-color: $accent-light;
-        }
-    }
-    .bar {
-        background-color: $accent-dark;
-        width: 20%;
-        height: 30%;
-        animation-duration: 1s;
-        animation-iteration-count: infinite;
-    }
-    .bar1 {
-        animation-name: bar1;
-    }
-    .bar2 {
-        animation-name: bar2;
-    }
-    .bar3 {
-        animation-name: bar3;
-    }
-}
-
-button.add {
-    margin: 0 auto;
-    display: block;
-    width: 50%;
-    border-radius: $border-radius;
-    background-color: $accent-dark;
-    .icon {
-        color: $background;
-    }
-}
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -340,70 +140,3 @@ button.add {
 //     animation-fill-mode: forwards;
 // }
 //Modal shit
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: rgba(28, 28, 28, 0.5);
-    overflow-x: hidden;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation-name: fadein;
-    animation-duration: .2s;
-    @keyframes fadein {
-        from {
-            opacity: 0
-        }
-        to {
-            opacity: 1
-        }
-    }
-    ;
-    .modal-header {
-        font-weight: 200;
-        font-family: $logo-font;
-        text-transform: uppercase;
-        font-size: $body-font-size + 3px;
-        padding: 10px 0;
-    }
-    .modal-body {
-        width: 50vw;
-        height: 70vh;
-        background-color: $accent-dark;
-        z-index: 1010;
-        color: $background;
-        padding: 10px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        animation-name: slidedown;
-        animation-duration: .4s;
-        @keyframes slidedown {
-            from {
-                height:60vh;
-                opacity: 1
-            }
-            to {
-                opacity: 1
-            }
-        }
-        ;
-        p {
-            font-family: $body-font;
-            font-size: $body-font-size;
-            line-height: normal;
-            margin: 1.2em 0;
-        }
-    }
-    .close-modal {
-        float: right;
-        color: $background;
-        margin: 0 auto;
-        display: block;
-    }
-    .close-modal:hover {
-        color: $light;
-    }
-}

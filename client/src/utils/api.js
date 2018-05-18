@@ -15,6 +15,9 @@ export default {
     update: (sequenceId, sequence) => {
         return axios.post("/api/update", { sequenceId, sequence })
     },
+    delete: (sequenceId) => {
+        return axios.delete(`/api/delete/${sequenceId}`)
+    },
     getSequence: id => {
         return axios.get(`/api/sequence/${id}`)
     },

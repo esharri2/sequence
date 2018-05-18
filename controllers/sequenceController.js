@@ -2,14 +2,18 @@ const db = require("../models");
 
 module.exports = {
     getSequences: (userId, res) => {
-        db.User.findOne({ userId: userId }).populate("sequences").then(sequences => {
-            res.json(sequences);
-        }).catch(console.error)
+        db.User.findOne({ userId: userId }).populate("sequences")
+            .then(sequences => {
+                res.json(sequences);
+            })
+            .catch(console.error)
     },
     getSequence: (id, res) => {
-        db.Sequence.findOne({ _id: id }).then(sequence => {
-            res.json(sequence);
-        })
+        db.Sequence.findOne({ _id: id })
+            .then(sequence => {
+                res.json(sequence);
+            })
+            .catch(console.error)
     },
 
     saveSequence: (userId, sequence, res) => {
@@ -18,17 +22,28 @@ module.exports = {
                 { userId: userId },
                 { $push: { sequences: sequence } },
                 { new: true }
-            ).then(data => res.json({ id: data._id }))
+            )
+                .then(data => res.json({ id: data._id }))
                 .catch(console.error)
         })
     },
 
-    updateSequence: (sequenceId, sequence, res) => {
-        console.log(sequenceId, sequence)
+    deleteSequence: (id, res) => {
+        console.log(id)
+        db.Sequence.deleteOne({ _id: id })
+            .then(data => res.json(data))
+            .catch(console.error)
+    },
+
+    updateSequence: (id, sequence, res) => {
+        const { title, actions } = sequence;
         db.Sequence.update(
-            { _id: sequenceId },
-            { $set: { sequence: sequence } }
-        ).then(() => res.sendStatus(200))
+            { _id: id },
+            { $set: { title, actions } }
+        )
+            .then((data) => {
+                res.sendStatus(200)
+            })
             .catch(console.error)
     }
 }

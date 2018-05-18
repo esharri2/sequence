@@ -1,44 +1,77 @@
 import React, { Component } from 'react';
-import Modal from '../Modal';
 import api from '../../utils/api';
 import Modal from 'react-modal';
+import Loader from './Loader'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
 
 class UserSequences extends Component {
     state = {
-        sequences: []
+        //this should be null, show loader while null, then make empty array if person has no things
+        sequences: null,
+        modalIsOpen: false
+    }
+
+    componentWillMount() {
+        Modal.setAppElement(document.getElementById('root'));
     }
 
     getSequences = () => {
         api.getSequences().then(res => {
-            console.log(res)
-            this.setState({ sequences: res.data.sequences })
+            //TODO alphabetize
+            //make empty array if nothing there
+            const sequences = res.data.sequences ? res.data.sequences : [];
+            this.setState({ sequences })
         })
     }
 
+    openModal = () => {
+        this.setState({ modalIsOpen: true });
+    }
+
+    closeModal = () => {
+        this.setState({ modalIsOpen: false });
+    }
+
     remove = event => {
-        //remove api call using name below
-        console.log(`I need to remove ${event.currentTarget.dataset.name}`);
+        const id = event.currentTarget.dataset.id;
+        api.delete(id).then(res => {
+            const newSequences = this.state.sequences.filter(element => {
+                return element._id !== id;
+            })
+            this.setState({ sequences: newSequences })
+        })
     }
 
     render() {
-        const sequenceList = this.state.sequences.map(
-            sequence =>
-                <div key={sequence._id}>
-                    <div onClick={() => this.props.setSequence(sequence._id)}>{sequence.title}</div>
-                    <button data-name={sequence} onClick={this.remove}>
-                        <FontAwesomeIcon className="icon" icon={faTimes} />
-                    </button>
-                </div>
-        )
-        const body = <div>{sequenceList}</div>;
+        return (
+            <div>
+                <button onClick={this.openModal}>Sequences</button>
+                <Modal
+                    isOpen={this.state.modalIsOpen}
+                    onAfterOpen={this.getSequences}
+                    onRequestClose={this.closeModal}
+                    contentLabel="Saved sequences"
+                    className="modal-content"
+                    overlayClassName="modal"
+                >
+                    <h2>Saved sequences</h2>
+                    {this.state.sequences
+                        ? <div>{this.state.sequences.map(
+                            sequence =>
+                                <div key={sequence._id}>
+                                    <div onClick={() => this.props.setSequence(sequence._id)}>{sequence.title}</div>
+                                    <button data-id={sequence._id} onClick={this.remove}>
+                                        <FontAwesomeIcon className="icon" icon={faTimes} />
+                                    </button>
+                                </div>
+                        )}</div>
+                        : <Loader />}
 
-        return <Modal
-            buttonText="Sequences"
-            title="Saved sequences"
-            body={body}
-            onOpen={this.getSequences} />
+                </Modal>
+            </div>
+        )
+
     }
 }
 
