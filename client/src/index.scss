@@ -4,6 +4,8 @@ $light: #ebeaea;
 $body-text-color: #3A3335;
 $accent-dark: #3A435E;
 $accent-light:#5f6e9b;
+$accent-lightest: #9ba4c1;
+$gray: #d3d7de;
 
 //FONT
 $logo-font:'Josefin Sans',
@@ -15,6 +17,7 @@ $body-font-size: 16px;
 //SIZE
 $nav-height:50px;
 $border-radius:3px;
+$max:800px;
 
 //TIME
 $anim-time: .2s;
@@ -26,7 +29,7 @@ $anim-time: .2s;
     font-size: $body-font-size;
     border: none;
     border-bottom: 1px solid $accent-light;
-    padding-right: 5px;
+    padding: 5px;
     transition: background-color $anim-time, font-size $anim-time;
 }
 
@@ -72,10 +75,6 @@ button {
     cursor: pointer;
     background: none;
     border: none;
-    font-size: 20px;
-    .icon {
-        color: $body-text-color;
-    }
 }
 
 .app {
@@ -95,16 +94,6 @@ button {
     color: $accent-dark;
     display: inline-block;
 }
-
-button .icon {
-    color: $accent-dark;
-}
-
-button .icon:hover {
-    color: $accent-light;
-}
-
-
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -127,16 +116,3 @@ button .icon:hover {
 ::-webkit-scrollbar-thumb:hover {
     background: $accent-dark;
 }
-
-//ANIMATIONS
-// .action {
-//     opacity: 0;
-//     @keyframes fadeIn {
-//         100% {
-//             opacity: 1;
-//         }
-//     }
-//     animation: .1s ease-in fadeIn;
-//     animation-fill-mode: forwards;
-// }
-//Modal shit

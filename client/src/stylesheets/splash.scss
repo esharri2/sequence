@@ -5,17 +5,17 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: linear-gradient( rgba(58, 67, 94, 0.8), rgba(36, 41, 58, 0.9)), url("https://images.pexels.com/photos/730905/lily-water-pink-pond-730905.jpeg?cs=srgb&dl=aquatic-aquatic-plant-beautiful-730905.jpg&fm=jpg");
+    background: linear-gradient( rgba(58, 67, 94, .95), rgba(36, 41, 58, 0.9)), url("https://images.pexels.com/photos/730905/lily-water-pink-pond-730905.jpeg?cs=srgb&dl=aquatic-aquatic-plant-beautiful-730905.jpg&fm=jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     .logo {
         color: $background;
-        font-size: 100px;
+        font-size: calc(5em);
     }
     h2 {
         font-family: $body-font;
-        font-size: 25px;
+        font-size: calc(2em);        
         font-weight: 100;
         color: $background;
     }

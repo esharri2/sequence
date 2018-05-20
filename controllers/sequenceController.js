@@ -11,6 +11,7 @@ module.exports = {
     getSequence: (id, res) => {
         db.Sequence.findOne({ _id: id })
             .then(sequence => {
+                console.log(sequence)
                 res.json(sequence);
             })
             .catch(console.error)
@@ -23,7 +24,7 @@ module.exports = {
                 { $push: { sequences: sequence } },
                 { new: true }
             )
-                .then(data => res.json({ id: data._id }))
+                .then(() => res.json({ id: sequence._id }))
                 .catch(console.error)
         })
     },

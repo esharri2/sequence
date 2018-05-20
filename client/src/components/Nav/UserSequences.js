@@ -44,6 +44,27 @@ class UserSequences extends Component {
     }
 
     render() {
+        let body;
+
+        if (!this.state.sequences) {
+            body = <Loader />
+        }
+
+        else if (this.state.sequences.length > 0) {
+            body = <div>{this.state.sequences.map(
+                sequence =>
+                    <div key={sequence._id}>
+                        <div onClick={() => this.props.setSequence(sequence._id)}>{sequence.title}</div>
+                        <button data-id={sequence._id} onClick={this.remove}>
+                            <FontAwesomeIcon className="icon" icon={faTimes} />
+                        </button>
+                    </div>
+            )}</div>
+        } else {
+            body = <p>You don't have any saved sequences. Create some and save them, and they will all show up here.</p>
+        }
+
+
         return (
             <div>
                 <button onClick={this.openModal}>Sequences</button>
@@ -56,18 +77,7 @@ class UserSequences extends Component {
                     overlayClassName="modal"
                 >
                     <h2>Saved sequences</h2>
-                    {this.state.sequences
-                        ? <div>{this.state.sequences.map(
-                            sequence =>
-                                <div key={sequence._id}>
-                                    <div onClick={() => this.props.setSequence(sequence._id)}>{sequence.title}</div>
-                                    <button data-id={sequence._id} onClick={this.remove}>
-                                        <FontAwesomeIcon className="icon" icon={faTimes} />
-                                    </button>
-                                </div>
-                        )}</div>
-                        : <Loader />}
-
+                    {body}
                 </Modal>
             </div>
         )

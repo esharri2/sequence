@@ -12,10 +12,10 @@ const Move = props => {
     return (
         <div className="move input-container">
             {props.index !== 0 ? <button onClick={() => handleClick(-1)}>
-                <FontAwesomeIcon className="icon move" icon={faAngleup} />
+                <FontAwesomeIcon className="icon" icon={faAngleup} />
             </button> : null}
             {props.index !== (props.length - 1) ? <button onClick={() => handleClick(1)}>
-                <FontAwesomeIcon className="icon move" icon={faAngledown} />
+                <FontAwesomeIcon className="icon" icon={faAngledown} />
             </button> : null}
         </div>)
 }

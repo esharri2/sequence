@@ -1,6 +1,6 @@
 .player {
     margin: 0 auto;
-    max-width: 900px;
+    max-width: $max;
     padding-top: $nav-height + 10px;
     font-family: $body-font;
     width: 100%;
@@ -10,8 +10,8 @@
     input {
         width: 100%;
         font-family: $body-font;
-        font-size: $body-font-size + 3px;
-        color: $body-text-color; // text-transform: uppercase; // font-weight: 800;
+        font-size: $body-font-size;
+        color: $body-text-color;
         font-style: italic;
         @extend %input-shared;
     }
@@ -20,23 +20,68 @@
     }
 }
 
-.controls {
-    width: 25%;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.controls button,
+.player>button {
+    border-radius: $border-radius;
+    background-color: $accent-dark;
+    font-family: inherit;
+    color: $background;
+    text-transform: uppercase;
+    font-size: inherit;
+    padding: 6px 12px;
+    .icon {
+        color: $background;
+        margin-right: 6px;
+    }
+    &:hover:enabled {
+        background-color: $accent-light;
+    }
+    &:disabled {
+        background-color: $accent-lightest;
+        color: $gray;
+        cursor: default;
+    }
 }
 
+button.save:enabled {
+    animation: .2s 4 alternate bounce;
+}
+
+@keyframes bounce {
+    0% {
+        box-shadow: none;
+    }
+    100% {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+    }
+}
+
+.controls {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    button {
+        margin-right: 4px;
+        min-width: 100px;
+    }
+    .main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+//Actions
 .actions {
     overflow-y: auto;
     height: 60vh;
 }
 
 .action {
-    padding: 10px;
+    padding: 15px;
     margin: 10px 0;
-    height: $body-font-size * 2;
+    height: $body-font-size;
     display: flex;
     input {
         @extend %input-shared;
@@ -45,39 +90,52 @@
         @extend %input-shared-focus;
     }
     .title {
-        width: 70%;
-        margin-right: 7px;
+        flex-grow:1;
         height: 100%;
         input {
             display: inline-block;
-            width: 90%; // height: 100%;
+            width: 99%; 
         }
     }
     .time {
         width: 20%;
         .time-input {
             display: inline-block;
-            margin-right: 7px;
+            // margin-right: 7px;
         }
         input {
-            width: 50px;
+            width: 40px;
             display: inline-block;
             text-align: right;
         }
         label {
             color: $accent-light;
-            font-size: $body-font-size -2px;
+            font-size: $body-font-size;
             display: inline-block;
         }
     }
+    button {
+        color:$accent-dark;
+        font-size:20px;
+    }
+    button:hover {
+        color:$accent-light;
+    }
     .move {
         margin-left: auto;
-        font-size: $body-font-size + 2px;
+        font-size: $body-font-size;
+        width:70px;
+    }
+    .remove {
+        width:40px;
+        button {
+            float:right;
+        }
     }
 }
 
 %active-font {
-    font-size: $body-font-size + 6px;
+    font-size: $body-font-size;
     font-weight: 700;
     border-bottom: none;
 }
@@ -143,13 +201,10 @@
     }
 }
 
+
+
 button.add {
     margin: 0 auto;
     display: block;
     width: 50%;
-    border-radius: $border-radius;
-    background-color: $accent-dark;
-    .icon {
-        color: $background;
-    }
 }

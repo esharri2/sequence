@@ -21,7 +21,7 @@ const Action = props => {
                 <input
                     onChange={props.handleActionsChange}
                     name="title"
-                    placeholder={`Action ${props.actionIndex+1}`}
+                    placeholder={`Pose ${props.actionIndex+1}`}
                     type="text"
                     value={title}
                     data-index={props.actionIndex} />

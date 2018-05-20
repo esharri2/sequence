@@ -9,22 +9,31 @@ class Player extends Component {
     state = {
         playing: false,
         paused: false,
+        unsaved: false,
         title: "",
-        actions: [],
+        actions: [{ title: "", duration: 30 }, { title: "", duration: 30 }, { title: "", duration: 30 }, { title: "", duration: 30 }],
         currentIndex: 0,
         voice: "US English Male",
         rate: 1,
         pitch: 1
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps.sequenceId !== this.props.sequenceId) {
-            api.getSequence(this.props.sequenceId).then(sequence => {
-                const { title, actions } = sequence.data;
-                this.setState({ title, actions });
-            })
+            //User has cleared a saved sequence
+            if (!this.props.sequenceId) {
+                this.setState({ title: "", actions: [{ title: "", duration: 30 }, { title: "", duration: 30 }, { title: "", duration: 30 }, { title: "", duration: 30 }] })
+            }
+            //User has saved or loaded a sequence
+            else {
+                api.getSequence(this.props.sequenceId).then(sequence => {
+                    console.log(sequence);
+                    const { title, actions } = sequence.data;
+                    this.setState({ title, actions, unsaved: false });
+                })
+            }
         }
-        //Check for end of sequence; playing ending message
+        //The sequence is over; play ending message
         if (this.state.currentIndex === this.state.actions.length && this.state.playing) {
             const { voice, pitch, rate } = this.state;
             responsiveVoice.speak("Your sequence is over", voice, { rate, pitch, onend: this.stop });
@@ -46,20 +55,24 @@ class Player extends Component {
     }
 
     clear = () => {
-        this.setState({ actions: [] })
+        //might need to clear id and stuff too?~~~
+        this.setState({ title: "", actions: [{ title: "", duration: 30 }, { title: "", duration: 30 }, { title: "", duration: 30 }, { title: "", duration: 30 }] })
     }
 
     save = () => {
         const sequence = {
+            //TODO there might not be a title for a new thing at this point? check.
             title: this.state.title,
             actions: this.state.actions
         }
         if (this.props.sequenceId) {
             console.log("update!")
-            api.update(this.props.sequenceId, sequence)
+            api.update(this.props.sequenceId, sequence).then(() => this.setState({ unsaved: false }))
         } else {
-            //FIX THIS, don't need user ID
-            api.save("derp", sequence).then(res => this.props.setSequence(res.data.id))
+            //TODO don't need user ID were derp is
+            api.save("derp", sequence).then(res => { 
+                this.props.setSequence(res.data.id) 
+            })
         }
     }
 
@@ -82,16 +95,16 @@ class Player extends Component {
     changeActionIndex = (oldIndex, newIndex) => {
         const newActions = [...this.state.actions];
         newActions.splice(newIndex, 0, newActions.splice(oldIndex, 1)[0]);
-        this.setState({ actions: newActions })
+        this.setState({ actions: newActions, unsaved: true })
     }
 
     //Handle changes to sequence details
     handleSequenceChange = event => {
         let { name, value } = event.target;
-        this.setState({ [name]: value });
+        this.setState({ [name]: value, unsaved: true });
     }
 
-    //Handle changes to name, minutes, and seconds of actions and update actions
+    //Handle changes to name, minutes, and seconds of actions
     handleActionsChange = event => {
         let { name, value, dataset } = event.target;
         const newActions = this.state.actions.map((action, index) => {
@@ -116,7 +129,7 @@ class Player extends Component {
             }
             return action
         });
-        this.setState({ actions: newActions });
+        this.setState({ actions: newActions, unsaved: true });
     }
 
     render() {
@@ -134,6 +147,9 @@ class Player extends Component {
                     save={this.save}
                     paused={this.state.paused}
                     playing={this.state.playing}
+                    unsaved={this.state.unsaved}
+                    setSequence={this.props.setSequence}
+                    authenticated={this.props.authenticated}
                 />
                 <Actions
                     actions={this.state.actions}
