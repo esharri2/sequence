@@ -2,7 +2,7 @@ import React from 'react';
 import Play from './Play';
 import Save from './Save';
 import Stop from './Stop';
-import Clear from './Clear';
+// import Clear from './Clear';
 
 const Controls = (props) => {
     return (
@@ -15,7 +15,7 @@ const Controls = (props) => {
                 
             </div>
             <div className="sub">
-                <Clear clear={props.clear} setSequence={props.setSequence} />
+                {/* <Clear clear={props.clear} setSequence={props.setSequence} /> */}
             </div>
         </div>
     )

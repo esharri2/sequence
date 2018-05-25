@@ -5,7 +5,7 @@ import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
 const Clear = props => {
 
     const handleClick = () => {
-        props.clear();
+        // props.clear();
         props.setSequence(null);
     }
 

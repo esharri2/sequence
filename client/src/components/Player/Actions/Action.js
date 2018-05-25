@@ -2,7 +2,6 @@ import React from 'react';
 import Timer from './Timer';
 import Move from './Move';
 import Remove from './Remove';
-import PlayAnimation from './PlayAnimation';
 
 const Action = props => {
     const { title, duration } = props.action;
@@ -17,7 +16,6 @@ const Action = props => {
     return (
         <div className={`action ${active ? "active" : "inactive"}`}>
             <div className="title input-container">
-                {active ? <PlayAnimation /> : null}
                 <input
                     onChange={props.handleActionsChange}
                     name="title"

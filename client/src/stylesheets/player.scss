@@ -10,7 +10,7 @@
     input {
         width: 100%;
         font-family: $body-font;
-        font-size: $body-font-size;
+        font-size: 1em;
         color: $body-text-color;
         font-style: italic;
         @extend %input-shared;
@@ -27,7 +27,7 @@
     font-family: inherit;
     color: $background;
     text-transform: uppercase;
-    font-size: inherit;
+    font-size: .9em;
     padding: 6px 12px;
     .icon {
         color: $background;
@@ -76,12 +76,12 @@ button.save:enabled {
 .actions {
     overflow-y: auto;
     height: 60vh;
+    position:relative;
 }
 
 .action {
-    padding: 15px;
-    margin: 10px 0;
-    height: $body-font-size;
+padding-bottom:6px;    //TODOD CHECK THIS
+    // height: 1em;
     display: flex;
     input {
         @extend %input-shared;
@@ -91,7 +91,7 @@ button.save:enabled {
     }
     .title {
         flex-grow:1;
-        height: 100%;
+        // height: 100%;
         input {
             display: inline-block;
             width: 99%; 
@@ -101,7 +101,6 @@ button.save:enabled {
         width: 20%;
         .time-input {
             display: inline-block;
-            // margin-right: 7px;
         }
         input {
             width: 40px;
@@ -110,20 +109,23 @@ button.save:enabled {
         }
         label {
             color: $accent-light;
-            font-size: $body-font-size;
             display: inline-block;
+            padding: 0 4px 0 3px;
+            vertical-align: bottom;
+            text-transform: uppercase;
+            font-size:.7em;
         }
     }
     button {
         color:$accent-dark;
-        font-size:20px;
+        font-size:1em;
     }
     button:hover {
         color:$accent-light;
     }
     .move {
         margin-left: auto;
-        font-size: $body-font-size;
+        font-size: 1em;
         width:70px;
     }
     .remove {
@@ -135,14 +137,14 @@ button.save:enabled {
 }
 
 %active-font {
-    font-size: $body-font-size;
+    font-size: 1em;
     font-weight: 700;
     border-bottom: none;
 }
 
 .actions .action.active {
     input {
-        @extend %active-font;
+        // @extend %active-font;
     }
 }
 
@@ -154,57 +156,10 @@ button.save:enabled {
     }
 }
 
-.play-animation {
-    width: 10%;
-    height: 100%;
-    display: inline-flex;
-    align-items: center;
-    @keyframes bar1 {
-        25% {
-            height: 100%;
-        }
-        15% {
-            background-color: $accent-light;
-        }
-    }
-    @keyframes bar2 {
-        50% {
-            height: 100%;
-        }
-        40% {
-            background-color: $accent-light;
-        }
-    }
-    @keyframes bar3 {
-        75% {
-            height: 100%;
-        }
-        65% {
-            background-color: $accent-light;
-        }
-    }
-    .bar {
-        background-color: $accent-dark;
-        width: 20%;
-        height: 30%;
-        animation-duration: 1s;
-        animation-iteration-count: infinite;
-    }
-    .bar1 {
-        animation-name: bar1;
-    }
-    .bar2 {
-        animation-name: bar2;
-    }
-    .bar3 {
-        animation-name: bar3;
-    }
-}
-
-
-
 button.add {
     margin: 0 auto;
     display: block;
     width: 50%;
 }
+
+

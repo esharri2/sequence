@@ -27,7 +27,6 @@ class Player extends Component {
             //User has saved or loaded a sequence
             else {
                 api.getSequence(this.props.sequenceId).then(sequence => {
-                    console.log(sequence);
                     const { title, actions } = sequence.data;
                     this.setState({ title, actions, unsaved: false });
                 })
@@ -70,8 +69,8 @@ class Player extends Component {
             api.update(this.props.sequenceId, sequence).then(() => this.setState({ unsaved: false }))
         } else {
             //TODO don't need user ID were derp is
-            api.save("derp", sequence).then(res => { 
-                this.props.setSequence(res.data.id) 
+            api.save("derp", sequence).then(res => {
+                this.props.setSequence(res.data.id)
             })
         }
     }
@@ -138,7 +137,8 @@ class Player extends Component {
             <div className="player">
                 <Title
                     title={this.state.title}
-                    handleSequenceChange={this.handleSequenceChange} />
+                    handleSequenceChange={this.handleSequenceChange}
+                />
                 <Controls
                     play={this.play}
                     pause={this.pause}

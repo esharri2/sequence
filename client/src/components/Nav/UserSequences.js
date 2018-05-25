@@ -4,6 +4,8 @@ import Modal from 'react-modal';
 import Loader from './Loader'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
+import faTrash from '@fortawesome/fontawesome-free-solid/faTrashAlt';
+
 
 class UserSequences extends Component {
     state = {
@@ -51,12 +53,26 @@ class UserSequences extends Component {
         }
 
         else if (this.state.sequences.length > 0) {
-            body = <div>{this.state.sequences.map(
+            //sort sequences alphabetically
+            const copy = this.state.sequences.slice(0);
+            const sortedSequences = copy.sort((a, b) => {
+                if (a.title < b.title) return -1;
+                if (a.title > b.title) return 1;
+                return 0;
+            })
+            console.log(sortedSequences)            
+            
+            body = <div className="sequence-list">{sortedSequences.map(
                 sequence =>
-                    <div key={sequence._id}>
-                        <div onClick={() => this.props.setSequence(sequence._id)}>{sequence.title}</div>
-                        <button data-id={sequence._id} onClick={this.remove}>
-                            <FontAwesomeIcon className="icon" icon={faTimes} />
+                    <div className="modal-body" key={sequence._id}>
+                        <p onClick={() => {
+                            this.closeModal();
+                            this.props.setSequence(sequence._id);
+                        }}>
+                            {sequence.title}
+                        </p>
+                        <button className="del-sequence" data-id={sequence._id} onClick={this.remove}>
+                            <FontAwesomeIcon className="icon" icon={faTrash} />
                         </button>
                     </div>
             )}</div>
@@ -66,7 +82,7 @@ class UserSequences extends Component {
 
 
         return (
-            <div>
+            <div >
                 <button onClick={this.openModal}>Sequences</button>
                 <Modal
                     isOpen={this.state.modalIsOpen}
@@ -76,6 +92,9 @@ class UserSequences extends Component {
                     className="modal-content"
                     overlayClassName="modal"
                 >
+                    <button className="close-modal" onClick={this.closeModal} >
+                        <FontAwesomeIcon className="icon close-modal" icon={faTimes} />
+                    </button>
                     <h2>Saved sequences</h2>
                     {body}
                 </Modal>

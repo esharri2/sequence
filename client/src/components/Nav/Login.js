@@ -38,7 +38,7 @@ class Login extends Component {
                         <FontAwesomeIcon className="icon close-modal" icon={faTimes} />
                     </button>
                     <h2>Sign in</h2>
-                    <div>
+                    <div className="modal-body">
                         <p>Sign in to save your sequences. We won't save any of your personal information.</p>
                         <GoogleLogin toggleAuth={this.props.toggleAuth} />
                     </div>

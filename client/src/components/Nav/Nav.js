@@ -3,12 +3,14 @@ import UserSequences from './UserSequences';
 import About from './About';
 import Login from './Login';
 import Logout from './Logout';
+import Clear from './Clear';
 
 const Nav = props => {
     return (
         <nav>
             <div className="logo">Sequence</div>
             <ul>
+                <Clear setSequence={props.setSequence} />
                 {props.authenticated
                     ? <li> <UserSequences setSequence={props.setSequence} /> </li>
                     : null}
