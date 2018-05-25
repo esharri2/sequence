@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Title = (props) => {
+const Title = (props) => {    
     return (
         <div className="sequenceTitle">
             <input
