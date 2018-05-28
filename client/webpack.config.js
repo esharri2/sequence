@@ -35,8 +35,6 @@ if (process.env.NODE_ENV === 'production') {
         }),
         new webpack.optimize.UglifyJsPlugin()
     )
-} else {
-
-}
+} 
 
 module.exports = config
