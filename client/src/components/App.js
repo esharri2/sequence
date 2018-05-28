@@ -6,7 +6,7 @@ import api from '../utils/api'
 
 class App extends Component {
     state = {
-        showSplash: false,
+        showSplash: true,
         authenticated: false,
         sequenceId: null,
         title: "",
@@ -15,7 +15,13 @@ class App extends Component {
     }
 
     componentDidMount() {
-        //sign in check!!!! are you signed in?
+        api.authcheck().then(res => {
+            if (res.data.authenticated) {
+                this.setState({ authenticated: true })
+            } else {
+                this.setState({ authenticated: false })
+            }
+        })
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -25,6 +31,7 @@ class App extends Component {
                 this.setState({ title: "", actions: [{ title: "", duration: 30 }, { title: "", duration: 30 }, { title: "", duration: 30 }, { title: "", duration: 30 }] })
             }
             //User has saved or loaded a sequence
+            //TODO this might not be necessary -- just load it when selected from user sequences component
             else {
                 api.getSequence(this.state.sequenceId).then(sequence => {
                     const { title, actions } = sequence.data;
@@ -122,9 +129,12 @@ class App extends Component {
     }
 
     render() {
-        const components = this.state.showSplash
-            ? <div id="root" className="app"><Splash enter={this.enter} /></div>
-            : <div id="root" className="app">
+        let components;
+
+        if (!this.state.authenticated && this.state.showSplash) {
+            components = <div id="root" className="app"><Splash enter={this.enter} /></div>
+        } else {
+            components = <div id="root" className="app">
                 <Nav
                     authenticated={this.state.authenticated}
                     toggleAuth={this.toggleAuth}
@@ -145,7 +155,8 @@ class App extends Component {
                     add={this.add}
                     save={this.save}
                     remove={this.remove} />
-            </div>;
+            </div>
+        }
         return components
     }
 }

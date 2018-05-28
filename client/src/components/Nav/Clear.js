@@ -1,6 +1,4 @@
 import React from 'react';
-// import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-// import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
 
 const Clear = props => {
 
@@ -10,10 +8,11 @@ const Clear = props => {
     }
 
     return (
-        <button className="clear" onClick={handleClick}>
-            {/* <FontAwesomeIcon className="icon" icon={faPlus} /> */}
-            New
+        <div>
+            <button className="clear" onClick={handleClick}>
+                New
         </button>
+        </div>
     )
 }
 

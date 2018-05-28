@@ -1,5 +1,6 @@
 //COLOR
 $background: #FDF0D5;
+$background-light: #fdf3dd;
 $light: #ebeaea;
 $body-text-color: #3A3335;
 $accent-dark: #3A435E;
@@ -8,7 +9,7 @@ $accent-lightest: #9ba4c1;
 $gray: #d3d7de;
 
 //FONT
-$logo-font:'Josefin Sans',
+$logo-font:'Fjalla One',
 sans-serif;
 $body-font:'Roboto',
 san-serif;
@@ -16,25 +17,29 @@ san-serif;
 //SIZE
 $nav-height:50px;
 $border-radius:3px;
-$max:800px;
+$max:650px;
+$min:320px;
 
 //TIME
 $anim-time: .2s;
 
 //EXTENDS
 %input-shared {
-    background-color: #fdf4e1;
-    border: 1px solid $accent-lightest;
-    color: $body-text-color;
+    background-color:inherit;
+    border-style:none;
+    box-shadow:none;
+    border-bottom: 1px solid $accent-lightest;
+    // color: $body-text-color;
     font-size: inherit;
-    border-radius:3px;
-    padding: 5px;
+    // border-radius:3px;
+    padding: 2px;
+    transition: all 0.5s ease; 
 }
 
 %input-shared-focus {
-    outline: none;
-    background-color: $light;
-    box-shadow: 0 0 3px $accent-dark;
+    border-bottom: 1px solid $accent-dark;
+    background-color:$gray;
+    outline:none;
 }
 
 //IMPORTS
@@ -67,27 +72,31 @@ body {
     font-family: $body-font;
     font-size: 1em;
     overflow: hidden;
+    overflow-x: auto;
+    min-width: $min;
 }
 
 button {
     cursor: pointer;
     background: none;
     border: none;
+    transition: all .2s;
+    
 }
 
 .app {
     display: flex;
-    justify-content: center;
+    // justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 100vh;
     min-height: 350px;
 }
 
 .logo {
     font-family: $logo-font;
+    padding: 8px 0;
     text-transform: uppercase;
-    font-weight: 200;
-    font-style: italic;
     font-size: 2em;
     color: $accent-dark;
     display: inline-block;
@@ -117,15 +126,45 @@ button {
 
 
 @media screen and (max-width: 575px) { 
+    nav {
+        .logo {
+            display:none;
+        }
+        ul {
+            width:100%;
+        }
+    }
+    
     .action {
         flex-wrap:wrap;
     }
     .action .title {
         width:100%;
-        padding-bottom:3px;
+        padding-bottom:5px;
     };
+    
     .time {
         flex-grow:1;
     }
+
+    .modal {
+        .modal-content {
+            width:95vw;
+            height:95vh;
+        }
+    }
+
+
+
+    .time {
+        .time-input input {
+            border-bottom:none;
+            // color:red;
+        }
+    }
+
+  
+
+   
    
  }

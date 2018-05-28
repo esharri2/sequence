@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import api from '../../utils/api';
 
 const Logout = props => {
     const signOut = () => {
-        const auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
+        api.signout().then((res) => {
             props.toggleAuth();
-        });
+        })
     }
     return <button onClick={signOut}>Sign out</button>
 }

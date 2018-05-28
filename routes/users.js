@@ -20,8 +20,8 @@ async function verifyGoogle(token) {
 
 async function createSession(req, res, userData) {
     const user = await controller.findOrCreateUser(userData);
-    req.session.user = userData; 
-    res.json({userData});
+    req.session.user = userData;
+    res.json({ userData });
 }
 
 //match /api
@@ -31,5 +31,19 @@ router.route("/signin").post((req, res) => {
     }).catch(console.error);
 }
 );
+
+router.route("/signout").get((req, res) => {
+    req.session.destroy();
+    res.sendStatus(200)
+}
+);
+
+router.route("/authcheck").get((req, res) => {
+    if (req.session.user) {
+        res.json({ authenticated: true })
+    } else {
+        res.json({ authenticated: false })
+    }
+})
 
 module.exports = router;

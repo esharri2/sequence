@@ -11,7 +11,7 @@ const Action = props => {
     let active = false;
     if (props.currentIndex === props.actionIndex && props.playing) {
         active = true;
-    }   
+    }
 
     return (
         <div className={`action ${active ? "active" : "inactive"}`}>
@@ -19,7 +19,7 @@ const Action = props => {
                 <input
                     onChange={props.handleActionsChange}
                     name="title"
-                    placeholder={`Pose ${props.actionIndex+1}`}
+                    placeholder={`Pose ${props.actionIndex + 1}`}
                     type="text"
                     value={title}
                     data-index={props.actionIndex} />
@@ -63,10 +63,12 @@ const Action = props => {
             <Move
                 changeActionIndex={props.changeActionIndex}
                 length={props.length}
-                index={props.actionIndex} />
-            <Remove 
-                remove={props.remove} 
-                actionIndex={props.actionIndex} />
+                index={props.actionIndex}
+                playing={props.playing} />
+            <Remove
+                remove={props.remove}
+                actionIndex={props.actionIndex}
+                playing={props.playing} />
         </div>
     )
 }

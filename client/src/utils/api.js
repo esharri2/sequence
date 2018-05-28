@@ -8,6 +8,12 @@ export default {
     signin: (token) => {
         return axios.post("/api/signin", { token });
     },
+    signout: () => {
+        return axios.get("/api/signout");
+    },
+    authcheck: (id) => {
+        return axios.get("/api/authcheck", { id })
+    },
     //not sure if I need userid here...
     save: (userId, sequence) => {
         return axios.post("/api/save", { userId, sequence })

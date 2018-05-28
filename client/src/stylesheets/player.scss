@@ -1,9 +1,12 @@
 .player {
-    margin: 0 auto;
+    margin: 0 auto;    
     max-width: $max;
-    padding-top: $nav-height + 10px;
+    flex-grow: 1;
     font-family: $body-font;
     width: 100%;
+    display:flex;
+    flex-flow: column;
+    max-height:650px;
 }
 
 .sequenceTitle {
@@ -75,14 +78,16 @@ button.save:enabled {
 //Actions
 .actions {
     overflow-y: auto;
-    height: 60vh;
-    position:relative;
+    flex-grow:1;
+    padding:2px;
 }
 
 .action {
-padding-bottom:6px;    //TODOD CHECK THIS
-    // height: 1em;
     display: flex;
+    padding: 7px;
+    margin: 7px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);     
+    transition: all .5s;
     input {
         @extend %input-shared;
     }
@@ -91,7 +96,6 @@ padding-bottom:6px;    //TODOD CHECK THIS
     }
     .title {
         flex-grow:1;
-        // height: 100%;
         input {
             display: inline-block;
             width: 99%; 
@@ -99,13 +103,15 @@ padding-bottom:6px;    //TODOD CHECK THIS
     }
     .time {
         width: 20%;
+        display:flex;
+        align-items:center;
         .time-input {
             display: inline-block;
         }
         input {
             width: 40px;
             display: inline-block;
-            text-align: right;
+            text-align: center;
         }
         label {
             color: $accent-light;
@@ -122,6 +128,11 @@ padding-bottom:6px;    //TODOD CHECK THIS
     }
     button:hover {
         color:$accent-light;
+    }
+
+    button:disabled {
+        color:$gray;
+        cursor:default;
     }
     .move {
         margin-left: auto;
@@ -143,8 +154,10 @@ padding-bottom:6px;    //TODOD CHECK THIS
 }
 
 .actions .action.active {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background-color:$background-light;
     input {
-        // @extend %active-font;
+        @extend %active-font;
     }
 }
 
@@ -157,9 +170,11 @@ padding-bottom:6px;    //TODOD CHECK THIS
 }
 
 button.add {
-    margin: 0 auto;
     display: block;
-    width: 50%;
+    width: 100%;
+    max-width:$max;
+    // position:fixed;
+    // bottom:0;    
 }
 
 

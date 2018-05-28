@@ -9,7 +9,6 @@ import faTrash from '@fortawesome/fontawesome-free-solid/faTrashAlt';
 
 class UserSequences extends Component {
     state = {
-        //this should be null, show loader while null, then make empty array if person has no things
         sequences: null,
         modalIsOpen: false
     }
@@ -20,8 +19,6 @@ class UserSequences extends Component {
 
     getSequences = () => {
         api.getSequences().then(res => {
-            //TODO alphabetize
-            //make empty array if nothing there
             const sequences = res.data.sequences ? res.data.sequences : [];
             this.setState({ sequences })
         })
@@ -60,21 +57,23 @@ class UserSequences extends Component {
                 if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
                 return 0;
             })
-            
-            body = <div className="sequence-list">{sortedSequences.map(
-                sequence =>
-                    <div className="modal-body" key={sequence._id}>
-                        <p onClick={() => {
-                            this.closeModal();
-                            this.props.setSequence(sequence._id);
-                        }}>
-                            {sequence.title}
-                        </p>
-                        <button className="del-sequence" data-id={sequence._id} onClick={this.remove}>
-                            <FontAwesomeIcon className="icon" icon={faTrash} />
-                        </button>
-                    </div>
-            )}</div>
+
+            body = <div className="sequence-list">
+                {sortedSequences.map(
+                    sequence =>
+                        <div className="modal-body" key={sequence._id}>
+                            <p onClick={() => {
+                                this.closeModal();
+                                this.props.setSequence(sequence._id);
+                            }}>
+                                {sequence.title}
+                            </p>
+                            <button className="del-sequence" data-id={sequence._id} onClick={this.remove}>
+                                <FontAwesomeIcon className="icon" icon={faTrash} />
+                            </button>
+                        </div>
+                )}
+            </div>
         } else {
             body = <p>You don't have any saved sequences. Create some and save them, and they will all show up here.</p>
         }
@@ -82,7 +81,7 @@ class UserSequences extends Component {
 
         return (
             <div >
-                <button onClick={this.openModal}>Sequences</button>
+                <button onClick={this.openModal}>Saved</button>
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.getSequences}

@@ -9,7 +9,7 @@ const Remove = props => {
     }
 
     return <div className="remove">
-        <button onClick={handleClick}>
+        <button disabled={props.playing} onClick={handleClick}>
             <FontAwesomeIcon className="icon remove" icon={faTimes} />
         </button>
     </div>
