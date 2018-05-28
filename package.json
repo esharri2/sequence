@@ -6,7 +6,6 @@
     "server": "node server.js",
     "client": "cd client && yarn start",
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
-    "build": "SET NODE_ENV='production' webpack -p",
     "postinstall": "cd client && npm install && npm build"
   },
   "license": "MIT",
