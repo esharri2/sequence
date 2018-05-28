@@ -6,7 +6,7 @@
     "server": "node server.js",
     "client": "cd client && yarn start",
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
-    "postinstall": "cd client && yarn install && yarn build"
+    "heroku-postbuild": "cd client && yarn install && yarn build"
   },
   "license": "MIT",
   "dependencies": {
