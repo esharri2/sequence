@@ -5,10 +5,10 @@ const userManagement = require("./users.js");
 
 //TODO testing - remove
 router.use("/", (req, res, next) => {
-    console.log("-------------------------------------------");
-    console.log(req.headers);
-    console.log("-------------------------------------------DERP");
-    console.log(req.session.cookie)
+    // console.log("-------------------------------------------");
+    // console.log(req.headers);
+    // console.log("-------------------------------------------DERP");
+    // console.log(req.session.cookie)
     next();
 })
 

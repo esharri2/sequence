@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const routes = require("./routes");
 const bodyParser = require("body-parser");
+require('dotenv').config()
 
 const session = require('express-session');
 
@@ -19,7 +20,7 @@ app.use(session({
   genid: function (req) {
     return require('uuid/v1')();
   },
-  secret: 'keyboard cat',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))

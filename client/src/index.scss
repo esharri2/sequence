@@ -80,8 +80,11 @@ button {
     cursor: pointer;
     background: none;
     border: none;
-    transition: all .2s;
-    
+    transition: all .2s;   
+}
+
+div {
+    box-sizing:border-box;
 }
 
 .app {

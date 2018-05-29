@@ -50,6 +50,13 @@ nav {
     p {
         width: 90%;
         display: inline-block;
+        cursor: pointer;
+        padding: 4px 0;
+        transition: all .2s;
+    }
+
+    p:hover {
+        background-color:$accent-light;
     }
     div {
         border-bottom: 1px solid $background;
