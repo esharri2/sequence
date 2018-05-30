@@ -38,6 +38,7 @@ const Action = props => {
                         <div className="time-input">
                             <input
                                 onChange={props.handleActionsChange}
+                                onFocus={e => e.target.select()}
                                 name="minutes"
                                 placeholder="Min"
                                 type="number"
@@ -49,6 +50,7 @@ const Action = props => {
                         <div className="time-input">
                             <input
                                 onChange={props.handleActionsChange}
+                                onFocus={e => e.target.select()}
                                 name="seconds"
                                 placeholder="Sec"
                                 type="number"

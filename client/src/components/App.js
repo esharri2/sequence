@@ -70,8 +70,7 @@ class App extends Component {
             title: this.state.title,
             actions: this.state.actions
         }
-        if (this.props.sequenceId) {
-            console.log("update!")
+        if (this.state.sequenceId) {
             api.update(this.state.sequenceId, sequence).then(() => this.setState({ unsaved: false }))
         } else {
             //TODO don't need user ID were derp is
@@ -146,6 +145,7 @@ class App extends Component {
                 <Nav
                     authenticated={this.state.authenticated}
                     toggleAuth={this.toggleAuth}
+                    sequenceId={this.state.sequenceId}                    
                     setSequence={this.setSequence}
                     clear={this.clear}
                 />

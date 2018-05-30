@@ -33,7 +33,7 @@ $anim-time: .2s;
     font-size: inherit;
     // border-radius:3px;
     padding: 2px;
-    transition: all 0.5s ease; 
+    // transition: all 0.5s ease; 
 }
 
 %input-shared-focus {
@@ -74,13 +74,16 @@ body {
     overflow: hidden;
     overflow-x: auto;
     min-width: $min;
+    * {
+        transition: all .1s;
+    }
 }
 
 button {
     cursor: pointer;
     background: none;
     border: none;
-    transition: all .2s;   
+    // transition: all .2s;   
 }
 
 div {

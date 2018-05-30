@@ -58,8 +58,15 @@ class UserSequences extends Component {
 
             body = <div className="sequence-list">
                 {sortedSequences.map(
-                    sequence =>
-                        <div className="modal-body" key={sequence._id}>
+                    sequence => {
+                        //Highlight current sequence
+                        let current = false;
+                        if (sequence._id === this.props.sequenceId) {
+                            current = true;
+                        }
+                        console.log(sequence._id, this.props.sequenceId)
+
+                        return <div className={`modal-body ${current ? 'current' : null}`} key={sequence._id}>
                             <p onClick={() => {
                                 this.closeModal();
                                 this.props.setSequence(sequence._id);
@@ -70,6 +77,7 @@ class UserSequences extends Component {
                                 <FontAwesomeIcon className="icon" icon="trash-alt" />
                             </button>
                         </div>
+                    }
                 )}
             </div>
         } else {

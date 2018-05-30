@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 require('dotenv').config()
 
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
 
 const mongoose = require("mongoose");
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/sequence";
@@ -15,14 +17,17 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-// const uuidv1 = require('uuid/v1');
+
+
 app.use(session({
   genid: function (req) {
     return require('uuid/v1')();
   },
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  //work on this
+  store: new MongoStore({mongooseConnection: mongoose.connection})  
 }))
 
 app.use(express.static("client/dist"));

@@ -35,12 +35,10 @@ class Timer extends Component {
     componentDidUpdate(prevProps, prevState) {
         //Was paused
         if (prevProps.paused && !this.props.paused) {
-            console.log('was paused')
             this.timer();
         }
         //Is paused
         else if (!prevProps.paused && this.props.paused) {
-            console.log('is paused')
             clearInterval(this.timerID);
         }
     }

@@ -17,7 +17,10 @@ const Nav = props => {
                     />
                 </li>
                 {props.authenticated
-                    ? <li> <UserSequences setSequence={props.setSequence} /> </li>
+                    ? <li> <UserSequences
+                        setSequence={props.setSequence}
+                        sequenceId={props.sequenceId}
+                    /> </li>
                     : null}
                 <li> <About /> </li>
                 {props.authenticated

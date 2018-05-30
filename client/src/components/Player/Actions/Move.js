@@ -3,8 +3,6 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 const Move = props => {
 
-    console.log("props playing", props.playing)
-
     const handleClick = (change) => {
         props.changeActionIndex(props.index, props.index + change);
     }
