@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import Splash from './Splash'
 import Player from './Player';
 import Nav from './Nav';
-import api from '../utils/api'
+import api from '../utils/api';
+import fontawesome from '@fortawesome/fontawesome'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import times from '@fortawesome/fontawesome-free-solid/faTimes';
+import angleup from '@fortawesome/fontawesome-free-solid/faAngleup';
+import angledown from '@fortawesome/fontawesome-free-solid/faAngledown';
+import trash from '@fortawesome/fontawesome-free-solid/faTrashAlt';
+
+fontawesome.library.add(times, angleup, angledown, trash);
 
 class App extends Component {
     state = {

@@ -1,7 +1,5 @@
 import React from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faAngleup from '@fortawesome/fontawesome-free-solid/faAngleup';
-import faAngledown from '@fortawesome/fontawesome-free-solid/faAngledown';
 
 const Move = props => {
 
@@ -14,10 +12,10 @@ const Move = props => {
     return (
         <div className="move input-container">
             {props.index !== 0 ? <button disabled={props.playing} onClick={() => handleClick(-1)}>
-                <FontAwesomeIcon className="icon" icon={faAngleup} />
+                <FontAwesomeIcon className="icon" icon="angle-up" />
             </button> : null}
             {props.index !== (props.length - 1) ? <button disabled={props.playing} onClick={() => handleClick(1)}>
-                <FontAwesomeIcon className="icon" icon={faAngledown} />
+                <FontAwesomeIcon className="icon" icon="angle-down" />
             </button> : null}
         </div>)
 }

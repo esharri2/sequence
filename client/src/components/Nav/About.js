@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
-
 
 
 class About extends Component {
@@ -35,7 +33,7 @@ class About extends Component {
                     contentLabel="About"
                 >
                     <button className="close-modal" onClick={this.closeModal} >
-                        <FontAwesomeIcon className="icon close-modal" icon={faTimes} />
+                        <FontAwesomeIcon className="icon close-modal" icon="times" />
                     </button>
                     <h2>About</h2>
                     <div className="modal-body">

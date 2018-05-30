@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import GoogleLogin from './GoogleLogin';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
-
 
 class Login extends Component {
     state = {
@@ -35,7 +33,7 @@ class Login extends Component {
                     contentLabel="Sign in"
                 >
                     <button className="close-modal" onClick={this.closeModal} >
-                        <FontAwesomeIcon className="icon close-modal" icon={faTimes} />
+                        <FontAwesomeIcon className="icon close-modal" icon="times" />
                     </button>
                     <h2>Sign in</h2>
                     <div className="modal-body">

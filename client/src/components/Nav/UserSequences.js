@@ -3,8 +3,6 @@ import api from '../../utils/api';
 import Modal from 'react-modal';
 import Loader from './Loader'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
-import faTrash from '@fortawesome/fontawesome-free-solid/faTrashAlt';
 
 
 class UserSequences extends Component {
@@ -69,7 +67,7 @@ class UserSequences extends Component {
                                 {sequence.title}
                             </p>
                             <button className="del-sequence" data-id={sequence._id} onClick={this.remove}>
-                                <FontAwesomeIcon className="icon" icon={faTrash} />
+                                <FontAwesomeIcon className="icon" icon="trash-alt" />
                             </button>
                         </div>
                 )}
@@ -91,7 +89,7 @@ class UserSequences extends Component {
                     overlayClassName="modal"
                 >
                     <button className="close-modal" onClick={this.closeModal} >
-                        <FontAwesomeIcon className="icon close-modal" icon={faTimes} />
+                        <FontAwesomeIcon className="icon close-modal" icon="times" />
                     </button>
                     <h2>Saved sequences</h2>
                     {body}
