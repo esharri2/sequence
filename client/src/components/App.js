@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Splash from './Splash'
 import Player from './Player';
-import Nav from './Nav';
+import Menu from './Menu';
 import api from '../utils/api';
 import fontawesome from '@fortawesome/fontawesome'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
@@ -142,7 +142,7 @@ class App extends Component {
             components = <div id="root" className="app"><Splash enter={this.enter} /></div>
         } else {
             components = <div id="root" className="app">
-                <Nav
+                <Menu
                     authenticated={this.state.authenticated}
                     toggleAuth={this.toggleAuth}
                     sequenceId={this.state.sequenceId}                    

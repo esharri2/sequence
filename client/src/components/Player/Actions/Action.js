@@ -12,7 +12,6 @@ const Action = props => {
     if (props.currentIndex === props.actionIndex && props.playing) {
         active = true;
     }
-
     return (
         <div className={`action ${active ? "active" : "inactive"}`}>
             <div className="title input-container">
@@ -33,7 +32,8 @@ const Action = props => {
                         currentIndex={props.currentIndex}
                         voiceConfig={props.voiceConfig}
                         updateIndex={props.updateIndex}
-                        paused={props.paused} />
+                        paused={props.paused}
+                        chime={props.chime} />
                     : <div className="time-input-container">
                         <div className="time-input">
                             <input

@@ -11,8 +11,8 @@ class Player extends Component {
         paused: false,
         currentIndex: 0,
         voice: "US English Male",
-        rate: 1,
-        pitch: 1
+        rate: .7,
+        pitch: 2
     }
 
     componentDidUpdate(prevProps) {
@@ -21,6 +21,10 @@ class Player extends Component {
             const { voice, pitch, rate } = this.state;
             responsiveVoice.speak("Your sequence is over", voice, { rate, pitch, onend: this.stop });
         }
+        //Stop everything if user has switched sequences during playing
+         if (prevProps.sequenceId !== this.props.sequenceId) {
+             this.stop();
+         }
     }
 
     play = () => {
@@ -55,11 +59,11 @@ class Player extends Component {
                 <Controls
                     play={this.play}
                     pause={this.pause}
-                    stop={this.stop}
-                    clear={this.props.clear}
-                    save={this.props.save}
+                    stop={this.stop}                   
                     paused={this.state.paused}
                     playing={this.state.playing}
+                    clear={this.props.clear}
+                    save={this.props.save}
                     unsaved={this.props.unsaved}
                     setSequence={this.props.setSequence}
                     authenticated={this.props.authenticated}
@@ -75,6 +79,7 @@ class Player extends Component {
                     handleActionsChange={this.props.handleActionsChange}
                     changeActionIndex={this.props.changeActionIndex}
                     remove={this.props.remove}
+                    sequenceId={this.props.sequenceId}
                 />
                 <Add add={this.props.add} />
             </div>

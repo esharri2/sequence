@@ -29,5 +29,8 @@ export default {
     },
     getSequences: () => {
         return axios.get("/api/saved")
+    },
+    chime: () => {
+        return axios.get("/api/chime", { responseType: 'arraybuffer', })
     }
 }

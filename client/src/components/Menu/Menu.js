@@ -5,7 +5,7 @@ import Login from './Login';
 import Logout from './Logout';
 import Clear from './Clear';
 
-const Nav = props => {
+const Menu = props => {
     return (
         <nav>
             <div className="logo">Sequence</div>
@@ -32,4 +32,4 @@ const Nav = props => {
     )
 }
 
-export default Nav;
+export default Menu;

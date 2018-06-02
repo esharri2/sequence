@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const controller = require("../controllers/sequenceController");
+const path = require("path");
 
 //match /api
 router.route("/saved").get((req, res) => {
@@ -22,5 +23,11 @@ router.route("/delete/:id").delete((req, res) => {
 router.route("/sequence/:id").get((req, res) => {
     controller.getSequence(req.params.id, res);
 });
+
+router.route("/chime").get((req, res)=>{
+    console.log("CHIME")
+    console.log(path.join(__dirname, "../media/yogachime.wav"));   
+    res.sendFile(path.join(__dirname, "../media/yogachime.wav"));
+})
 
 module.exports = router;

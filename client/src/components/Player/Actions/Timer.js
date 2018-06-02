@@ -21,7 +21,17 @@ class Timer extends Component {
 
     sound = () => {
         const { voice, pitch, rate } = this.props.voiceConfig;
-        responsiveVoice.speak(this.props.title, voice, { rate, pitch, onend: this.timer });
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const audio = this.props.chime;
+        const source = audioCtx.createBufferSource();
+        source.onended = () => responsiveVoice.speak(this.props.title, voice, { rate, pitch, onend: this.timer });
+        audioCtx.decodeAudioData(audio.slice(0), buffer => {
+            source.buffer = buffer;
+            source.connect(audioCtx.destination);
+            source.start(0);
+        },
+            (e) => { console.log("Error with decoding audio data" + e.err); });
+        //play chime, then this
     }
 
     componentDidMount() {

@@ -4,7 +4,6 @@ import Modal from 'react-modal';
 import Loader from './Loader'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
-
 class UserSequences extends Component {
     state = {
         sequences: null,
@@ -36,7 +35,10 @@ class UserSequences extends Component {
             const newSequences = this.state.sequences.filter(element => {
                 return element._id !== id;
             })
-            this.setState({ sequences: newSequences })
+            if (id === this.props.sequenceId) {
+                this.props.setSequence(null);
+            }
+            this.setState({ sequences: newSequences });
         })
     }
 
@@ -64,8 +66,6 @@ class UserSequences extends Component {
                         if (sequence._id === this.props.sequenceId) {
                             current = true;
                         }
-                        console.log(sequence._id, this.props.sequenceId)
-
                         return <div className={`modal-body ${current ? 'current' : null}`} key={sequence._id}>
                             <p onClick={() => {
                                 this.closeModal();
