@@ -9,8 +9,10 @@ import times from '@fortawesome/fontawesome-free-solid/faTimes';
 import angleup from '@fortawesome/fontawesome-free-solid/faAngleUp';
 import angledown from '@fortawesome/fontawesome-free-solid/faAngleDown';
 import trash from '@fortawesome/fontawesome-free-solid/faTrashAlt';
+import play from '@fortawesome/fontawesome-free-solid/faPlay';
+import pause from '@fortawesome/fontawesome-free-solid/faPause';
 
-fontawesome.library.add(times, angleup, angledown, trash);
+fontawesome.library.add(times, angleup, angledown, trash, play, pause);
 
 //show loading while shecking auth
 //if not auth, show enter button

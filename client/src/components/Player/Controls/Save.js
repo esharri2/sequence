@@ -10,7 +10,7 @@ const Save = props =>
         disabled={props.unsaved ? false : true}>
         <FontAwesomeIcon
             className="icon"
-            icon={faSave} />
+            icon="save" />
         Save
     </button>)
 
