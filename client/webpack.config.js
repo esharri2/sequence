@@ -1,7 +1,10 @@
 const path = require('path');
+const webpack = require('webpack');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const webpack = require('webpack');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
     entry: './src/index.js',
@@ -15,9 +18,9 @@ const config = {
             { test: /\.(s*)css$/, use: ['style-loader', 'css-loader', 'sass-loader'] }
         ]
     },
-    plugins: [new HtmlWebpackPlugin({
-        template: 'src/index.html'
-    })],
+    plugins: [
+        new HtmlWebpackPlugin({ template: 'src/index.html' })
+    ],
     mode: "development",
     devServer: {
         proxy: {
@@ -28,14 +31,18 @@ const config = {
 
 if (process.env.NODE_ENV === 'production') {
     config.plugins.push(
-        //Sets process in compiled code
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
             }
-        }),
-        new UglifyJsPlugin()
-    )
-} 
+        }), //Sets process in compiled code
+        new UglifyJsPlugin(), //minifies code
+        new ManifestPlugin({ filename: 'asset-manifest-json' }), //creates asset manifest
+        new CopyWebpackPlugin([{ from: 'src/pwa' }, //moves pwa stuff to dist file
+        ])
+
+    );
+
+}
 
 module.exports = config

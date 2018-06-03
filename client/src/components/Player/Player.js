@@ -69,6 +69,7 @@ class Player extends Component {
                     authenticated={this.props.authenticated}
                 />
                 <Actions
+                    title={this.props.title}
                     actions={this.props.actions}
                     playing={this.state.playing}
                     paused={this.state.paused}

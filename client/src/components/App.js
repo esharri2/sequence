@@ -6,16 +6,20 @@ import api from '../utils/api';
 import fontawesome from '@fortawesome/fontawesome'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import times from '@fortawesome/fontawesome-free-solid/faTimes';
-import angleup from '@fortawesome/fontawesome-free-solid/faAngleup';
-import angledown from '@fortawesome/fontawesome-free-solid/faAngledown';
+import angleup from '@fortawesome/fontawesome-free-solid/faAngleUp';
+import angledown from '@fortawesome/fontawesome-free-solid/faAngleDown';
 import trash from '@fortawesome/fontawesome-free-solid/faTrashAlt';
 
 fontawesome.library.add(times, angleup, angledown, trash);
 
+//show loading while shecking auth
+//if not auth, show enter button
+//if auth, go in
+
 class App extends Component {
     state = {
         showSplash: true,
-        authenticated: false,
+        authenticated: null,
         sequenceId: null,
         title: "",
         actions: [{ title: "", duration: 30 }, { title: "", duration: 30 }, { title: "", duration: 30 }, { title: "", duration: 30 }],
@@ -39,7 +43,6 @@ class App extends Component {
                 this.setState({ title: "", actions: [{ title: "", duration: 30 }, { title: "", duration: 30 }, { title: "", duration: 30 }, { title: "", duration: 30 }] })
             }
             //User has saved or loaded a sequence
-            //TODO this might not be necessary -- just load it when selected from user sequences component
             else {
                 api.getSequence(this.state.sequenceId).then(sequence => {
                     const { title, actions } = sequence.data;
@@ -138,14 +141,18 @@ class App extends Component {
     render() {
         let components;
 
-        if (!this.state.authenticated && this.state.showSplash) {
-            components = <div id="root" className="app"><Splash enter={this.enter} /></div>
+        if (this.state.showSplash && (this.state.authenticated === false || this.state.authenticated === null)) {
+            components = <div id="root" className="app">
+                <Splash
+                    enter={this.enter}
+                    authenticated={this.state.authenticated} />
+            </div>
         } else {
             components = <div id="root" className="app">
                 <Menu
                     authenticated={this.state.authenticated}
                     toggleAuth={this.toggleAuth}
-                    sequenceId={this.state.sequenceId}                    
+                    sequenceId={this.state.sequenceId}
                     setSequence={this.setSequence}
                     clear={this.clear}
                 />

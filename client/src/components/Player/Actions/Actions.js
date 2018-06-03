@@ -12,18 +12,14 @@ class Actions extends Component {
     componentDidMount() {
         api.chime().then(chime => {
             this.chime = chime.data;
-            // console.log(this.chime)     
         })
     }
 
-    componentDidUpdate(prevProps) {
-        console.log("__________________________________")
-        console.log(this.props)
-        console.log("__________________________________")
-        
-        if (prevProps.actions.length < this.props.actions.length && prevProps.sequenceId === this.props.sequenceId) {
+    componentDidUpdate(prevProps) {  
+        //TODO this scroll effect would occur if you loaded a sequence that happens to have one more pose in it.
+        //Refactor to fire only as a result of Add Pose
+        if (prevProps.actions.length + 1 === this.props.actions.length) {
             //Scroll to newly added action
-
             const container = document.querySelector(".actions");
             const newActionTop = document.querySelector(".actions>*:last-child").offsetTop
             container.scrollTop = newActionTop;

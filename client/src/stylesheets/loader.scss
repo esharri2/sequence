@@ -7,11 +7,11 @@
 }
 
 .loader {
-    border: 10px solid $background;
+    border: 1vw solid $background;
     border-radius: 50%;
-    border-top: 10px solid $accent-light;
-    width: 80px;
-    height: 80px;
+    border-top: 1vw solid $accent-light;
+    width: 8vw;
+    height: 8vw;
     animation: spin 2s linear infinite;
 }
 
