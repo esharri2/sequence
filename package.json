@@ -5,7 +5,8 @@
   "scripts": {
     "server": "node server.js",
     "client": "cd client && yarn start",
-    "start": "concurrently \"nodemon server\" \"yarn client\"",
+    "dev": "concurrently \"nodemon server\" \"yarn client\"",
+    "start": "concurrently \"yarn server\" \"yarn client\"",
     "heroku-postbuild": "cd client && yarn install && yarn build"
   },
   "license": "MIT",
