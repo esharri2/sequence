@@ -25,8 +25,6 @@ router.route("/sequence/:id").get((req, res) => {
 });
 
 router.route("/chime").get((req, res)=>{
-    console.log("CHIME")
-    console.log(path.join(__dirname, "../media/yogachime.wav"));   
     res.sendFile(path.join(__dirname, "../media/yogachime.wav"));
 })
 

@@ -11,8 +11,10 @@ import angledown from '@fortawesome/fontawesome-free-solid/faAngleDown';
 import trash from '@fortawesome/fontawesome-free-solid/faTrashAlt';
 import play from '@fortawesome/fontawesome-free-solid/faPlay';
 import pause from '@fortawesome/fontawesome-free-solid/faPause';
+import save from '@fortawesome/fontawesome-free-solid/faSave';
 
-fontawesome.library.add(times, angleup, angledown, trash, play, pause);
+
+fontawesome.library.add(times, angleup, angledown, trash, play, pause, save);
 
 //show loading while shecking auth
 //if not auth, show enter button

@@ -18,6 +18,10 @@ module.exports = {
     },
 
     saveSequence: (userId, sequence, res) => {
+        if (!sequence.title) {
+            sequence.title = "Untitled"
+        }
+
         db.Sequence.create(sequence).then(sequence => {
             db.User.findOneAndUpdate(
                 { userId: userId },

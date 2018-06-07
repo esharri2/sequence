@@ -1,12 +1,13 @@
 .player {
     margin: 0 auto;
     max-width: $max;
+    margin-top:20px;
     flex-grow: 1;
     font-family: $body-font;
     width: 100%;
     display: flex;
     flex-flow: column;
-    max-height: 650px;
+    max-height: calc(100vh - 50px);
 }
 
 .sequenceTitle {
@@ -82,6 +83,7 @@ button.save:enabled {
     flex-grow: 1;
     height: 0px;
     padding: 2px;
+    // max-height:200px;
 }
 
 .action {
