@@ -37,15 +37,10 @@ class About extends Component {
                     </button>
                     <h2>About</h2>
                     <div className="modal-body">
-                        <p>Sequence is a talking timer for yoga and exercise. You can build sequences, set durations for each activity, and then let it guide you during your workout. You can sign in to save your favorite sequences.</p>
-                        <p>Sequence is a talking timer for yoga and exercise. You can build sequences, set durations for each activity, and then let it guide you during your workout. You can sign in to save your favorite sequences.</p>
-                        <p>Sequence is a talking timer for yoga and exercise. You can build sequences, set durations for each activity, and then let it guide you during your workout. You can sign in to save your favorite sequences.</p>
-                        <p>Sequence is a talking timer for yoga and exercise. You can build sequences, set durations for each activity, and then let it guide you during your workout. You can sign in to save your favorite sequences.</p>
-                        <p>Sequence is a talking timer for yoga and exercise. You can build sequences, set durations for each activity, and then let it guide you during your workout. You can sign in to save your favorite sequences.</p>
-                        <p>Sequence is a talking timer for yoga and exercise. You can build sequences, set durations for each activity, and then let it guide you during your workout. You can sign in to save your favorite sequences.</p>
-                        <p>Sequence is a talking timer for yoga and exercise. You can build sequences, set durations for each activity, and then let it guide you during your workout. You can sign in to save your favorite sequences.</p>
-                        <p>Sequence is a talking timer for yoga and exercise. You can build sequences, set durations for each activity, and then let it guide you during your workout. You can sign in to save your favorite sequences.</p>
-                        <p>Sequence is a talking timer for yoga and exercise. You can build sequences, set durations for each activity, and then let it guide you during your workout. You can sign in to save your favorite sequences.</p>
+                        <p>Sequence is a talking timer for yoga and exercise. Build a series of poses, set a duration for each pose, and then listen to the timer guide you from one pose to the next.</p> 
+                        <p>Create an account to save your sequences.</p>
+                            
+                            
                     </div>
                 </Modal>
             </div>

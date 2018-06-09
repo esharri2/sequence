@@ -7,39 +7,36 @@ $accent-dark: #3A435E;
 $accent-light:#5f6e9b;
 $accent-lightest: #9ba4c1;
 $gray: #d3d7de;
-
 //FONT
 $logo-font:'Fjalla One',
 sans-serif;
 $body-font:'Roboto',
 san-serif;
-
 //SIZE
 $nav-height:50px;
 $border-radius:3px;
 $max:650px;
 $min:320px;
-
 //TIME
 $anim-time: .2s;
-
 //EXTENDS
 %input-shared {
-    background-color:inherit;
-    border-style:none;
-    box-shadow:none;
-    border-bottom: 1px solid $accent-lightest;
-    // color: $body-text-color;
-    font-size: inherit;
-    // border-radius:3px;
-    padding: 2px;
-    // transition: all 0.5s ease; 
+    background-color: inherit;
+    border-style: none;
+    box-shadow: none;
+    border-bottom: 1px solid $accent-lightest; // color: $body-text-color;
+    font-size: inherit; // border-radius:3px;
+    padding: 2px; // transition: all 0.5s ease; 
 }
 
 %input-shared-focus {
     border-bottom: 1px solid $accent-dark;
-    background-color:$gray;
-    outline:none;
+    background-color: $gray;
+    outline: none;
+}
+
+%default-fadeIn {
+    animation: .5s 1 fadeIn;
 }
 
 //IMPORTS
@@ -48,7 +45,6 @@ $anim-time: .2s;
 @import 'stylesheets/player';
 @import 'stylesheets/modal';
 @import 'stylesheets/loader';
-
 //REMOVE DEFAULTS
 button:focus {
     outline: 0;
@@ -82,17 +78,15 @@ body {
 button {
     cursor: pointer;
     background: none;
-    border: none;
-    // transition: all .2s;   
+    border: none; // transition: all .2s;   
 }
 
 div {
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
 
 .app {
-    display: flex;
-    // justify-content: center;
+    display: flex; // justify-content: center;
     align-items: center;
     flex-direction: column;
     height: 100vh;
@@ -130,47 +124,52 @@ div {
     background: $accent-dark;
 }
 
-
-@media screen and (max-width: 575px) { 
+@media screen and (max-width: 575px) {
     nav {
         .logo {
-            display:none;
+            display: none;
         }
         ul {
-            width:100%;
+            width: 100%;
         }
     }
-    
     .action {
-        flex-wrap:wrap;
+        flex-wrap: wrap;
     }
     .action .title {
-        width:100%;
-        padding-bottom:5px;
-    };
-    
-    .time {
-        flex-grow:1;
+        width: 100%;
+        padding-bottom: 5px;
     }
-
+    ;
+    .time {
+        flex-grow: 1;
+    }
     .modal {
         .modal-content {
-            width:95vw;
-            height:95vh;
+            width: 95vw;
+            height: 95vh;
         }
     }
-
-
-
     .time {
         .time-input input {
-            border-bottom:none;
-            // color:red;
+            border-bottom: none; // color:red;
         }
     }
+} ///ANIM testing
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
 
-  
-
-   
-   
- }
+@keyframes fadeOut {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}

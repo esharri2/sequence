@@ -9,6 +9,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-color: $accent-dark;
+    @extend %default-fadeIn;
     .logo {
         color: $background;
         font-size: calc(7vw + 1em); // font-weight: 600
@@ -21,11 +22,11 @@
         text-align: center;
     }
     .enter {
-        display:flex;
+        display: flex;
         justify-content: center;
-        align-items:center;
+        align-items: center;
         height: 8vw;
-        margin:12px 0;
+        margin: 12px 0;
         button {
             border-radius: $border-radius;
             background-color: $background;
@@ -35,9 +36,7 @@
             font-size: .9em;
             padding: 6px 12px;
         }
-    } 
-    
-    // .radial {
+    } // .radial {
     //     background: radial-gradient(circle closest-side, $accent-dark 50%, $background);
     //     height: 80vw;
     //     width: 80vw;
