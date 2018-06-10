@@ -133,6 +133,17 @@ div {
             width: 100%;
         }
     }
+
+    .controls {
+        padding-bottom:0;
+        flex-direction:column;
+        .main {
+            button {
+                flex-grow:1;
+            }
+        }
+    }
+   
     .action {
         flex-wrap: wrap;
     }
@@ -140,7 +151,7 @@ div {
         width: 100%;
         padding-bottom: 5px;
     }
-    ;
+  
     .time {
         flex-grow: 1;
     }

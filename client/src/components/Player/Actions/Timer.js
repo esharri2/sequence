@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 
 class Timer extends Component {
-    state = {
-        elapsed: 0
+    constructor(props) {
+        super(props);
+        this.state = { elapsed: 0 };
+        //Audio context for chime sound
+        // this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        //Global variable for audio source
+        this.audioSource = null;
     }
 
     duration = (this.props.minutes * 60) + (this.props.seconds);
 
     tick = () => {
         if (this.state.elapsed + 1 > this.duration) {
+            //go to next pose
             this.props.updateIndex(this.props.currentIndex + 1);
         } else {
+            //elapse timer for current pose
             this.setState({ elapsed: this.state.elapsed + 1 })
         }
     }
@@ -23,15 +30,18 @@ class Timer extends Component {
         const { voice, pitch, rate } = this.props.voiceConfig;
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         const audio = this.props.chime;
-        const source = audioCtx.createBufferSource();
-        source.onended = () => responsiveVoice.speak(this.props.title, voice, { rate, pitch, onend: this.timer });
+        this.audioSource = audioCtx.createBufferSource();
+        this.audioSource.onended = () => {
+            if (!this.props.paused) {
+                responsiveVoice.speak(this.props.title, voice, { rate, pitch, onend: this.timer })
+            }
+        };
         audioCtx.decodeAudioData(audio.slice(0), buffer => {
-            source.buffer = buffer;
-            source.connect(audioCtx.destination);
-            source.start(0);
+            this.audioSource.buffer = buffer;
+            this.audioSource.connect(audioCtx.destination);
+            this.audioSource.start(0);
         },
             (e) => { console.log("Error with decoding audio data" + e.err); });
-        //play chime, then this
     }
 
     componentDidMount() {
@@ -49,6 +59,8 @@ class Timer extends Component {
         }
         //Is paused
         else if (!prevProps.paused && this.props.paused) {
+            //also stop chime
+            this.audioSource.stop();
             clearInterval(this.timerID);
         }
     }

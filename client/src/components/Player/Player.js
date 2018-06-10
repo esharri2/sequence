@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Title from './Title';
 import Controls from './Controls';
 import Actions from './Actions';
-import Add from './Add';
 import api from '../../utils/api'
 
 class Player extends Component {
@@ -10,9 +9,9 @@ class Player extends Component {
         playing: false,
         paused: false,
         currentIndex: 0,
-        voice: "US English Male",
-        rate: .7,
-        pitch: 2
+        voice: "US English Female",
+        rate: 1,
+        pitch: 1
     }
 
     componentDidUpdate(prevProps) {
@@ -22,12 +21,13 @@ class Player extends Component {
             responsiveVoice.speak("Your sequence is over", voice, { rate, pitch, onend: this.stop });
         }
         //Stop everything if user has switched sequences during playing
-         if (prevProps.sequenceId !== this.props.sequenceId) {
-             this.stop();
-         }
+        if (prevProps.sequenceId !== this.props.sequenceId) {
+            this.stop();
+        }
     }
 
     play = () => {
+        responsiveVoice.speak("");
         this.setState({ playing: true, paused: false })
     }
 
@@ -40,13 +40,13 @@ class Player extends Component {
         responsiveVoice.cancel();
         this.setState({ currentIndex: 0, playing: false })
     }
-   
+
     //Change the index of playing session
     updateIndex = (index) => {
         this.setState({ currentIndex: index })
     }
 
-   
+
 
     render() {
         const voiceConfig = { voice: this.state.voice, pitch: this.state.pitch, rate: this.state.rate }
@@ -59,7 +59,8 @@ class Player extends Component {
                 <Controls
                     play={this.play}
                     pause={this.pause}
-                    stop={this.stop}                   
+                    stop={this.stop}
+                    add={this.props.add}
                     paused={this.state.paused}
                     playing={this.state.playing}
                     clear={this.props.clear}
@@ -82,7 +83,6 @@ class Player extends Component {
                     remove={this.props.remove}
                     sequenceId={this.props.sequenceId}
                 />
-                <Add add={this.props.add} />
             </div>
         )
     }

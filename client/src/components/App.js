@@ -38,6 +38,8 @@ class App extends Component {
                 this.setState({ authenticated: false })
             }
         })
+        responsiveVoice.speak("");
+
     }
 
     componentDidUpdate(prevProps, prevState) {
