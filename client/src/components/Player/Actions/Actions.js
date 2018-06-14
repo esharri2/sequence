@@ -44,6 +44,7 @@ class Actions extends Component {
                         voiceConfig={this.props.voiceConfig}
                         key={index}
                         chime={this.chime}
+                        ctx={this.props.ctx}
                         />)}
             </div>
         )
