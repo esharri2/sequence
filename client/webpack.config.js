@@ -8,6 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 const config = {
+    stats: {errorDetails:true},
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
