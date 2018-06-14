@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server --open",
-    "build": "NODE_ENV='production' webpack -p"
+    "build": "NODE_ENV='production' webpack -p",
+    "winbuild": "SET NODE_ENV='production' && webpack -p"
   },
   "license": "MIT",
   "babel": {
