@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
         }), //Sets process in compiled code
         new UglifyJsPlugin(), //minifies code
         new ManifestPlugin({ filename: 'asset-manifest-json' }), //creates asset manifest for service worker
-        new CopyWebpackPlugin([{ from: 'src/pwa', to: 'dist' }, //moves pwa stuff to dist file
+        new CopyWebpackPlugin([{ from: 'src/pwa', to: 'dist' }]), //moves pwa stuff to dist file
         new SWPrecacheWebpackPlugin({
             // By default, a cache-busting query parameter is appended to requests
             // used to populate the caches, to ensure the responses are fresh.
@@ -57,8 +57,7 @@ if (process.env.NODE_ENV === 'production') {
             minify: true, // minify and uglify the script
             navigateFallback: './src/index.html',
             staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-        })
-        ])
+        })        
     );
 
 }
