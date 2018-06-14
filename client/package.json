@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "proxy": "http://localhost:3000",
+  "engines": {
+    "node": "8.10.0"
+  },
   "scripts": {
     "start": "webpack-dev-server --open",
     "build": "NODE_ENV='production' webpack -p"
