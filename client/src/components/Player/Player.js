@@ -49,7 +49,6 @@ class Player extends Component {
 
 
     render() {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
         
         const voiceConfig = { voice: this.state.voice, pitch: this.state.pitch, rate: this.state.rate }
         return (
@@ -84,7 +83,6 @@ class Player extends Component {
                     changeActionIndex={this.props.changeActionIndex}
                     remove={this.props.remove}
                     sequenceId={this.props.sequenceId}
-                    ctx={ctx}
                 />
             </div>
         )

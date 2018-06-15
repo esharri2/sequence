@@ -4,6 +4,7 @@ class Timer extends Component {
     constructor(props) {
         super(props);
         this.state = { elapsed: 0 };
+        // context = new (window.AudioContext || window.webkitAudioContext)();
         //Global variable for audio source
         this.audioSource = null;
     }
@@ -25,22 +26,26 @@ class Timer extends Component {
     }
 
     sound = () => {
+        const context = new (window.AudioContext || window.webkitAudioContext)();
         const { voice, pitch, rate } = this.props.voiceConfig;
-        // const this.props.ctx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        const audio = this.props.chime;
-        this.audioSource = this.props.ctx.createBufferSource();
-        this.audioSource.onended = () => {
-            if (!this.props.paused) {
-                responsiveVoice.speak(this.props.title, voice, { rate, pitch, onend: this.timer })
-            }
-        };
-        this.props.ctx.decodeAudioData(audio.slice(0), buffer => {
-            this.audioSource.buffer = buffer;
-            this.audioSource.connect(this.props.ctx.destination);
-            this.audioSource.start(0);
-        },
-            (e) => { console.log("Error with decoding audio data" + e.err); });
+        //Do not play chime if it's not loaded OR browser/os is not allowing sound in window audio context
+        if (!this.props.chime || context.state === 'suspended') {            
+            responsiveVoice.speak(this.props.title, voice, { rate, pitch, onend: this.timer })
+        } else {
+            const audio = this.props.chime;
+            this.audioSource = context.createBufferSource();
+            this.audioSource.onended = () => {
+                if (!this.props.paused) {
+                    responsiveVoice.speak(this.props.title, voice, { rate, pitch, onend: this.timer })
+                }
+            };
+            context.decodeAudioData(audio.slice(0), buffer => {
+                this.audioSource.buffer = buffer;
+                this.audioSource.connect(context.destination);
+                this.audioSource.start(0);
+            },
+                (e) => { console.log("Error with decoding audio data" + e.err); });
+        }
     }
 
     componentDidMount() {

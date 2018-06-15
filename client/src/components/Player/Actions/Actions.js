@@ -17,7 +17,7 @@ class Actions extends Component {
 
     componentDidUpdate(prevProps) {  
         //TODO this scroll effect would occur if you loaded a sequence that happens to have one more pose in it.
-        //Refactor to fire only as a result of Add Pose
+        //Refactor to fire only as a result of Add Pose? perhaps also check title
         if (prevProps.actions.length + 1 === this.props.actions.length) {
             //Scroll to newly added action
             const container = document.querySelector(".actions");
@@ -44,7 +44,6 @@ class Actions extends Component {
                         voiceConfig={this.props.voiceConfig}
                         key={index}
                         chime={this.chime}
-                        ctx={this.props.ctx}
                         />)}
             </div>
         )

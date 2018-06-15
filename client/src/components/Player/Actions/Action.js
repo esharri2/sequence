@@ -34,7 +34,7 @@ const Action = props => {
                         updateIndex={props.updateIndex}
                         paused={props.paused}
                         chime={props.chime}
-                        ctx={props.ctx} />
+                     />
                     : <div className="time-input-container">
                         <div className="time-input">
                             <input
