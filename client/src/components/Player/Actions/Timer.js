@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 
 class Timer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { elapsed: 0 };
-        // context = new (window.AudioContext || window.webkitAudioContext)();
-        //Global variable for audio source
-        this.audioSource = null;
-    }
+    state = { elapsed: 0 };
+
+    audioSource = null;
 
     duration = (this.props.minutes * 60) + (this.props.seconds);
 
@@ -29,7 +25,7 @@ class Timer extends Component {
         const context = new (window.AudioContext || window.webkitAudioContext)();
         const { voice, pitch, rate } = this.props.voiceConfig;
         //Do not play chime if it's not loaded OR browser/os is not allowing sound in window audio context
-        if (!this.props.chime || context.state === 'suspended') {            
+        if (!this.props.chime || context.state === 'suspended') {
             responsiveVoice.speak(this.props.title, voice, { rate, pitch, onend: this.timer })
         } else {
             const audio = this.props.chime;
@@ -76,6 +72,7 @@ class Timer extends Component {
         const remainingSeconds = ("0" + (remainingTotal % 60)).slice(-2);
         return (
             <div className="elapsed">
+            <p>{this.props.currentIndex}</p>
                 <div className="minutes">{remainingMinutes}: </div>
                 <div className="seconds">{remainingSeconds}</div>
             </div>

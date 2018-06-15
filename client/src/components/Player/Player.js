@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Title from './Title';
 import Controls from './Controls';
 import Actions from './Actions';
-import api from '../../utils/api'
 
 class Player extends Component {
     state = {
@@ -45,8 +44,6 @@ class Player extends Component {
     updateIndex = (index) => {
         this.setState({ currentIndex: index })
     }
-
-
 
     render() {
         
