@@ -60,8 +60,10 @@ class Timer extends Component {
         //Is paused
         else if (!prevProps.paused && this.props.paused) {
             //also stop chime
-            this.audioSource.stop();
             clearInterval(this.timerID);
+            if (this.audioSource) {
+                this.audioSource.stop();
+            }
         }
     }
 
@@ -72,7 +74,6 @@ class Timer extends Component {
         const remainingSeconds = ("0" + (remainingTotal % 60)).slice(-2);
         return (
             <div className="elapsed">
-            <p>{this.props.currentIndex}</p>
                 <div className="minutes">{remainingMinutes}: </div>
                 <div className="seconds">{remainingSeconds}</div>
             </div>

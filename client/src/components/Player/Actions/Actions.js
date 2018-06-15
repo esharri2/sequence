@@ -4,10 +4,7 @@ import api from '../../../utils/api'
 
 class Actions extends Component {
 
-    constructor(props) {
-        super(props);
-        this.chime = null;
-    }
+    chime = null;
 
     componentDidMount() {
         api.chime().then(chime => {
