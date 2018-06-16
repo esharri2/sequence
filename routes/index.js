@@ -15,6 +15,10 @@ router.use("/", (req, res, next) => {
 router.use("/api", userAction);
 router.use("/api", userManagement);
 
+router.use("/service-worker.js", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "..client/dist/service-worker.js"));
+  });
+
 router.use((req, res) => {
     res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });

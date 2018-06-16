@@ -53,6 +53,7 @@ class Timer extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        console.log("timer updated")
         //Was paused
         if (prevProps.paused && !this.props.paused) {
             this.timer();
