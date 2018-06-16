@@ -26,7 +26,6 @@ class Player extends Component {
     }
 
     play = () => {
-        responsiveVoice.speak("");
         this.setState({ playing: true, paused: false })
     }
 
@@ -50,7 +49,6 @@ class Player extends Component {
         const voiceConfig = { voice: this.state.voice, pitch: this.state.pitch, rate: this.state.rate }
         return (
             <div className="player">
-            {this.state.currentIndex}
                 <Title
                     title={this.props.title}
                     handleSequenceChange={this.props.handleSequenceChange}

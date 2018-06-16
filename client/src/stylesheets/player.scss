@@ -8,6 +8,7 @@
     display: flex;
     flex-flow: column;
     max-height: calc(100vh - 50px);
+    overflow-x:hidden;
     @extend %default-fadeIn;
 }
 

@@ -24,9 +24,10 @@ $anim-time: .2s;
     background-color: inherit;
     border-style: none;
     box-shadow: none;
-    border-bottom: 1px solid $accent-lightest; // color: $body-text-color;
-    font-size: inherit; // border-radius:3px;
-    padding: 2px; // transition: all 0.5s ease; 
+    border-radius: 0;
+    border-bottom: 1px solid $accent-lightest; 
+    font-size: inherit; 
+    padding: 2px;  
 }
 
 %input-shared-focus {
@@ -124,7 +125,11 @@ div {
     background: $accent-dark;
 }
 
-@media screen and (max-width: 575px) {
+body {
+    padding:0px 4px;
+}
+
+@media screen and (max-width: 600px) {
     nav {
         .logo {
             display: none;
@@ -133,29 +138,30 @@ div {
             width: 100%;
         }
     }
-
     .controls {
-        padding-bottom:0;
+        padding-bottom: 0;
         justify-content: center;
-        flex-direction:column;
+        flex-direction: column;
         .main {
             button {
-                flex-grow:1;
+                flex-grow: 1;
             }
         }
     }
-   
     .action {
         flex-wrap: wrap;
+        .title {
+            width: 100%;
+            padding-bottom: 5px;
+        }
+        .time {
+            flex-grow: 1;
+        }
+        .elapsed {
+            margin: 0 0 0 4px;
+        }
     }
-    .action .title {
-        width: 100%;
-        padding-bottom: 5px;
-    }
-  
-    .time {
-        flex-grow: 1;
-    }
+ 
     .modal {
         .modal-content {
             width: 95vw;
