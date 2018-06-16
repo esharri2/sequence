@@ -47,7 +47,7 @@ if (process.env.NODE_ENV === 'production') {
             // If a URL is already hashed by Webpack, then there is no concern
             // about it being stale, and the cache-busting can be skipped.
             dontCacheBustUrlsMatching: /\.\w{8}\./,
-            filename: 'src/service-worker.js',
+            filename: 'service-worker.js',
             logger(message) {
                 if (message.indexOf('Total precache size is') === 0) {
                     return;
@@ -55,7 +55,7 @@ if (process.env.NODE_ENV === 'production') {
                 console.log(message);
             },
             minify: true, // minify and uglify the script
-            navigateFallback: './src/index.html',
+            navigateFallback: '/index.html',
             staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
         })        
     );
