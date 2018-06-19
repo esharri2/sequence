@@ -7,8 +7,7 @@
     width: 100%;
     display: flex;
     flex-flow: column;
-    max-height: calc(100vh - 50px);
-    overflow-x:hidden;
+    // max-height: calc(100vh - 50px);
     @extend %default-fadeIn;
 }
 
@@ -27,7 +26,7 @@
 }
 
 .controls button,
-.player>button {
+.player>button, .actions>button {
     border-radius: $border-radius; // border:solid 1px $accent-dark;    
     background-color: $accent-dark;
     font-family: inherit;
@@ -100,10 +99,6 @@ button.save:enabled {
 
 //Actions
 .actions {
-    overflow-y: auto;
-    overflow-x: hidden;
-    flex-grow: 1;
-    height: 0px;
     padding: 2px;
 }
 
@@ -192,4 +187,9 @@ button.save:enabled {
     div {
         display: inline;
     }
+}
+
+.top {
+    width:100%;
+    margin: 10px 0;
 }

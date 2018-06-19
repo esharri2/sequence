@@ -16,6 +16,7 @@ class UserSequences extends Component {
 
     getSequences = () => {
         api.getSequences().then(res => {
+            console.log(res.data.sequences)
             const sequences = res.data.sequences ? res.data.sequences : [];
             this.setState({ sequences })
         })
@@ -58,6 +59,18 @@ class UserSequences extends Component {
                 return 0;
             })
 
+            //Create array of just titles and total time
+            const sequenceList = sortedSequences.map(sequence => {
+                let time = 0;
+                sequence.actions.forEach(action => {
+                    time += action.duration;
+                });
+                let minutes = ("0" + Math.floor(time / 60)).slice(-2);
+                let seconds = ("0" + time % 60).slice(-2);
+                sequence.duration = ` (${minutes}:${seconds})`
+            })
+
+
             body = <div className="sequence-list">
                 {sortedSequences.map(
                     sequence => {
@@ -72,6 +85,7 @@ class UserSequences extends Component {
                                 this.props.setSequence(sequence._id);
                             }}>
                                 {sequence.title}
+                                {sequence.duration}
                             </p>
                             <button className="del-sequence" data-id={sequence._id} onClick={this.remove}>
                                 <FontAwesomeIcon className="icon" icon="trash-alt" />

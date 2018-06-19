@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Action from './Action';
+import ScrollUp from './ScrollUp'
 import api from '../../../utils/api'
 
 class Actions extends Component {
@@ -12,18 +13,15 @@ class Actions extends Component {
         })
     }
 
-    componentDidUpdate(prevProps) {  
-        //TODO this scroll effect would occur if you loaded a sequence that happens to have one more pose in it.
-        //Refactor to fire only as a result of Add Pose? perhaps also check title
-        if (prevProps.actions.length + 1 === this.props.actions.length) {
-            //Scroll to newly added action
-            const container = document.querySelector(".actions");
-            const newActionTop = document.querySelector(".actions>*:last-child").offsetTop
-            container.scrollTop = newActionTop;
-        }
-    }
-
     render() {
+
+        let scrollUp;
+        if (document.documentElement.offsetHeight > window.innerHeight + 40) {
+            scrollUp = <ScrollUp />
+        } else {
+            scrollUp = null;
+        }
+
         return (
             <div className="actions">
                 {this.props.actions.map((action, index) =>
@@ -41,7 +39,8 @@ class Actions extends Component {
                         voiceConfig={this.props.voiceConfig}
                         key={index}
                         chime={this.chime}
-                        />)}
+                    />)}
+                {scrollUp}
             </div>
         )
     }

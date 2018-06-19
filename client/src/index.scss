@@ -63,13 +63,13 @@ input::-webkit-inner-spin-button {
     box-sizing: border-box;
 }
 
+
+
 body {
     background-color: $background;
     color: $body-text-color;
     font-family: $body-font;
     font-size: 1em;
-    overflow: hidden;
-    overflow-x: auto;
     min-width: $min;
     * {
         transition: all .1s;
@@ -90,8 +90,6 @@ div {
     display: flex; // justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100vh;
-    min-height: 350px;
 }
 
 .logo {
