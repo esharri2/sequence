@@ -1,13 +1,13 @@
 .player {
     margin: 0 auto;
     max-width: $max;
+    padding: 0 5px;
     margin-top: 20px;
     flex-grow: 1;
     font-family: $body-font;
     width: 100%;
     display: flex;
     flex-flow: column;
-    // max-height: calc(100vh - 50px);
     @extend %default-fadeIn;
 }
 

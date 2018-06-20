@@ -4,6 +4,9 @@ import ScrollUp from './ScrollUp'
 import api from '../../../utils/api'
 
 class Actions extends Component {
+    state = {
+        showScrollUp: false
+    }
 
     chime = null;
 
@@ -13,15 +16,18 @@ class Actions extends Component {
         })
     }
 
-    render() {
-
-        let scrollUp;
-        if (document.documentElement.offsetHeight > window.innerHeight + 40) {
-            scrollUp = <ScrollUp />
-        } else {
-            scrollUp = null;
+    componentDidUpdate(prevProps) {
+        //Check doc height relative to window height to determine if "Back to top" needs to show
+        const docHeight = document.documentElement.offsetHeight;
+        const winHeight = window.innerHeight + 40;
+        if (this.state.showScrollUp && docHeight < winHeight) {
+            this.setState({ showScrollUp: false })
+        } else if (!this.state.showScrollUp && docHeight > winHeight) {
+            this.setState({ showScrollUp: true })
         }
+    }
 
+    render() {
         return (
             <div className="actions">
                 {this.props.actions.map((action, index) =>
@@ -40,7 +46,7 @@ class Actions extends Component {
                         key={index}
                         chime={this.chime}
                     />)}
-                {scrollUp}
+                {this.state.showScrollUp ? <ScrollUp /> : null}
             </div>
         )
     }
