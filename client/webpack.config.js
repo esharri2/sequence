@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === 'production') {
             }
         }), //Sets process in compiled code
         new UglifyJsPlugin(), //minifies code
-        new ManifestPlugin({ filename: 'asset-manifest-json' }), //creates asset manifest for service worker
+        new ManifestPlugin({ fileName: 'asset-manifest-json' }), //creates asset manifest for service worker
         
         new SWPrecacheWebpackPlugin({
             // By default, a cache-busting query parameter is appended to requests
