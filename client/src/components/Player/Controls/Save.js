@@ -6,6 +6,7 @@ import faSave from '@fortawesome/fontawesome-free-solid/faSave';
 const Save = props =>
     (<button
         className="save"
+        aria-label="save"
         onClick={props.save}
         disabled={props.unsaved ? false : true}>
         <FontAwesomeIcon

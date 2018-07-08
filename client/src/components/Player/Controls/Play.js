@@ -4,7 +4,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 // import faPause from '@fortawesome/fontawesome-free-solid/faPause';
 
 const Play = props => props.paused || !props.playing
-    ? <button className="play" onClick={props.play}><FontAwesomeIcon className="icon" icon="play"/>Play</button>
-    : <button className="pause" onClick={props.pause}><FontAwesomeIcon className="icon" icon="pause"/>Pause</button>
+    ? <button aria-label="play" className="play" onClick={props.play}><FontAwesomeIcon className="icon" icon="play"/>Play</button>
+    : <button aria-label="pause" className="pause" onClick={props.pause}><FontAwesomeIcon className="icon" icon="pause"/>Pause</button>
 
 export default Play;

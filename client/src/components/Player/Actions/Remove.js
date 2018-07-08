@@ -10,7 +10,7 @@ const Remove = props => {
 
     return <div className="remove">
         <button disabled={props.playing} onClick={handleClick}>
-            <FontAwesomeIcon className="icon remove" icon={faTimes} />
+            <FontAwesomeIcon aria-label="remove pose" className="icon remove" icon={faTimes} />
         </button>
     </div>
 }

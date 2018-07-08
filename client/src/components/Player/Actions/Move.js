@@ -9,10 +9,10 @@ const Move = props => {
 
     return (
         <div className="move input-container">
-            {props.index !== 0 ? <button disabled={props.playing} onClick={() => handleClick(-1)}>
+            {props.index !== 0 ? <button aria-label="move up" disabled={props.playing} onClick={() => handleClick(-1)}>
                 <FontAwesomeIcon className="icon" icon="angle-up" />
             </button> : null}
-            {props.index !== (props.length - 1) ? <button disabled={props.playing} onClick={() => handleClick(1)}>
+            {props.index !== (props.length - 1) ? <button aria-label="move down" disabled={props.playing} onClick={() => handleClick(1)}>
                 <FontAwesomeIcon className="icon" icon="angle-down" />
             </button> : null}
         </div>)
