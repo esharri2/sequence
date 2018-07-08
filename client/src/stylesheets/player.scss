@@ -48,6 +48,10 @@
     }
 }
 
+.controls button:focus {
+    background-color: $accent-light;
+}
+
 button.save:enabled {
     animation: .2s 4 alternate bounce;
 }
@@ -92,7 +96,9 @@ button.save:enabled {
                 color: $accent-light;
             }
             background-color:$background;
-
+        }
+        button:focus {
+            color: $accent-light;
         }
     }
 }
@@ -107,7 +113,7 @@ button.save:enabled {
     padding: 7px;
     margin: 7px 0;
     @extend %default-fadeIn;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     input {
         @extend %input-shared;
     }
@@ -139,14 +145,14 @@ button.save:enabled {
             padding: 0 4px 0 3px;
             vertical-align: bottom;
             text-transform: uppercase;
-            font-size: .7em;
+            font-size: 1em;
         }
     }
     button {
         color: $accent-dark;
-        font-size: 1em;
+        font-size: 1.2em;
     }
-    button:hover {
+    button:hover, button:focus {
         color: $accent-light;
     }
     button:disabled {

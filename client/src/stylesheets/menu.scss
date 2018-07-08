@@ -36,10 +36,10 @@ nav {
         width: 100%;
         height: 100%; // transition: all .2s;
     }
-    button:hover {
-        color: $accent-light; // background-color: $accent-dark;
-        // border-bottom: 1px solid $accent-light;
+    button:hover, button:focus {
+        color: $accent-light; 
     }
+ 
 }
 
 .sequence-list {
