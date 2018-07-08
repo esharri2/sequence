@@ -16,7 +16,6 @@ router.route("/update").post((req, res) => {
 });
 
 router.route("/delete/:id").delete((req, res) => {
-    console.log(req.params.id)
     controller.deleteSequence(req.params.id, res);
 })
 

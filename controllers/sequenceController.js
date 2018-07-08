@@ -11,7 +11,6 @@ module.exports = {
     getSequence: (id, res) => {
         db.Sequence.findOne({ _id: id })
             .then(sequence => {
-                console.log(sequence)
                 res.json(sequence);
             })
             .catch(console.error)
@@ -34,7 +33,6 @@ module.exports = {
     },
 
     deleteSequence: (id, res) => {
-        console.log(id)
         db.Sequence.deleteOne({ _id: id })
             .then(data => res.json(data))
             .catch(console.error)

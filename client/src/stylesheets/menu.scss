@@ -7,7 +7,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @extend %default-fadeIn;
+    @extend %default-fadeIn;    
     
     ul {
         display: flex;
