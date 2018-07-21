@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
-
 class About extends Component {
     state = {
         modalIsOpen: false
@@ -37,10 +36,7 @@ class About extends Component {
                     </button>
                     <h2>About</h2>
                     <div className="modal-body">
-                        <p>Sequence is a talking timer for yoga and exercise. Build a series of poses, set a duration for each pose, and then listen to the timer guide you from one pose to the next.</p> 
-                        <p>Create an account to save your sequences.</p>
-                            
-                            
+                        <p>Sequence is a talking timer for yoga and exercise. Build a series of poses, set a duration for each pose, and then listen to the timer guide you from one pose to the next.</p>                                                        
                     </div>
                 </Modal>
             </div>

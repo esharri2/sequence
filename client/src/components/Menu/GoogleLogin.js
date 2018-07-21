@@ -1,18 +1,35 @@
 import React, { Component } from 'react';
+import Loader from './Loader.js';
 import api from "../../utils/api";
 
 class GoogleLogin extends Component {
 
+    state = {
+        signedIntoGoogle: null
+    }
+
+    //check to see if user is signed in to Google
     componentDidMount() {
-        gapi.signin2.render('g-signin2', {
-            // 'scope': 'https://www.googleapis.com/auth/plus.login',
-            'scope':'profile email',
-            // 'width': 200,
-            // 'height': 50,
-            // 'longtitle': true,
-            'onsuccess': this.onSignIn,
-            'onfailure': this.onFailure,
+        gapi.load('auth2', () => {
+            gapi.auth2.init().then(auth2 => {
+                if (auth2.isSignedIn.get()) {
+                    this.onSignIn(auth2.currentUser.get());                   
+                } else {
+                    this.setState({ signedIntoGoogle: false })
+                }
+            })
         });
+    }
+
+    componentDidUpdate() {
+        if (this.state.signedIntoGoogle === false) {
+            console.log("yo")
+            gapi.signin2.render('g-signin2', {
+                'scope': 'profile email',
+                'onsuccess': this.onSignIn,
+                'onfailure': this.onFailure,
+            });
+        } 
     }
 
     onSignIn = (googleUser) => {
@@ -22,13 +39,19 @@ class GoogleLogin extends Component {
         });
     }
     onFailure = (error) => {
+        alert(error);
         console.log(error);
     }
 
-    render() {
-        return <div id="g-signin2" data-theme="dark"></div>
+    render() {  
+        return (
+            <div>
+                {this.state.signedIntoGoogle === false ? <div id="g-signin2" data-theme="dark"></div> : <Loader/>}
+            </div>
+        )
     }
-
 }
+
+
 
 export default GoogleLogin;

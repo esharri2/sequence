@@ -5,7 +5,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 class Login extends Component {
     state = {
-        modalIsOpen: false
+        modalIsOpen: false,
     }
 
     componentWillMount() {
@@ -20,13 +20,12 @@ class Login extends Component {
         this.setState({ modalIsOpen: false });
     }
 
-    render() {
+    render() {      
         return (
             <div>
                 <button onClick={this.openModal}>Sign in</button>
                 <Modal
                     isOpen={this.state.modalIsOpen}
-                    onAfterOpen={this.getSequences}
                     onRequestClose={this.closeModal}
                     className="modal-content"
                     overlayClassName="modal"
@@ -37,7 +36,7 @@ class Login extends Component {
                     </button>
                     <h2>Sign in</h2>
                     <div className="modal-body">
-                        <p>Sign in to save your sequences. We won't save any of your personal information.</p>
+                        <p>Sign in to save your sequences. We will only store your name and email.</p>
                         <GoogleLogin toggleAuth={this.props.toggleAuth} />
                     </div>
                 </Modal>
