@@ -108,11 +108,13 @@ class App extends Component {
             if (index === parseInt(dataset.index)) {
                 const minutes = Math.floor(action.duration / 60);
                 const seconds = Math.floor(action.duration % 60);
-                !value ? value = 0 : null;
+
                 if (name === "seconds") {
+                    !value ? value = 0 : null;
                     name = "duration";
                     value = (minutes * 60) + parseInt(value);
                 } else if (name === "minutes") {
+                    !value ? value = 0 : null;
                     name = "duration";
                     value = seconds + parseInt(value) * 60;
                 }
