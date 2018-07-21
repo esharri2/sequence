@@ -7,11 +7,13 @@ const Action = props => {
     const { title, duration } = props.action;
     const durationMinutes = Math.floor((duration) / 60);
     const durationSeconds = (duration) % 60;
+    
     //Set boolean to show if this action is playing
     let active = false;
     if (props.currentIndex === props.actionIndex && props.playing) {
         active = true;
     }
+    
     return (
         <div className={`action ${active ? "active" : "inactive"}`}>
             <div className="title input-container">

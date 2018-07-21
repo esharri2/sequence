@@ -9,9 +9,7 @@ const Save = props =>
         aria-label="save"
         onClick={props.save}
         disabled={props.unsaved ? false : true}>
-        <FontAwesomeIcon
-            className="icon"
-            icon="save" />
+        <FontAwesomeIcon className="icon" icon="save" />
         Save
     </button>)
 

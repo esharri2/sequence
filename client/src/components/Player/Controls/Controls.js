@@ -4,20 +4,20 @@ import Save from './Save';
 import Stop from './Stop';
 import Add from './Add';
 
-// import Clear from './Clear';
-
 const Controls = (props) => {
-    return (
+
+    const {play, pause, paused, playing, stop, authenticated, save, unsaved, add} = props
+
+    return (        
         <div className="controls">
             <div className="main">
-                <Play play={props.play} pause={props.pause} paused={props.paused} playing={props.playing} />
-                <Stop stop={props.stop} playing={props.playing} />
-                {/* add conditioanls */}
-                {props.authenticated ? <Save save={props.save} unsaved={props.unsaved} /> : null}
-
+                <Play play={play} pause={pause} paused={paused} playing={playing} />
+                <Stop stop={stop} playing={playing} />
+                {authenticated ? <Save save={save} unsaved={unsaved} /> : null}
             </div>
             <div className="sub">
-                <Add add={props.add} />           </div>
+                <Add add={add} />
+            </div>
         </div>
     )
 }

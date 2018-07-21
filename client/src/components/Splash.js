@@ -1,6 +1,4 @@
 import React from 'react';
-import Loader from './Menu/Loader';
-
 
 const Splash = props => {
     let option;
@@ -15,7 +13,6 @@ const Splash = props => {
     return (
         <div className="splash">
             <h1 className="logo">Sequence</h1>
-            {/* <div className="radial"></div> */}
             <h2>A talking timer for your yoga practice</h2>
             <div className="enter">{option}</div>
         </div>

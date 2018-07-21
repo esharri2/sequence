@@ -16,7 +16,7 @@ class Actions extends Component {
         })
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate() {
         //Check doc height relative to window height to determine if "Back to top" needs to show
         const docHeight = document.documentElement.offsetHeight;
         const winHeight = window.innerHeight + 40;
@@ -36,15 +36,15 @@ class Actions extends Component {
                         changeActionIndex={this.props.changeActionIndex}
                         remove={this.props.remove}
                         updateIndex={this.props.updateIndex}
-                        action={action}
-                        actionIndex={index}
                         length={this.props.length}
                         currentIndex={this.props.currentIndex}
                         playing={this.props.playing}
                         paused={this.props.paused}
                         voiceConfig={this.props.voiceConfig}
-                        key={index}
                         chime={this.chime}
+                        action={action}
+                        actionIndex={index}                       
+                        key={index}
                     />)}
                 {this.state.showScrollUp ? <ScrollUp /> : null}
             </div>
