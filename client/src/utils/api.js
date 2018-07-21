@@ -14,9 +14,8 @@ export default {
     authcheck: (id) => {
         return axios.get("/api/authcheck", { id })
     },
-    //not sure if I need userid here...
-    save: (userId, sequence) => {
-        return axios.post("/api/save", { userId, sequence })
+    save: (sequence) => {
+        return axios.post("/api/save", { sequence })
     },
     update: (sequenceId, sequence) => {
         return axios.post("/api/update", { sequenceId, sequence })
