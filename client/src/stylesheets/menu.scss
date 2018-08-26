@@ -1,14 +1,18 @@
-nav {
+.menu {
     background-color: $background;
+    position: fixed;
+    // top: 0;
+    z-index:100;
+    // margin: 0 auto;
+    margin-top: 0px;
+
+    height: $nav-height;
     width: 100%;
     max-width: $max;
-    min-width: $min;
-    height: $nav-height;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @extend %default-fadeIn;    
-    
+    @extend %default-fadeIn;
     ul {
         display: flex;
         align-items: center;
@@ -36,10 +40,10 @@ nav {
         width: 100%;
         height: 100%; // transition: all .2s;
     }
-    button:hover, button:focus {
-        color: $accent-light; 
+    button:hover,
+    button:focus {
+        color: $accent-light;
     }
- 
 }
 
 .sequence-list {
@@ -53,6 +57,7 @@ nav {
     }
     p:hover {
         background-color: $accent-light;
+        padding-left: 5px;
     }
     .current {
         background-color: $accent-light;

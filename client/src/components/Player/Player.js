@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Title from './Title';
 import Controls from './Controls';
 import Actions from './Actions';
+import Wrapper from './Wrapper';
+
 
 class Player extends Component {
     state = {
@@ -45,27 +47,29 @@ class Player extends Component {
     }
 
     render() {
-        
+
         const voiceConfig = { voice: this.state.voice, pitch: this.state.pitch, rate: this.state.rate }
         return (
             <div className="player">
-                <Title
-                    title={this.props.title}
-                    handleSequenceChange={this.props.handleSequenceChange}
-                />
-                <Controls
-                    play={this.play}
-                    pause={this.pause}
-                    stop={this.stop}
-                    add={this.props.add}
-                    paused={this.state.paused}
-                    playing={this.state.playing}
-                    clear={this.props.clear}
-                    save={this.props.save}
-                    unsaved={this.props.unsaved}
-                    setSequence={this.props.setSequence}
-                    authenticated={this.props.authenticated}
-                />
+                <Wrapper class="sequenceControls">
+                    <Title
+                        title={this.props.title}
+                        handleSequenceChange={this.props.handleSequenceChange}
+                    />
+                    <Controls
+                        play={this.play}
+                        pause={this.pause}
+                        stop={this.stop}
+                        add={this.props.add}
+                        paused={this.state.paused}
+                        playing={this.state.playing}
+                        clear={this.props.clear}
+                        save={this.props.save}
+                        unsaved={this.props.unsaved}
+                        setSequence={this.props.setSequence}
+                        authenticated={this.props.authenticated}
+                    />
+                </Wrapper>
                 <Actions
                     title={this.props.title}
                     actions={this.props.actions}

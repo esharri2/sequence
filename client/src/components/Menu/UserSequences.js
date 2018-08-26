@@ -115,7 +115,7 @@ class UserSequences extends Component {
                     </button>
                     <h2>Saved sequences</h2>
                     {body}
-                    <h2>Samples sequences</h2>
+                    {/* <h2>Samples sequences</h2> */}
                 </Modal>
             </div>
         )

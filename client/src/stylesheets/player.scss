@@ -1,14 +1,21 @@
 .player {
     margin: 0 auto;
     max-width: $max;
-    padding: 0 5px;
-    margin-top: 20px;
-    flex-grow: 1;
+    // padding: 0 5px;  
     font-family: $body-font;
     width: 100%;
     display: flex;
     flex-flow: column;
     @extend %default-fadeIn;
+}
+
+.sequenceControls {
+    position:fixed;
+    width:100%;
+    top:$nav-height;
+    max-width:$max;
+    z-index:100;
+    background-color:$background;
 }
 
 .sequenceTitle {
@@ -106,6 +113,9 @@ button.save:enabled {
 //Actions
 .actions {
     padding: 2px;
+    overflow-y:auto;
+    width:100%;
+    max-width:$max;
 }
 
 .action {
@@ -113,7 +123,6 @@ button.save:enabled {
     padding: 7px;
     margin: 7px 0;
     @extend %default-fadeIn;
-    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     input {
         @extend %input-shared;
     }

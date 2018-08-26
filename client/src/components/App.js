@@ -26,6 +26,7 @@ class App extends Component {
         title: "",
         actions: this.defaultSequence,
         unsaved: false,
+        windowHeight: 0
     }
 
     componentDidMount() {
@@ -34,6 +35,9 @@ class App extends Component {
                 ? this.setState({ authenticated: true })
                 : this.setState({ authenticated: false })
         })
+        this.setState({windowHeight:window.innerHeight})
+
+
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -130,6 +134,11 @@ class App extends Component {
     }
 
     render() {
+
+        const divStyle = {
+            height:this.state.windowHeight
+          };
+
         let components;
 
         if (this.state.showSplash && !this.state.authenticated) {
@@ -141,7 +150,7 @@ class App extends Component {
                 </div>
         } else {
             components =
-                <div id="root" className="app">
+                <div id="root" style={divStyle} className="app">
                     <Menu
                         authenticated={this.state.authenticated}
                         sequenceId={this.state.sequenceId}

@@ -1,35 +1,53 @@
 import React, { Component } from 'react';
 import Action from './Action';
-import ScrollUp from './ScrollUp'
+// import ScrollUp from './ScrollUp'
 import api from '../../../utils/api'
 
 class Actions extends Component {
     state = {
-        showScrollUp: false
+        top: null
     }
 
     chime = null;
+
+    getTop = () => document.querySelector(".sequenceControls").getBoundingClientRect().bottom
+
 
     componentDidMount() {
         api.chime().then(chime => {
             this.chime = chime.data;
         })
+        this.setState({
+            top: this.getTop()
+        })
+        window.addEventListener('resize', this.getTop) 
+    }
+
+    componentWillUnmount(){
+
     }
 
     componentDidUpdate() {
         //Check doc height relative to window height to determine if "Back to top" needs to show
-        const docHeight = document.documentElement.offsetHeight;
-        const winHeight = window.innerHeight + 40;
-        if (this.state.showScrollUp && docHeight < winHeight) {
-            this.setState({ showScrollUp: false })
-        } else if (!this.state.showScrollUp && docHeight > winHeight) {
-            this.setState({ showScrollUp: true })
-        }
+        // const docHeight = document.documentElement.offsetHeight;
+        // const winHeight = window.innerHeight + 40;
+        // if (this.state.showScrollUp && docHeight < winHeight) {
+        //     this.setState({ showScrollUp: false })
+        // } else if (!this.state.showScrollUp && docHeight > winHeight) {
+        //     this.setState({ showScrollUp: true })
+        // }
+
     }
 
     render() {
+
+        const divStyle = {
+            position: 'absolute',
+            top: this.state.top
+        }
+
         return (
-            <div className="actions">
+            <div style={divStyle} className="actions">
                 {this.props.actions.map((action, index) =>
                     <Action
                         handleActionsChange={this.props.handleActionsChange}
@@ -43,10 +61,10 @@ class Actions extends Component {
                         voiceConfig={this.props.voiceConfig}
                         chime={this.chime}
                         action={action}
-                        actionIndex={index}                       
+                        actionIndex={index}
                         key={index}
                     />)}
-                {this.state.showScrollUp ? <ScrollUp /> : null}
+                {/* {this.state.showScrollUp ? <ScrollUp /> : null} */}
             </div>
         )
     }

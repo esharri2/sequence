@@ -7,7 +7,7 @@ import Clear from './Clear';
 
 const Menu = props => {
     return (
-        <nav>
+        <nav className="menu">
             <div className="logo">Sequence</div>
             <ul>
                 <li>
