@@ -8,8 +8,8 @@
   "scripts": {
     "server": "node server.js",
     "client": "cd client && npm start",
-    "dev": "concurrently \"nodemon server\" \"npm client\"",
-    "start": "concurrently \"npm server\" \"npm client\"",
+    "dev": "concurrently \"nodemon run server\" \"npm run client\"",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "cd client && npm install && npm build"
   },
   "license": "MIT",
