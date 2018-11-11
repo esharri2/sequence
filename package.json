@@ -7,10 +7,10 @@
   },
   "scripts": {
     "server": "node server.js",
-    "client": "cd client && yarn start",
-    "dev": "concurrently \"nodemon server\" \"yarn client\"",
-    "start": "concurrently \"yarn server\" \"yarn client\"",
-    "heroku-postbuild": "cd client && yarn install && yarn build"
+    "client": "cd client && npm start",
+    "dev": "concurrently \"nodemon server\" \"npm client\"",
+    "start": "concurrently \"npm server\" \"npm client\"",
+    "heroku-postbuild": "cd client && npm install && npm build"
   },
   "license": "MIT",
   "dependencies": {
