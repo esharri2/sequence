@@ -10,7 +10,7 @@
     "client": "cd client && npm start",
     "dev": "concurrently \"nodemon run server\" \"npm run client\"",
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "cd client && npm install && npm build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "license": "MIT",
   "dependencies": {
