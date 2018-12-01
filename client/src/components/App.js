@@ -30,11 +30,11 @@ class App extends Component {
     }
 
     componentDidMount() {
-        api.authcheck().then(res => {
-            res.data.authenticated
-                ? this.setState({ authenticated: true })
-                : this.setState({ authenticated: false })
-        })
+        // api.authcheck().then(res => {
+        //     res.data.authenticated
+        //         ? this.setState({ authenticated: true })
+        //         : this.setState({ authenticated: false })
+        // })
         this.setState({windowHeight:window.innerHeight})
 
 
