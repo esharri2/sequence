@@ -1,17 +1,37 @@
-const path = require("path");
+const express = require("express");
 const router = require("express").Router();
-const userAction = require("./sequences.js");
-const userManagement = require("./users.js");
+const cors = require("cors");
+const authRoutes = require("./auth");
+const userRoutes = require("./user");
+const emailRoutes = require("./email");
 
-router.use("/api", userAction);
-router.use("/api", userManagement);
+const isCorsAllowed = (origin, req) => {
+  console.log("hi");
+  const environment = express().get("env");
+  if (environment === "development") {
+    return true;
+  } else {
+    return (
+      origin === process.env.ORIGIN ||
+      (!origin && req.query.apikey === process.env.API_KEY)
+    );
+  }
+};
 
-router.use("/service-worker.js", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client/dist/service-worker.js"));
-  });
+const corsOptions = function(req, callback) {
+  const options = { credentials: true };
+  options.origin = isCorsAllowed(req.header("Origin"), req);
+  if (!options.origin) {
+    callback(new Error("Not allowed by CORS"));
+  } else {
+    callback(null, options); // callback expects two parameters: error and options
+  }
+};
 
-router.use((req, res) => {
-    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-});
+router.all("*", cors(corsOptions));
+
+router.use("/auth", authRoutes);
+router.use("/user", userRoutes);
+router.use("/email", emailRoutes);
 
 module.exports = router;
