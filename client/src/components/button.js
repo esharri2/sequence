@@ -16,7 +16,7 @@ const ButtonTag = styled.button`
   font-family: inherit;
   background-color: ${props =>
     props.buttonColor ? props.buttonColor : colors.lavender};
-  color: ${props => (props.textColor ? props.textColor : colors.black)};
+  color: ${props => props.textColor};
   fill: ${props => props.textColor};
   border: ${border.style} ${border.size} transparent;
   border-radius: ${border.radius};
@@ -33,31 +33,36 @@ const ButtonTag = styled.button`
     outline: 0;
   }
 
-  &:hover,
-  &:focus {
+  &:hover:not(:disabled),
+  &:focus:not(:disabled) {
+    color: ${props => (props.reverse ? colors.brightlavender : colors.black)};
     background-color: ${props =>
-      props.buttonColor
-        ? props.buttonColor
-        : colors.lavender + hexTransparencies[90]};
-    color: ${props => props.buttonColor};
+      props.reverse ? "transparent" : colors.brightlavender};
     /* outline-color: ${colors.accent2}; */
     /* border-color: ${colors.accent1}; */
-    fill: ${props => props.buttonColor};
+    outline: none;
+    fill: ${props => (props.reverse ? colors.brightlavender : colors.black)};
   }
 
   &:disabled {
     cursor: not-allowed;
+    background-color: ${props =>
+      props.reverse ? `transparent` : colors.oslogray};
+    color: ${props => (props.reverse ? colors.oslogray : colors.black)};
+    fill: ${props => (props.reverse ? colors.oslogray : colors.black)};
   }
 `;
 
 const Button = props => {
-  const colorA = colors.lightest;
-  const colorB = colors.accent1;
-  const buttonColor = props.reverse ? colorA : colorB;
-  const textColor = buttonColor === colorA ? colorB : colorA;
+  const colorA = colors.lavender;
+  const colorB = colors.black;
+
+  const buttonColor = props.reverse ? colorB : colorA;
+  const textColor = buttonColor === colorB ? colorA : colorB;
 
   return (
     <ButtonTag
+      reverse={props.reverse}
       buttonColor={buttonColor}
       textColor={textColor}
       aria-label={props.title}

@@ -5,15 +5,19 @@ import { border, breakpoints, colors, spacing } from "../utils/styles";
 const InputTag = styled.input`
   font-size: inherit;
   padding: ${spacing.xs};
+  padding-bottom: calc(${spacing.xs} + 1px);
   margin: ${spacing.xs} 0;
-  // TODO this may be difficult to work with using grid like forms? idk
   width: 100%;
   max-width: ${breakpoints.small};
   border: none;
   border-bottom: ${border.size} ${border.style} ${colors.medium};
+  background-color: transparent;
+  color: ${colors.lavender};
 
   &:focus {
-    outline-color: ${colors.accent2};
+    border-bottom-color: ${colors.brightlavender};
+    background-color: ${colors.blacklavender};
+    outline: none;
   }
 
   &[type="radio"] {
@@ -48,7 +52,6 @@ const InputTag = styled.input`
 `;
 
 const TextAreaTag = styled(InputTag)`
-  /* max-width: ${breakpoints.small}; */
   height: calc(${breakpoints.xsmall} / 4);
 `;
 

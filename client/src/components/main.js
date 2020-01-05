@@ -6,6 +6,7 @@ import { breakpoints, dimensions, spacing } from "../utils/styles";
 const MainTag = styled.main`
   margin: 0 auto;
   /* max-width: ${breakpoints.large}; */
+  min-height: calc(100vh - ${dimensions.headerHeight});
   padding: ${spacing.lg} ${spacing.lg} ${dimensions.footerHeightPlus} ${
   spacing.lg
 };

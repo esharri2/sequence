@@ -7,10 +7,10 @@ import { breakpoints, colors, dimensions, spacing } from "../utils/styles";
 
 const FooterWrapper = styled.footer`
   height: ${dimensions.footerHeight};
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  /* position: absolute; */
+  /* right: 0; */
+  /* bottom: 0; */
+  /* left: 0; */
   background-color: ${colors.lavender};
   color: ${colors.black};
   display: flex;

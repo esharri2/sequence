@@ -1,22 +1,104 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
+import UserContext from "../context/UserContext";
 
+import Add from "../components/icons/add";
 import Button from "../components/button";
+import ChevronUp from "../components/icons/chevron-up";
+import ChevronDown from "../components/icons/chevron-down";
+import Close from "../components/icons/close";
 import Heading from "../components/heading";
+import Input from "../components/input";
 import Layout from "../components/layout";
+import Pause from "../components/icons/pause";
+import Play from "../components/icons/play";
+import Stop from "../components/icons/stop";
 
 import speech from "../utils/speech";
-import { getHomes } from "../utils/api";
+import { border, breakpoints, colors, spacing } from "../utils/styles";
+
+const SequenceTitleInput = styled(Input)`
+  /* grid-row: "title"; */
+`;
+
+const ButtonBar = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  button {
+    flex: 1 1 ${spacing.xs};
+    margin: ${spacing.xs} ${spacing.xs} ${spacing.xs} 0;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    @media screen and (max-width: ${breakpoints.md}) {
+      &:nth-last-child(2) {
+        margin-right: 0;
+      }
+
+      &:last-child {
+        flex-basis: 100%;
+        margin: 0;
+      }
+    }
+  }
+`;
+
+const ButtonText = styled.span`
+  padding-left: ${spacing.xs};
+`;
+
+const Actions = styled.div`
+  margin-bottom: ${spacing.xl};
+`;
 
 const Action = styled.div`
-  background-color: green;
+  display: grid;
+  grid-gap: ${spacing.xs};
+  grid-template-areas: "number title title title title title minutes seconds up down delete";
+  grid-template-columns: repeat(11, 1fr);
 `;
 
 const PlayingAction = styled(Action)`
-  background-color: cyan;
+  div:first-child > span {
+    background-color: ${colors.brightlavender};
+    border-color: ${colors.brightlavender};
+    color: ${colors.black};
+  }
+`;
+
+const ActionNumber = styled.div`
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  span {
+    border: ${border.style} ${border.size} ${colors.lavender};
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const ActionTitleInput = styled(Input)`
+  grid-area: title;
+`;
+
+const MinutesInput = styled(Input)`
+  grid-area: minutes;
+`;
+
+const SecondsInput = styled(Input)`
+  grid-area: seconds;
 `;
 
 const Home = () => {
+  const user = useContext(UserContext).user;
+  const email = user ? user.email : null;
+
   const [hasChanged, setHasChanged] = useState(false);
 
   const [title, setTitle] = useState("my cool sequence");
@@ -26,7 +108,7 @@ const Home = () => {
   };
 
   const [actions, setActions] = useState([
-    { title: "hi", duration: 4 },
+    { title: "hi", duration: 5 },
     { title: "yo", duration: 7 },
     { title: "adios", duration: 3 }
   ]);
@@ -50,13 +132,15 @@ const Home = () => {
 
   const [elapsedOncurrent, setElapsedOncurrent] = useState(0);
   useEffect(() => {
-    const duration = current !== undefined ? actions[current].duration : null;
-    if (elapsedOncurrent === duration + 1) {
-      const newcurrent = current + 1;
-      clearInterval(timerRef.current);
-      setCurrent(newcurrent);
+    if (playing) {
+      const duration = current !== undefined ? actions[current].duration : null;
+      if (elapsedOncurrent === duration + 1) {
+        const newcurrent = current + 1;
+        clearInterval(timerRef.current);
+        setCurrent(newcurrent);
+      }
     }
-  }, [elapsedOncurrent]);
+  }, [elapsedOncurrent, playing]);
 
   const [playing, setPlaying] = useState(false);
   useEffect(() => {
@@ -72,8 +156,6 @@ const Home = () => {
 
   const [paused, setPaused] = useState(false);
   useEffect(() => {
-    console.log("pause efect!");
-    console.log(paused);
     if (paused) {
       clearInterval(timerRef.current);
     }
@@ -87,12 +169,15 @@ const Home = () => {
     }
     const timerId = setInterval(() => {
       setElapsedOncurrent(prev => prev + 1);
-      console.log();
     }, 1000);
     timerRef.current = timerId;
   };
 
   // CONTROLS
+  const getIndex = event => {
+    return event.target.closest("[data-index]").dataset.index;
+  };
+
   const handlePlay = event => {
     event.preventDefault();
     if (playing) {
@@ -113,15 +198,49 @@ const Home = () => {
     setPlaying(false);
   };
 
+  const handleAdd = event => {
+    event.preventDefault();
+    setActions([...actions, { title: "", duration: 30 }]);
+  };
+
+  const handleSave = event => {
+    event.preventDefault();
+    alert("i need to save");
+  };
+
+  const handleDelete = event => {
+    event.preventDefault();
+    const index = getIndex(event);
+    const actionsClone = [...actions];
+    actionsClone.splice(index, 1);
+    setActions(actionsClone);
+  };
+
+  const handleMove = event => {
+    event.preventDefault();
+    const index = getIndex(event);
+    const direction = event.target.dataset.direction;
+    const actionsClone = [...actions];
+    const actionToMove = actionsClone.splice(index, 1)[0];
+    console.log(actionToMove);
+    const newIndex = direction === "up" ? index - 1 : index + 1;
+    actionsClone.splice(newIndex, 0, actionToMove);
+    setActions(actionsClone);
+  };
+
   const handleActionChange = event => {
     const { name, value } = event.target;
-    const index = event.target.closest("[data-index]").dataset.index;
+    const index = getIndex(event);
     const actionsClone = [...actions];
     if (name === "title") {
       actionsClone[index].title = value;
     }
     if (name === "minutes") {
-      // do this
+      const seconds = event.target.parentNode.querySelector(
+        "input[name='seconds']"
+      ).value;
+      actionsClone[index].duration = Number(value) * 60 + Number(seconds);
+      console.log(actionsClone[index]);
     }
     if (name === "seconds") {
       // do that
@@ -136,59 +255,94 @@ const Home = () => {
       <div>Elapsed: {elapsedOncurrent}</div>
       <div>Current Action: {current}</div>
       <form>
-        <input
+        <SequenceTitleInput
           type="text"
           name="title"
           placeholder="seq title"
           value={title}
           onChange={handleTitleChange}
         />
-        <div>
+        <ButtonBar>
           {playing && !paused ? (
-            <button onClick={handlePause}>Pause</button>
+            <Button onClick={handlePause}>
+              <Pause dark />
+              <ButtonText>Pause</ButtonText>
+            </Button>
           ) : (
-            <button onClick={handlePlay}>Play</button>
+            <Button onClick={handlePlay}>
+              <Play dark />
+              <ButtonText>Play</ButtonText>
+            </Button>
           )}
-          <button disabled={!playing} onClick={handleStop}>
-            Stop
-          </button>
-          <button disabled={!hasChanged}>Save</button>
-        </div>
-        <div>
+          <Button disabled={!playing} onClick={handleStop}>
+            <Stop dark />
+            <ButtonText>Stop</ButtonText>
+          </Button>
+          <Button onClick={handleSave} disabled={!hasChanged}>
+            <ButtonText>Save</ButtonText>
+          </Button>
+          <Button reverse onClick={handleAdd}>
+            <Add />
+            <ButtonText>Add an action</ButtonText>
+          </Button>
+        </ButtonBar>
+        <Actions>
           {actions.map((action, index) => {
             const minutes = Math.floor(action.duration / 60);
             const seconds = action.duration % 60;
             const inputs = (
               <>
-                <div>{index + 1}</div>
-                <input
+                <ActionNumber>
+                  <span>{index + 1}</span>
+                </ActionNumber>
+                <ActionTitleInput
                   onChange={handleActionChange}
                   type="text"
                   name="title"
                   value={action.title}
-                  placeholder="action title"></input>
-                <input
+                  placeholder="action title"
+                />
+                <MinutesInput
                   onChange={handleActionChange}
                   name="minutes"
                   type="number"
                   value={minutes}
-                  placeholder="M"></input>
-                <input
+                  placeholder="M"
+                />
+                <SecondsInput
                   onChange={handleActionChange}
                   type="number"
                   name="seconds"
                   value={seconds}
-                  placeholder="S"></input>
+                  placeholder="S"
+                />
+                <Button
+                  reverse
+                  disabled={index === 0}
+                  data-direction="up"
+                  onClick={handleMove}>
+                  <ChevronUp />
+                </Button>
+                <Button
+                  reverse
+                  disabled={index === actions.length - 1}
+                  data-direction="down"
+                  onClick={handleMove}>
+                  <ChevronDown />
+                </Button>
+                <Button reverse onClick={handleDelete}>
+                  <Close />
+                </Button>
               </>
             );
 
             return index === current ? (
-              <PlayingAction>{inputs}</PlayingAction>
+              <PlayingAction data-index={index}>{inputs}</PlayingAction>
             ) : (
-              <Action>{inputs}</Action>
+              <Action data-index={index}>{inputs}</Action>
             );
           })}
-        </div>
+        </Actions>
       </form>
     </Layout>
   );

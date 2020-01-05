@@ -15,14 +15,6 @@ const Text = styled.h1`
   }
 `;
 
-const Logo = props => {
-  const heading = <Text className={props.className}>Vois</Text>;
-
-  if (props.link) {
-    return <a href={props.link}>{heading}</a>;
-  } else {
-    return heading;
-  }
-};
+const Logo = props => <Text className={props.className}>Vois</Text>;
 
 export default Logo;

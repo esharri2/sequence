@@ -13,8 +13,8 @@ const UserContext = createContext(defaultState);
 const UserProvider = props => {
   const [user, setUserValue] = useState(defaultState);
 
-  const setUser = (email, home) => {
-    setUserValue({ email, home });
+  const setUser = email => {
+    setUserValue({ email });
   };
 
   const value = { user, setUser };

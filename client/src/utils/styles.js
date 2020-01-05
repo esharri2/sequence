@@ -2,8 +2,13 @@ export const colors = {
   shark: "#1B1E21",
   black: "#272c30",
   lavender: "#EAE0f3",
+  brightlavender: "#A594F9",
+  blacklavender: "#1E1B2E",
   white: "#F9F8F8",
-  yellow: "#FAA916"
+  yellow: "#FAA916",
+  oslogray: "#939597",
+  plumppurple: "#5941A9",
+  darkpurple: "#2D232E"
 };
 
 export const hexTransparencies = {
