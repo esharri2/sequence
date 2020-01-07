@@ -16,6 +16,7 @@ import Stop from "../components/icons/stop";
 
 import speech from "../utils/speech";
 import { border, breakpoints, colors, spacing } from "../utils/styles";
+import useFetch from "../utils/customHooks/useFetch";
 
 const SequenceTitleInput = styled(Input)`
   /* grid-row: "title"; */
@@ -97,10 +98,26 @@ const SecondsInput = styled(Input)`
 
 const Home = () => {
   const user = useContext(UserContext).user;
+  // TODO use this to add auth conditionals
   const email = user ? user.email : null;
 
-  const [hasChanged, setHasChanged] = useState(false);
+  const getData = useFetch(undefined, {}, "GET", false, response => {
+    alert("get is done");
+  });
 
+  const postData = useFetch(
+    undefined,
+    { body: JSON.stringify({ _id: id, title, actions }) },
+    "POST",
+    true,
+    response => {
+      alert("yay!");
+    }
+  );
+
+  // TODO default props should be props.location.state or null;
+  const [id, setId] = useState(null);
+  const [hasChanged, setHasChanged] = useState(!id ? true : false);
   const [title, setTitle] = useState("my cool sequence");
   const handleTitleChange = event => {
     setHasChanged(true);
@@ -205,7 +222,7 @@ const Home = () => {
 
   const handleSave = event => {
     event.preventDefault();
-    alert("i need to save");
+    postData.setRoute("/sequence");
   };
 
   const handleDelete = event => {

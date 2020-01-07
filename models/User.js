@@ -6,11 +6,10 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-
-  homes: [
+  sequences: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Home"
+      ref: "Sequence"
     }
   ]
 });

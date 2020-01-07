@@ -16,7 +16,7 @@ export const clientLogIn = (userContext, email) => {
 export const clientLogOut = userContext => {
   localStorage.clear();
   userContext.setUser(null);
-  navigate("/Login/");
+  navigate("/login/");
 };
 
 export const checkIsLoggedInOnClient = userContext => {

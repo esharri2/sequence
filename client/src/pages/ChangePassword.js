@@ -26,7 +26,7 @@ export default () => {
     event.preventDefault();
     changePassword(newPassword.value)
       .then(response => {
-        navigate("/Login/", {
+        navigate("/login/", {
           replace: true,
           state: {
             isNewPassword: true

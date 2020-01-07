@@ -4,9 +4,9 @@ const cors = require("cors");
 const authRoutes = require("./auth");
 const userRoutes = require("./user");
 const emailRoutes = require("./email");
+const sequenceRoutes = require("./sequence");
 
 const isCorsAllowed = (origin, req) => {
-  console.log("hi");
   const environment = express().get("env");
   if (environment === "development") {
     return true;
@@ -31,6 +31,7 @@ const corsOptions = function(req, callback) {
 router.all("*", cors(corsOptions));
 
 router.use("/auth", authRoutes);
+router.use("/sequence", sequenceRoutes);
 router.use("/user", userRoutes);
 router.use("/email", emailRoutes);
 

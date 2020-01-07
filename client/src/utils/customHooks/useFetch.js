@@ -1,3 +1,9 @@
+// TODO need useAuthenticationCheck hook
+
+// TODO need fetch helpers
+
+// TODO need a GET hook
+
 import { useContext, useEffect, useState } from "react";
 import { navigate } from "gatsby";
 
@@ -34,6 +40,7 @@ const useFetch = (
   callback
 ) => {
   // Fetch will only happen if isLoggedIn is true (set to true if auth is not required)
+  console.log(parameters);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const userContext = useContext(UserContext);
   const isLoggedInOnClient = checkIsLoggedInOnClient(userContext);
@@ -78,11 +85,14 @@ const useFetch = (
 
   useEffect(() => {
     if (parameters instanceof Error) {
+      console.log("param is an error!");
       setError(parameters);
     } else if (!route) {
+      console.log("abort fetch, no route.");
       // Abort effect if route is changed
       return;
     } else if (isLoggedIn) {
+      console.log("ok, we're logged in, going to fetch...");
       const fetchData = async () => {
         setLoading(true);
         let status;
@@ -97,6 +107,8 @@ const useFetch = (
             headers: { "Content-Type": "application/json" },
             method
           };
+          console.log(url);
+          console.log(options);
           const response = await fetch(url, options);
           if (!response.ok) {
             status = response.status;
