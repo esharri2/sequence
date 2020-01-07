@@ -4,6 +4,8 @@
 
 // TODO need a GET hook
 
+// TODOD break up home.js
+
 import { useContext, useEffect, useState } from "react";
 import { navigate } from "gatsby";
 
