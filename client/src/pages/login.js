@@ -11,7 +11,7 @@ import AuthForm from "../components/auth-form";
 import Paragraph from "../components/paragraph";
 import SpinnerOverlay from "../components/spinner-overlay";
 
-import useFetch from "../utils/customHooks/useFetch";
+import { postData } from "../utils/http";
 import useFormInput from "../utils/customHooks/useFormInput";
 import UserContext from "../context/UserContext";
 import useValidityCheck from "../utils/customHooks/useValidityCheck";
@@ -36,33 +36,30 @@ export default props => {
   const isNewUser = locationState.isNewUser;
   const isNewPassword = locationState.isNewPassword;
 
-  const apiResponse = useFetch(
-    undefined,
-    { body: JSON.stringify({ email: email.value, password: password.value }) },
-    "POST",
-    false,
-    response => {
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
+
+  console.log(errorMessage);
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    // setLoading(true);
+    const response = await postData("/auth/login", {
+      email: email.value,
+      password: password.value
+    });
+    if (response.error) {
+      const message =
+        response.status === 401
+          ? errorMessages.badCredentials
+          : errorMessages.generic;
+      // setLoading(false);
+      setErrorMessage(message);
+    } else {
       clientLogIn(userContext, response.email);
       navigate("/home/");
     }
-  );
-
-  const [errorMessage, setErrorMessage] = useState(null);
-
-  useEffect(() => {
-    if (apiResponse.error) {
-      const message =
-        apiResponse.error.status === 401
-          ? errorMessages.badCredentials
-          : errorMessages.generic;
-      setErrorMessage(message);
-    }
-  }, [apiResponse.error]);
-
-  const handleSubmit = event => {
-    event.preventDefault();
-
-    apiResponse.setRoute("/auth/login");
+    //TODO turn off loading? try / catch ?
   };
 
   return (
@@ -79,7 +76,7 @@ export default props => {
       {isNewPassword ? (
         <CenteredParagraph>Log in with your new password.</CenteredParagraph>
       ) : null}
-      {apiResponse.loading ? (
+      {loading ? (
         <SpinnerOverlay />
       ) : (
         <AuthForm
@@ -89,9 +86,7 @@ export default props => {
           isEmailValid={isEmailValid}
           isPasswordValid={isPasswordValid}
           error={errorMessage ? <AlertMessage message={errorMessage} /> : false}
-          onFocus={() => {
-            setErrorMessage(null);
-          }}
+          setErrorMessage={setErrorMessage}
         />
       )}
       <Link to="/ForgotPassword/">Forgot password?</Link>

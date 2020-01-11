@@ -31,6 +31,7 @@ const FormField = props => {
   const InputComponent = (
     <Input
       onChange={props.onChange}
+      onFocus={props.onFocus}
       id={props.id}
       name={props.name || props.id}
       type={props.type}

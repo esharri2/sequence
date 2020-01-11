@@ -1,11 +1,3 @@
-// TODO need useAuthenticationCheck hook
-
-// TODO need fetch helpers
-
-// TODO need a GET hook
-
-// TODOD break up home.js
-
 import { useContext, useEffect, useState } from "react";
 import { navigate } from "gatsby";
 
@@ -16,7 +8,9 @@ import {
   checkIsLoggedInOnServer,
   isReturningUser,
   clientLogIn
-} from "../../utils/auth";
+} from "../auth";
+
+import { baseURL, defaultOptions } from "../http";
 
 /*
   This hook optionally checks if user is signed in before fetching user data.
@@ -24,7 +18,6 @@ import {
   In these cases, the user context is not properly set but there could be a user id in local storage.
   Therefore, we need to take the id, confirm the user is signed in on the server and set user context before making any calls. 
 */
-const baseURL = process.env.GATSBY_API_URL;
 
 const constructQueryURL = (route, parameters) => {
   const url = new URL(baseURL + route);
@@ -34,27 +27,22 @@ const constructQueryURL = (route, parameters) => {
   return url;
 };
 
-const useFetch = (
-  initialRoute,
-  parameters = {},
-  method = "GET",
-  requiresAuth = false,
-  callback
-) => {
-  // Fetch will only happen if isLoggedIn is true (set to true if auth is not required)
-  console.log(parameters);
+const useUserData = (route, parameters) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const userContext = useContext(UserContext);
   const isLoggedInOnClient = checkIsLoggedInOnClient(userContext);
 
-  // On first mount, find out whether user is signed in on client and server
+  // On first render, find out whether user is signed in on client and server
   useEffect(() => {
-    if (isLoggedInOnClient || !requiresAuth) {
+    if (!parameters.email) {
+      // There is no user id param, ignore.
+      return;
+    }
+    if (isLoggedInOnClient) {
       // The user is logged in on client so we assume they are logged in on server
       setIsLoggedIn(true);
     } else if (isReturningUser()) {
-      /* The user isn't logged in on client, but they are returning, 
-      so they might be logged in on server. Let's check. */
+      // The user isn't logged in on client, but they are returning, so they might be logged in on server. Let's check.
       const checkServer = async () => {
         const isLoggedInOnServer = await checkIsLoggedInOnServer();
         if (!isLoggedInOnServer) {
@@ -67,14 +55,12 @@ const useFetch = (
           navigate("/Login/", { replace: true });
           return false;
         }
-
-        //TODO messy, email sent twice..?
         clientLogIn(userContext, email);
         setIsLoggedIn(true);
       };
       checkServer();
     } else {
-      // The user isn't logged in on a client or returning
+      // The user isn't logged in on a client or returning, they need to log in.
       navigate("/Login/", { replace: true });
     }
   }, []);
@@ -83,34 +69,21 @@ const useFetch = (
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [route, setRoute] = useState(initialRoute);
 
   useEffect(() => {
     if (parameters instanceof Error) {
-      console.log("param is an error!");
       setError(parameters);
-    } else if (!route) {
-      console.log("abort fetch, no route.");
-      // Abort effect if route is changed
-      return;
     } else if (isLoggedIn) {
       console.log("ok, we're logged in, going to fetch...");
       const fetchData = async () => {
         setLoading(true);
         let status;
         try {
-          const url =
-            method === "GET"
-              ? constructQueryURL(route, parameters)
-              : baseURL + route;
+          const url = constructQueryURL(route, parameters);
           const options = {
             ...parameters,
-            credentials: "include",
-            headers: { "Content-Type": "application/json" },
-            method
+            ...defaultOptions
           };
-          console.log(url);
-          console.log(options);
           const response = await fetch(url, options);
           if (!response.ok) {
             status = response.status;
@@ -121,28 +94,20 @@ const useFetch = (
           setResponse(json);
         } catch (error) {
           setLoading(false);
-          setRoute(undefined);
           setError({ status });
         }
       };
       fetchData();
     }
-  }, [isLoggedIn, route]);
-
-  useEffect(() => {
-    if (response && callback) {
-      callback(response);
-    }
-  }, [response]);
+  }, [isLoggedIn]);
 
   return {
     response,
     loading,
     error,
     status: response ? response.status : undefined,
-    setResponse,
-    setRoute
+    setResponse
   };
 };
 
-export default useFetch;
+export default useUserData;

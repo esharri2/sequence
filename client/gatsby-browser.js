@@ -19,6 +19,10 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  form:focus {
+    background-color: lime;
+  }
+
   body {
     background-color: ${colors.black};
     color: ${colors.lavender};
