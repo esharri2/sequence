@@ -11,7 +11,6 @@ import TimeInputs from "../components/time-inputs";
 
 import speech from "../utils/speech";
 import { border, colors, spacing } from "../utils/styles";
-import useUserData from "../utils/customHooks/useUserData";
 
 const SequenceTitleInput = styled(Input)`
   /* grid-row: "title"; */
@@ -54,48 +53,21 @@ const ActionTitleInput = styled(Input)`
   grid-area: title;
 `;
 
-const Sequence = ({ location = {} }) => {
+const Sequence = ({ id, initialTitle, initialActions }) => {
   const user = useContext(UserContext).user;
   const email = user ? user.email : null;
 
-  const [sequenceId, setSequenceId] = useState();
   const [hasChanged, setHasChanged] = useState(!sequenceId ? true : false);
 
-  useEffect(() => {
-    const sequenceId = location.state ? location.state.id : null;
-    if (sequenceId) {
-      setSequenceId(sequenceId);
-    }
-  }, []);
-  useEffect(() => {
-    setHasChanged(false);
-  }, [sequenceId]);
+  const [sequenceId, setSequenceId] = useState(id);
 
-  const [title, setTitle] = useState("my cool sequence");
+  const [title, setTitle] = useState(initialTitle);
   const handleTitleChange = event => {
     setHasChanged(true);
     setTitle(event.target.value);
   };
 
-  const [actions, setActions] = useState([
-    { title: "hi", duration: 5 },
-    { title: "yo", duration: 7 },
-    { title: "adios", duration: 3 }
-  ]);
-
-  const { response, loading, error } = useUserData("/sequence", {
-    _id: sequenceId
-  });
-
-  useEffect(() => {
-    if (response) {
-      const { title, actions } = response;
-      setTitle(title);
-      setActions(actions);
-    }
-  }, [response]);
-
-  // TODO add fetch here, setActions and setTitle
+  const [actions, setActions] = useState(initialActions);
 
   const [current, setCurrent] = useState(undefined);
   useEffect(() => {

@@ -28,7 +28,6 @@ const constructQueryURL = (route, parameters) => {
 };
 
 const useUserData = (route, parameters) => {
-  console.log("use user data...");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const userContext = useContext(UserContext);
   const isLoggedInOnClient = checkIsLoggedInOnClient(userContext);
@@ -76,7 +75,6 @@ const useUserData = (route, parameters) => {
     if (parameters instanceof Error) {
       setError(parameters);
     } else if (isLoggedIn) {
-      console.log("ok, we're logged in, going to fetch...");
       const fetchData = async () => {
         setLoading(true);
         let status;
@@ -92,6 +90,7 @@ const useUserData = (route, parameters) => {
             throw Error();
           }
           const json = await response.json();
+          console.log(json);
           setLoading(false);
           setResponse(json);
         } catch (error) {

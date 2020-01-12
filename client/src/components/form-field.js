@@ -32,6 +32,7 @@ const FormField = props => {
     <Input
       onChange={props.onChange}
       onFocus={props.onFocus}
+      onBlur={props.onBlur}
       id={props.id}
       name={props.name || props.id}
       type={props.type}

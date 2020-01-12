@@ -28,6 +28,7 @@ export default () => {
       <List>
         {sequences &&
           sequences.map(item => {
+            console.log(item);
             return (
               <ListItem>
                 <Link to="/home/" state={{ id: item._id }}>
