@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import Add from "../components/icons/add";
 import Button from "../components/button";
 import Pause from "../components/icons/pause";
 import Play from "../components/icons/play";
+import Spinner from "../components/spinner";
 import Stop from "../components/icons/stop";
 
 import { breakpoints, spacing } from "../utils/styles";
+import { postData } from "../utils/http";
 
 const ButtonBar = styled.div`
   display: flex;
@@ -44,10 +46,15 @@ const Controls = props => {
     paused,
     playAction,
     playing,
+    sequenceId,
     setActions,
     setPaused,
-    setPlaying
+    setPlaying,
+    setSequenceId,
+    title
   } = props;
+
+  const [loading, setLoading] = useState(false);
 
   const handleAdd = event => {
     event.preventDefault();
@@ -74,10 +81,23 @@ const Controls = props => {
     setPlaying(false);
   };
 
-  const handleSave = event => {
+  const handleSave = async event => {
     event.preventDefault();
-    alert("save! figure out post shit.");
-    // postData.setRoute("/sequence");
+    setLoading(true);
+    const response = await postData("/sequence", {
+      _id: sequenceId,
+      title,
+      actions
+    });
+    if (response.error) {
+      alert(
+        "Woops! There was a problem saving your sequence. Try closing the site and logging in again."
+      );
+      setLoading(false);
+    } else {
+      setSequenceId(response._id);
+      setLoading(false);
+    }
   };
 
   return (
@@ -98,7 +118,7 @@ const Controls = props => {
         <ButtonText>Stop</ButtonText>
       </Button>
       <Button onClick={handleSave} disabled={!hasChanged}>
-        <ButtonText>Save</ButtonText>
+        {loading ? <Spinner /> : <ButtonText>Save</ButtonText>}
       </Button>
       <Button reverse onClick={handleAdd}>
         <Add />

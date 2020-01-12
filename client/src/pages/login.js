@@ -36,14 +36,12 @@ export default props => {
   const isNewUser = locationState.isNewUser;
   const isNewPassword = locationState.isNewPassword;
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState();
   const [errorMessage, setErrorMessage] = useState();
-
-  console.log(errorMessage);
 
   const handleSubmit = async event => {
     event.preventDefault();
-    // setLoading(true);
+    setLoading(true);
     const response = await postData("/auth/login", {
       email: email.value,
       password: password.value
@@ -53,13 +51,12 @@ export default props => {
         response.status === 401
           ? errorMessages.badCredentials
           : errorMessages.generic;
-      // setLoading(false);
       setErrorMessage(message);
+      setLoading(false);
     } else {
       clientLogIn(userContext, response.email);
       navigate("/home/");
     }
-    //TODO turn off loading? try / catch ?
   };
 
   return (
@@ -68,27 +65,25 @@ export default props => {
       <Heading center={true} level={1}>
         Log In
       </Heading>
-      {isNewUser ? (
+      {loading && <SpinnerOverlay />}
+      {isNewUser && (
         <CenteredParagraph>
           Thanks for signing up! Log in to get started.
         </CenteredParagraph>
-      ) : null}
-      {isNewPassword ? (
-        <CenteredParagraph>Log in with your new password.</CenteredParagraph>
-      ) : null}
-      {loading ? (
-        <SpinnerOverlay />
-      ) : (
-        <AuthForm
-          handleSubmit={handleSubmit}
-          email={email}
-          password={password}
-          isEmailValid={isEmailValid}
-          isPasswordValid={isPasswordValid}
-          error={errorMessage ? <AlertMessage message={errorMessage} /> : false}
-          setErrorMessage={setErrorMessage}
-        />
       )}
+      {isNewPassword && (
+        <CenteredParagraph>Log in with your new password.</CenteredParagraph>
+      )}
+      <AuthForm
+        handleSubmit={handleSubmit}
+        email={email}
+        password={password}
+        isEmailValid={isEmailValid}
+        isPasswordValid={isPasswordValid}
+        error={errorMessage ? <AlertMessage message={errorMessage} /> : false}
+        setErrorMessage={setErrorMessage}
+      />
+
       <Link to="/ForgotPassword/">Forgot password?</Link>
     </Layout>
   );

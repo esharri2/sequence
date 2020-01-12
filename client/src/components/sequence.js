@@ -11,7 +11,7 @@ import TimeInputs from "../components/time-inputs";
 
 import speech from "../utils/speech";
 import { border, colors, spacing } from "../utils/styles";
-import useFetch from "../utils/customHooks/useUserData";
+import useUserData from "../utils/customHooks/useUserData";
 
 const SequenceTitleInput = styled(Input)`
   /* grid-row: "title"; */
@@ -54,18 +54,23 @@ const ActionTitleInput = styled(Input)`
   grid-area: title;
 `;
 
-const Sequence = () => {
+const Sequence = ({ location = {} }) => {
   const user = useContext(UserContext).user;
-  // TODO use this to add auth conditionals
   const email = user ? user.email : null;
 
-  const getData = useFetch(undefined, {}, "GET", false, response => {
-    alert("get is done");
-  });
+  const [sequenceId, setSequenceId] = useState();
+  const [hasChanged, setHasChanged] = useState(!sequenceId ? true : false);
 
-  // TODO default props should be props.location.state or null;
-  const [id, setId] = useState(null);
-  const [hasChanged, setHasChanged] = useState(!id ? true : false);
+  useEffect(() => {
+    const sequenceId = location.state ? location.state.id : null;
+    if (sequenceId) {
+      setSequenceId(sequenceId);
+    }
+  }, []);
+  useEffect(() => {
+    setHasChanged(false);
+  }, [sequenceId]);
+
   const [title, setTitle] = useState("my cool sequence");
   const handleTitleChange = event => {
     setHasChanged(true);
@@ -77,6 +82,18 @@ const Sequence = () => {
     { title: "yo", duration: 7 },
     { title: "adios", duration: 3 }
   ]);
+
+  const { response, loading, error } = useUserData("/sequence", {
+    _id: sequenceId
+  });
+
+  useEffect(() => {
+    if (response) {
+      const { title, actions } = response;
+      setTitle(title);
+      setActions(actions);
+    }
+  }, [response]);
 
   // TODO add fetch here, setActions and setTitle
 
@@ -167,7 +184,6 @@ const Sequence = () => {
     if (name === "seconds") {
       // do that
     }
-
     setActions(actionsClone);
   };
 
@@ -186,14 +202,18 @@ const Sequence = () => {
         actions={actions}
         hasChanged={hasChanged}
         paused={paused}
+        playAction={playAction}
         playing={playing}
+        sequenceId={sequenceId}
         setActions={setActions}
         setPaused={setPaused}
         setPlaying={setPlaying}
+        setSequenceId={setSequenceId}
+        title={title}
       />
       <Actions>
         {actions.map((action, index) => (
-          <Action data-index={index} isPlaying={index === current}>
+          <Action key={index} data-index={index} isPlaying={index === current}>
             <ActionNumber>
               <span>{index + 1}</span>
             </ActionNumber>

@@ -28,14 +28,16 @@ const constructQueryURL = (route, parameters) => {
 };
 
 const useUserData = (route, parameters) => {
+  console.log("use user data...");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const userContext = useContext(UserContext);
   const isLoggedInOnClient = checkIsLoggedInOnClient(userContext);
 
   // On first render, find out whether user is signed in on client and server
   useEffect(() => {
-    if (!parameters.email) {
-      // There is no user id param, ignore.
+    if (!parameters) {
+      console.log("there are no params, abort.");
+      // There are no params, abort.
       return;
     }
     if (isLoggedInOnClient) {

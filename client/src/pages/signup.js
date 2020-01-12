@@ -8,47 +8,51 @@ import Layout from "../components/layout";
 import AuthForm from "../components/auth-form";
 import SpinnerOverlay from "../components/spinner-overlay";
 
-import { errorMessages } from "../utils/errorMessages";
-import { signUp } from "../utils/api";
+import { postData } from "../utils/http";
 import useFormInput from "../utils/customHooks/useFormInput";
 import useValidityCheck from "../utils/customHooks/useValidityCheck";
+import { errorMessages } from "../utils/errorMessages";
+
 import { validateEmail, validatePassword } from "../utils/validators";
 
 //TODO refactor SignUp / Login to remove code duplication
 
 export default props => {
-  const email = useFormInput("");
-  const password = useFormInput("");
+  const email = useFormInput(process.env.GATSBY_TESTING_USERNAME || "");
+  const password = useFormInput(process.env.GATSBY_TESTING_PASSWORD || "");
+  const isEmailValid = useValidityCheck(false, email, validateEmail);
+  const isPasswordValid = useValidityCheck(false, password, validatePassword);
 
   const locationState = props.location.state || {};
   const isDemo = locationState.isDemo;
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState();
+  const [errorMessage, setErrorMessage] = useState();
 
-  const isEmailValid = useValidityCheck(false, email, validateEmail);
-  const isPasswordValid = useValidityCheck(false, password, validatePassword);
-
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
     setLoading(true);
-    signUp(email.value, password.value, isDemo)
-      .then(() => {
-        navigate("/Login/", {
-          replace: true,
-          state: {
-            isNewUser: true
-          }
-        });
-      })
-      .catch(error => {
-        const errorBody = error.response ? error.response.data : {};
-        const messageFromCode = errorMessages[errorBody.code];
-        setError(messageFromCode || errorMessages.generic);
-      })
-      .finally(() => {
-        setLoading(false);
+    const response = await postData("/auth/signup", {
+      email: email.value,
+      password: password.value,
+      isDemo
+    });
+    if (response.error) {
+      // TODO may need to work on this
+      const message =
+        response.status === 401
+          ? errorMessages.badCredentials
+          : errorMessages.generic;
+      setErrorMessage(message);
+      setLoading(false);
+    } else {
+      navigate("/login/", {
+        replace: true,
+        state: {
+          isNewUser: true
+        }
       });
+    }
   };
 
   return (
@@ -56,7 +60,7 @@ export default props => {
       <Back />
       {loading && <SpinnerOverlay />}
       <Heading center={true} level={1}>
-        Sign Up
+        Sign up
       </Heading>
       <AuthForm
         handleSubmit={handleSubmit}
@@ -64,10 +68,8 @@ export default props => {
         password={password}
         isEmailValid={isEmailValid}
         isPasswordValid={isPasswordValid}
-        error={error ? <AlertMessage message={error} /> : false}
-        onFocus={() => {
-          setError(false);
-        }}
+        error={errorMessage ? <AlertMessage message={errorMessage} /> : false}
+        setErrorMessage={setErrorMessage}
       />
     </Layout>
   );
