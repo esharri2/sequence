@@ -9,8 +9,13 @@ import useUserData from "../utils/customHooks/useUserData";
 
 const Home = ({ location = {} }) => {
   const id = location.state ? location.state.id : null;
+
+  console.log(id);
   const parameters = id ? { _id: id } : null;
   const { response, loading, error } = useUserData("/sequence", parameters);
+
+  console.log(response);
+
   const placeholderData = {
     title: "",
     actions: [

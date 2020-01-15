@@ -45,7 +45,6 @@ const StyledGatsbyLink = styled(GatsbyLink)`
 
 // forwardRef is used so that Link can be use Reach UI components
 const Link = forwardRef((props, ref) => {
-  console.log(props);
   return (
     <StyledGatsbyLink
       activeClassName="isActiveSub"

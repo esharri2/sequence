@@ -53,9 +53,9 @@ const ActionTitleInput = styled(Input)`
   grid-area: title;
 `;
 
-const Sequence = ({ id, initialTitle, initialActions }) => {
-  const user = useContext(UserContext).user;
-  const email = user ? user.email : null;
+const Sequence = ({ id, title: initialTitle, actions: initialActions }) => {
+  // const user = useContext(UserContext).user;
+  // const email = user ? user.email : null;
 
   const [hasChanged, setHasChanged] = useState(!sequenceId ? true : false);
 

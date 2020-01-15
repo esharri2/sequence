@@ -28,3 +28,19 @@ export const postData = async (route, body) => {
     return error;
   }
 };
+
+export const deleteData = async (route, body) => {
+  try {
+    const options = {
+      body: JSON.stringify(body),
+      method: "DELETE",
+      ...defaultOptions
+    };
+    const response = await fetch(baseURL + route, options);
+    handleErrors(response);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    return error;
+  }
+};
