@@ -22,7 +22,7 @@ const ButtonTag = styled.button`
   border-radius: ${border.radius};
   padding: ${spacing.sm};
   transition: background-color ${transitions.fast}, color ${transitions.fast},
-    border-color ${transitions.fast};
+    border-color ${transitions.fast}, fill ${transitions.fast};
   text-decoration: none;
   font-size: 1rem;
   text-align: center;

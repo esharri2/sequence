@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { graphql } from "gatsby";
 
 import Link from "../components/link";
-import Logo from "../components/logo";
 
 import {
   border,
@@ -34,6 +33,21 @@ const SplashImgWrapper = styled.div`
   }
 `;
 
+const Logo = styled.h1`
+  text-transform: lowercase;
+  font-size: 5rem;
+  margin: 0;
+  line-height: 0.8;
+
+  @media screen and (min-width: ${breakpoints.md}) {
+    font-size: 8rem;
+  }
+
+  @media screen and (max-width: ${breakpoints.sm}) {
+    margin-top: calc(${spacing.xl} * 2);
+  }
+`;
+
 const Main = styled.main`
   z-index: ${zIndexes.middle};
   position: relative;
@@ -49,9 +63,10 @@ const Main = styled.main`
 `;
 
 const TagLine = styled.p`
-  margin: ${spacing.lg} 0 ${spacing.xl} 0;
   font-size: 1rem;
   text-align: center;
+  margin: 0;
+  padding: ${spacing.md} 0;
   @media screen and (min-width: ${breakpoints.md}) {
     text-align: left;
     font-size: 1.2rem;
@@ -59,14 +74,15 @@ const TagLine = styled.p`
 `;
 
 const LinkWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
   width: 240px;
-  margin-bottom: ${spacing.lg};
+  margin-bottom: ${spacing.md};
   a {
-    flex-grow: 0;
-    flex-basis: calc(120px - ${spacing.sm});
+    width: 100%;
     text-decoration: none !important;
+
+    &:first-child {
+      padding-bottom: ${spacing.md};
+    }
   }
 `;
 
@@ -99,8 +115,21 @@ const SignUpButton = styled(HomeButton)`
   }
 `;
 
+const HeaderLinks = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: ${spacing.md} ${spacing.md} 0 0;
+  font-size: 1rem;
+
+  *:first-child {
+    padding-right: ${spacing.md};
+  }
+`;
+
 const StyledLink = styled(Link)`
-  text-decoration: underline;
+  /* text-decoration: underline; */
+  text-transform: uppercase;
 `;
 
 export default ({ data }) => {
@@ -108,17 +137,21 @@ export default ({ data }) => {
   return (
     <SplashWrapper>
       <Main>
-        <Logo />
+        <HeaderLinks>
+          <StyledLink to="/about/">About</StyledLink>
+          <StyledLink to="/login/">Log in</StyledLink>
+        </HeaderLinks>
+        <Logo>Vois</Logo>
         <TagLine>A talking timer for yoga and exercise.</TagLine>
+
         <LinkWrapper>
           <Link buttonColor="transparent" to="/signup/">
-            <SignUpButton tabIndex="-1">Sign up</SignUpButton>
+            <SignUpButton tabIndex="-1">Create a free account</SignUpButton>
           </Link>
-          <Link to="/login/">
-            <HomeButton tabIndex="-1">Login</HomeButton>
+          <Link to="/home/">
+            <HomeButton tabIndex="-1">Try it out</HomeButton>
           </Link>
         </LinkWrapper>
-        <StyledLink to="/home/">Try it out.</StyledLink>
       </Main>
       <SplashImgWrapper>
         <img srcSet={srcSet} sizes="100vw" alt="" />

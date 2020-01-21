@@ -2,18 +2,42 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
 import UserContext from "../context/UserContext";
 
+import Add from "../components/icons/add";
 import Button from "../components/button";
 import Controls from "../components/controls";
 import Close from "../components/icons/close";
 import Input from "../components/input";
+import Link from "../components/link";
+import List from "../components/icons/list";
+import LinkButton from "../components/link-button";
 import MoveButtons from "../components/move-buttons";
 import TimeInputs from "../components/time-inputs";
 
 import speech from "../utils/speech";
 import { border, colors, spacing } from "../utils/styles";
 
+const HeaderLinks = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  button {
+    border: solid 1px ${colors.lavender};
+    &:hover,
+    &:focus {
+      border-color: ${colors.brightlavender};
+    }
+  }
+
+  a:nth-child(2) {
+    margin-left: ${spacing.sm};
+  }
+`;
+
+const ButtonText = styled.span`
+  margin-left: ${spacing.sm};
+`;
+
 const SequenceTitleInput = styled(Input)`
-  /* grid-row: "title"; */
+  font-size: 2rem;
 `;
 
 const Actions = styled.div`
@@ -53,13 +77,15 @@ const ActionTitleInput = styled(Input)`
   grid-area: title;
 `;
 
-const Sequence = ({ id, title: initialTitle, actions: initialActions }) => {
-  // const user = useContext(UserContext).user;
-  // const email = user ? user.email : null;
-
-  const [hasChanged, setHasChanged] = useState(!sequenceId ? true : false);
-
+const Sequence = ({
+  id,
+  authenticated,
+  title: initialTitle,
+  actions: initialActions
+}) => {
   const [sequenceId, setSequenceId] = useState(id);
+  // const [hasChanged, setHasChanged] = useState(!sequenceId ? true : false);
+  const [hasChanged, setHasChanged] = useState(false);
 
   const [title, setTitle] = useState(initialTitle);
   const handleTitleChange = event => {
@@ -161,23 +187,37 @@ const Sequence = ({ id, title: initialTitle, actions: initialActions }) => {
 
   return (
     <form>
-      <div>Elapsed: {elapsedOncurrent}</div>
-      <div>Current Action: {current}</div>
+      <HeaderLinks>
+        <LinkButton reverse to="/home/">
+          <Add />
+          <ButtonText>Create new</ButtonText>
+        </LinkButton>
+        {authenticated && (
+          <LinkButton reverse to="/my-sequences/">
+            <List />
+            <ButtonText>Saved sequences</ButtonText>
+          </LinkButton>
+        )}
+      </HeaderLinks>
+      {/* <div>Elapsed: {elapsedOncurrent}</div>
+      <div>Current Action: {current}</div> */}
       <SequenceTitleInput
         type="text"
         name="title"
-        placeholder="seq title"
+        placeholder="Your sequence title"
         value={title}
         onChange={handleTitleChange}
       />
       <Controls
         actions={actions}
+        authenticated={authenticated}
         hasChanged={hasChanged}
         paused={paused}
         playAction={playAction}
         playing={playing}
         sequenceId={sequenceId}
         setActions={setActions}
+        setHasChanged={setHasChanged}
         setPaused={setPaused}
         setPlaying={setPlaying}
         setSequenceId={setSequenceId}
@@ -204,7 +244,7 @@ const Sequence = ({ id, title: initialTitle, actions: initialActions }) => {
               actions={actions}
               index={index}
               getIndex={getIndex}
-              sectActions={setActions}
+              setActions={setActions}
             />
             <Button reverse onClick={handleDelete}>
               <Close />

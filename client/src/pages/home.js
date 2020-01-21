@@ -1,22 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import Heading from "../components/heading";
 import Layout from "../components/layout";
 import Sequence from "../components/sequence";
 import Spinner from "../components/spinner";
 
+import UserContext from "../context/UserContext";
 import useUserData from "../utils/customHooks/useUserData";
 
 const Home = ({ location = {} }) => {
+  const user = useContext(UserContext).user;
+  const email = user ? user.email : null;
+
   const id = location.state ? location.state.id : null;
 
-  console.log(id);
+  console.log("id is ", id);
+
   const parameters = id ? { _id: id } : null;
   const { response, loading, error } = useUserData("/sequence", parameters);
 
-  console.log(response);
-
-  const placeholderData = {
+  const placeholder = {
     title: "",
     actions: [
       { title: "", duration: 30 },
@@ -26,19 +29,24 @@ const Home = ({ location = {} }) => {
   };
 
   return (
-    <Layout>
-      <Heading level={1}>Home</Heading>
+    <Layout authenticated={email}>
       {!id && (
         <Sequence
-          title={placeholderData.title}
-          actions={placeholderData.actions}
+          authenticated={email}
+          title={placeholder.title}
+          actions={placeholder.actions}
         />
       )}
       {id && loading && <Spinner />}
       {id && response && (
-        <Sequence id={id} title={response.title} actions={response.actions} />
+        <Sequence
+          authenticated={email}
+          id={id}
+          title={response.title}
+          actions={response.actions}
+        />
       )}
-      {error && <p>there is an error</p>}
+      {error && <p>ERROR ! {error}</p>}
     </Layout>
   );
 };

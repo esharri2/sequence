@@ -7,8 +7,9 @@ import Pause from "../components/icons/pause";
 import Play from "../components/icons/play";
 import Spinner from "../components/spinner";
 import Stop from "../components/icons/stop";
+import Upload from "../components/icons/upload";
 
-import { breakpoints, spacing } from "../utils/styles";
+import { breakpoints, colors, shadows, spacing } from "../utils/styles";
 import { postData } from "../utils/http";
 
 const ButtonBar = styled.div`
@@ -30,13 +31,40 @@ const ButtonBar = styled.div`
       &:last-child {
         flex-basis: 100%;
         margin: 0;
+        justify-content: flex-end;
       }
     }
   }
 `;
 
 const ButtonText = styled.span`
-  padding-left: ${spacing.xs};
+  margin-left: ${spacing.xs};
+`;
+
+const SaveButton = styled(Button)`
+  @keyframes animatedGradient {
+    0% {
+      background-position: 0% 00%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+      /* transform: translateY(-1px); */
+      box-shadow: ${shadows.sm};
+    }
+  }
+
+  &:not(:disabled) {
+    background: linear-gradient(
+      270deg,
+      ${colors.lavender},
+      ${colors.brightlavender}
+    );
+    background-size: 200% 200%;
+    animation: animatedGradient 1.5s infinite linear alternate;
+  }
 `;
 
 const Controls = props => {
@@ -48,6 +76,7 @@ const Controls = props => {
     playing,
     sequenceId,
     setActions,
+    setHasChanged,
     setPaused,
     setPlaying,
     setSequenceId,
@@ -96,6 +125,7 @@ const Controls = props => {
       setLoading(false);
     } else {
       setSequenceId(response._id);
+      setHasChanged(false);
       setLoading(false);
     }
   };
@@ -117,9 +147,18 @@ const Controls = props => {
         <Stop dark />
         <ButtonText>Stop</ButtonText>
       </Button>
-      <Button onClick={handleSave} disabled={!hasChanged}>
-        {loading ? <Spinner /> : <ButtonText>Save</ButtonText>}
-      </Button>
+      {props.authenticated && (
+        <SaveButton onClick={handleSave} disabled={!hasChanged}>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <ButtonText>
+              <Upload dark />
+              <ButtonText>Save</ButtonText>
+            </ButtonText>
+          )}
+        </SaveButton>
+      )}
       <Button reverse onClick={handleAdd}>
         <Add />
         <ButtonText>Add an action</ButtonText>

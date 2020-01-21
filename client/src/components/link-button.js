@@ -9,8 +9,7 @@ const Link = styled(GatsbyLink)`
 
 const LinkButton = props => (
   <Link {...props}>
-    {/* TODO i think tab index needs to come off this Button? */}
-    <Button tabIndex="0" buttonColor={props.buttonColor}>
+    <Button tabIndex="0" reverse={props.reverse}>
       {props.children}
     </Button>
   </Link>

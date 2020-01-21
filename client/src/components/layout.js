@@ -11,21 +11,30 @@ import { checkIfDemoEmail } from "../utils/strings";
 
 const Layout = props => {
   const user = useContext(UserContext).user;
-  const isDemo = user ? checkIfDemoEmail(user.email) : false;
+  const email = user ? user.email : null;
+  // console.log("email in layout is ", email);
+  // const isDemo = checkIfDemoEmail(email);
+
+  // const user = useContext(UserContext).user;
+  // const email = user ? user.email : null;
 
   return (
     <>
-      {props.hideNav ? <Header hideNav={props.hideNav} /> : <Header />}
+      {props.hideNav ? (
+        <Header hideNav={props.hideNav} />
+      ) : (
+        <Header authenticated={email} />
+      )}
       <Main mobileSized={props.mobileSized}>{props.children}</Main>
-      {isDemo && (
+      {/* {isDemo && (
         <StickyNotification>
           Enjoy the app? {"  "}
           <LinkButton to="/SignUp/" state={{ isDemo: true }}>
             Sign up
           </LinkButton>
         </StickyNotification>
-      )}
-      {props.hideFooter ? null : <Footer />}
+      )} */}
+      {props.hideFooter ? null : <Footer authenticated={email} />}
     </>
   );
 };

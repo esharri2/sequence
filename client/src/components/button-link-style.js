@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+
+import Button from "./button";
+
 import { colors, transitions } from "../utils/styles";
 
-const ButtonLinkStyleTag = styled.button`
+const ButtonLinkStyleTag = styled(Button)`
   display: flex;
   position: relative;
   font-size: inherit;
@@ -21,8 +24,8 @@ const ButtonLinkStyleTag = styled.button`
   }
 `;
 
-const Button = props => (
+const ButtonLinkStyle = props => (
   <ButtonLinkStyleTag {...props}>{props.children}</ButtonLinkStyleTag>
 );
 
-export default Button;
+export default ButtonLinkStyle;

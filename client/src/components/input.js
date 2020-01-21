@@ -4,6 +4,7 @@ import { border, breakpoints, colors, spacing } from "../utils/styles";
 
 const InputTag = styled.input`
   font-size: inherit;
+  font-family: inherit;
   padding: ${spacing.xs};
   padding-bottom: calc(${spacing.xs} + 1px);
   margin: ${spacing.xs} 0;
@@ -18,6 +19,16 @@ const InputTag = styled.input`
     border-bottom-color: ${colors.brightlavender};
     background-color: ${colors.blacklavender};
     outline: none;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+  }
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
   }
 
   &[type="radio"] {

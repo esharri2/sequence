@@ -13,6 +13,20 @@ export const defaultOptions = {
   headers: { "Content-Type": "application/json" }
 };
 
+export const getData = async route => {
+  try {
+    const options = {
+      method: "GET",
+      ...defaultOptions
+    };
+    const response = await fetch(baseURL + route, options);
+    handleErrors(response);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const postData = async (route, body) => {
   try {
     const options = {

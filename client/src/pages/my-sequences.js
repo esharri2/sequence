@@ -20,7 +20,7 @@ export default () => {
 
   return (
     <Layout>
-      <Back to="home"></Back>
+      <Back />
       <Heading level={1}>My Sequences</Heading>
       {loading && <Spinner />}
       {error && "error"}

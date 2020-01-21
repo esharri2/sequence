@@ -1,18 +1,8 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 
-import GearIcon from "./icons/gear";
 import Link from "./link";
 import LogOutButton from "./log-out";
-import Logo from "./logo";
-import UserContext from "../context/UserContext";
-import {
-  Menu,
-  MenuList,
-  MenuButton,
-  MenuItem,
-  MenuLink
-} from "@reach/menu-button";
 
 import "@reach/menu-button/styles.css";
 
@@ -44,101 +34,123 @@ const HeaderTag = styled.header`
 `;
 
 const LogoLink = styled(Link)`
+  color: red;
+  text-transform: lowercase;
+  font-size: 2rem;
+
   &:hover {
     text-decoration: none;
   }
 `;
 
-const HeaderLogo = styled(Logo)`
-  font-size: 2rem;
-  /* Hack: Vertically aligns lowercsae logo text */
-  padding-bottom: 0.4rem;
-`;
-
-const LinksWrapper = styled.div`
+const Nav = styled.nav`
   /* background-color: red; */
+  display: flex;
+
+  *:not(:last-child) {
+    margin-right: ${spacing.md};
+  }
 `;
 
-const CustomMenuButton = styled(MenuButton)`
-  background-color: transparent;
-  border: none;
-  fill: ${colors.black};
-  cursor: pointer;
+const NavLink = styled(Link)`
+  text-transform: uppercase;
+
+  &:hover,
   &:focus {
-    outline-color: ${colors.accent2};
-  }
-`;
-
-const CustomMenuList = styled(MenuList)`
-  background: ${colors.lavender} !important;
-  color: ${colors.black};
-  box-shadow: ${shadows.small};
-  border-radius: ${border.radius};
-
-  [data-reach-menu-item] {
-    width: 250px;
-    font-family: ${fonts.body};
-    &:hover,
-    &:focus {
-      * {
-        color: ${colors.lightest};
-        fill: ${colors.lightest};
-      }
-    }
-  }
-
-  [data-reach-menu-item][data-selected] {
-    background-color: ${colors.accent1};
     text-decoration: none;
-    color: ${colors.lightest}!important;
+    color: ${colors.plumppurple};
   }
 `;
 
-const MenuTitle = styled.div`
-  width: 100%;
-  text-align: center;
-  font-size: larger;
-  height: 30px;
-`;
+// const CustomMenuButton = styled(MenuButton)`
+//   background-color: transparent;
+//   border: none;
+//   fill: ${colors.black};
+//   cursor: pointer;
+//   &:focus {
+//     outline-color: ${colors.accent2};
+//   }
+// `;
+
+// const CustomMenuList = styled(MenuList)`
+//   background: ${colors.lavender} !important;
+//   color: ${colors.black};
+//   box-shadow: ${shadows.small};
+//   border-radius: ${border.radius};
+
+//   [data-reach-menu-item] {
+//     width: 250px;
+//     font-family: ${fonts.body};
+//     &:hover,
+//     &:focus {
+//       * {
+//         color: ${colors.lightest};
+//         fill: ${colors.lightest};
+//       }
+//     }
+//   }
+
+//   [data-reach-menu-item][data-selected] {
+//     background-color: ${colors.accent1};
+//     text-decoration: none;
+//     color: ${colors.lightest}!important;
+//   }
+// `;
+
+// const MenuTitle = styled.div`
+//   width: 100%;
+//   text-align: center;
+//   font-size: larger;
+//   height: 30px;
+// `;
 
 const Header = props => {
-  const user = useContext(UserContext).user;
-  const email = user ? user.email : null;
-  const homeName = user ? (user.home ? user.home.name : null) : null;
+  const links = props.authenticated ? (
+    <Nav>
+      <NavLink to="/my-sequences/">Sequences</NavLink>
+      <NavLink to="/settings/">Settings</NavLink>
+      <NavLink to="/about/">About</NavLink>
+      <LogOutButton />
+    </Nav>
+  ) : (
+    <Nav>
+      <NavLink to="/settings/">Settings</NavLink>
+      <NavLink to="/about/">About</NavLink>
+      <span> | </span>
+      <NavLink to="/signup/">Sign up</NavLink>
+      <NavLink to="/login/">Log in</NavLink>
+    </Nav>
+  );
 
   return (
     <HeaderWrapper>
       <HeaderTag>
-        <LogoLink to="/">
-          <HeaderLogo />
-        </LogoLink>
-        {!props.hideNav && (
-          <LinksWrapper>
-            <Menu>
-              <CustomMenuButton aria-label="View user settings options">
-                <GearIcon dark={true} />
-              </CustomMenuButton>
-              <CustomMenuList>
-                <MenuTitle>Hi {email}!</MenuTitle>
-                <MenuLink as={Link} to="/my-sequences/">
-                  My Sequences
-                </MenuLink>
-                <MenuLink as={Link} to="/settings/">
-                  Settings
-                </MenuLink>
-                <MenuLink as={Link} to="/about/">
-                  About
-                </MenuLink>
-                <MenuItem onSelect={() => {}}>
-                  {email ? <LogOutButton /> : <Link to="/login/">Login</Link>}
-                </MenuItem>
-              </CustomMenuList>
-            </Menu>
-          </LinksWrapper>
-        )}
+        <LogoLink to="/">Vois</LogoLink>
+        {!props.hideNav && links}
       </HeaderTag>
     </HeaderWrapper>
   );
 };
 
 export default Header;
+
+// <Menu>
+//   <CustomMenuButton aria-label="View user settings options">
+//     <GearIcon dark={true} />
+//   </CustomMenuButton>
+//   <CustomMenuList>
+//     <MenuTitle>Hi {email}!</MenuTitle>
+//     <MenuLink as={Link} to="/my-sequences/">
+//       My Sequences
+//     </MenuLink>
+//     <MenuLink as={Link} to="/settings/">
+//       Settings
+//     </MenuLink>
+//     <MenuLink as={Link} to="/about/">
+//       About
+//     </MenuLink>
+//     <MenuItem onSelect={() => {}}>
+//       {email ? <LogOutButton /> : <Link to="/login/">Login</Link>}
+//     </MenuItem>
+//   </CustomMenuList>
+// </Menu>;
