@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
+import { navigate } from "gatsby";
 import styled from "styled-components";
 import UserContext from "../context/UserContext";
 
 import Add from "../components/icons/add";
 import Button from "../components/button";
 import Controls from "../components/controls";
+import Copy from "../components/icons/copy";
 import Close from "../components/icons/close";
 import Input from "../components/input";
 import Link from "../components/link";
@@ -15,6 +17,7 @@ import TimeInputs from "../components/time-inputs";
 
 import speech from "../utils/speech";
 import { border, colors, spacing } from "../utils/styles";
+import { getTaskById } from "../utils/api";
 
 const HeaderLinks = styled.div`
   display: flex;
@@ -47,8 +50,8 @@ const Actions = styled.div`
 const Action = styled.div`
   display: grid;
   grid-gap: ${spacing.xs};
-  grid-template-areas: "number title title title title title minutes seconds up down delete";
-  grid-template-columns: repeat(11, 1fr);
+  grid-template-areas: "number title title title minutes seconds up down copy remove";
+  grid-template-columns: repeat(10, 1fr);
   ${props => {
     if (props.isPlaying) {
       return `div:first-child > span {
@@ -73,8 +76,20 @@ const ActionNumber = styled.div`
   }
 `;
 
+const DragHandle = styled.div`
+  background-color: red;
+`;
+
 const ActionTitleInput = styled(Input)`
   grid-area: title;
+`;
+
+const CopyButton = styled(Button)`
+  grid-area: copy;
+`;
+
+const RemoveButton = styled(Button)`
+  grid-area: remove;
 `;
 
 const Sequence = ({
@@ -165,7 +180,17 @@ const Sequence = ({
     setActions(actionsClone);
   };
 
+  const handleCopy = event => {
+    event.preventDefault();
+    const index = getIndex(event);
+    const actionsClone = [...actions];
+    const newAction = { ...actions[index] };
+    actionsClone.splice(index, 0, newAction);
+    setActions(actionsClone);
+  };
+
   const handleActionChange = event => {
+    event.preventDefault();
     const { name, value } = event.target;
     const index = getIndex(event);
     const actionsClone = [...actions];
@@ -177,7 +202,6 @@ const Sequence = ({
         "input[name='seconds']"
       ).value;
       actionsClone[index].duration = Number(value) * 60 + Number(seconds);
-      console.log(actionsClone[index]);
     }
     if (name === "seconds") {
       // do that
@@ -188,7 +212,7 @@ const Sequence = ({
   return (
     <form>
       <HeaderLinks>
-        <LinkButton reverse to="/home/">
+        <LinkButton reverse to="/home/" state={{ id: null }}>
           <Add />
           <ButtonText>Create new</ButtonText>
         </LinkButton>
@@ -226,6 +250,7 @@ const Sequence = ({
       <Actions>
         {actions.map((action, index) => (
           <Action key={index} data-index={index} isPlaying={index === current}>
+            {/* <DragHandle>move handle</DragHandle> */}
             <ActionNumber>
               <span>{index + 1}</span>
             </ActionNumber>
@@ -234,21 +259,30 @@ const Sequence = ({
               type="text"
               name="title"
               value={action.title}
-              placeholder="action title"
+              placeholder="Action title"
             />
             <TimeInputs
               handleActionChange={handleActionChange}
               duration={action.duration}
             />
-            <MoveButtons
-              actions={actions}
-              index={index}
-              getIndex={getIndex}
-              setActions={setActions}
-            />
-            <Button reverse onClick={handleDelete}>
-              <Close />
-            </Button>
+            {!playing && (
+              <MoveButtons
+                actions={actions}
+                index={index}
+                getIndex={getIndex}
+                setActions={setActions}
+              />
+            )}
+            {!playing && (
+              <CopyButton reverse onClick={handleCopy}>
+                <Copy />
+              </CopyButton>
+            )}
+            {!playing && (
+              <RemoveButton reverse onClick={handleDelete}>
+                <Close />
+              </RemoveButton>
+            )}
           </Action>
         ))}
       </Actions>

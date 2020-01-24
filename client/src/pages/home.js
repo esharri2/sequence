@@ -14,6 +14,8 @@ const Home = ({ location = {} }) => {
 
   const id = location.state ? location.state.id : null;
 
+  // console.log("i")
+
   console.log("id is ", id);
 
   const parameters = id ? { _id: id } : null;
@@ -27,6 +29,8 @@ const Home = ({ location = {} }) => {
       { title: "", duration: 30 }
     ]
   };
+
+  console.log(placeholder.title);
 
   return (
     <Layout authenticated={email}>

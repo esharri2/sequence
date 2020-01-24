@@ -70,6 +70,7 @@ const SaveButton = styled(Button)`
 const Controls = props => {
   const {
     actions,
+    authenticated,
     hasChanged,
     paused,
     playAction,
@@ -147,7 +148,7 @@ const Controls = props => {
         <Stop dark />
         <ButtonText>Stop</ButtonText>
       </Button>
-      {props.authenticated && (
+      {authenticated && !playing && (
         <SaveButton onClick={handleSave} disabled={!hasChanged}>
           {loading ? (
             <Spinner />
@@ -159,10 +160,12 @@ const Controls = props => {
           )}
         </SaveButton>
       )}
-      <Button reverse onClick={handleAdd}>
-        <Add />
-        <ButtonText>Add an action</ButtonText>
-      </Button>
+      {!playing && (
+        <Button reverse onClick={handleAdd}>
+          <Add />
+          <ButtonText>Add an action</ButtonText>
+        </Button>
+      )}
     </ButtonBar>
   );
 };
