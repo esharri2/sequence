@@ -107,7 +107,6 @@ const Sequence = ({
   actions: initialActions
 }) => {
   const [sequenceId, setSequenceId] = useState(id);
-  // const [hasChanged, setHasChanged] = useState(!sequenceId ? true : false);
   const [hasChanged, setHasChanged] = useState(false);
 
   const [title, setTitle] = useState(initialTitle);
@@ -118,34 +117,36 @@ const Sequence = ({
 
   const [actions, setActions] = useState(initialActions);
 
-  const [current, setCurrent] = useState(undefined);
-  useEffect(() => {
-    if (playing && actions[current]) {
-      setElapsedOncurrent(0);
-      playAction(actions[current].title);
-    }
-
-    if (playing && !actions[current]) {
-      console.log("THE CURRENT EFFECT");
-      speech("Your sequence is over.");
-      setPlaying(false);
-      setCurrent(undefined);
-      setElapsedOncurrent(0);
-    }
-  }, [current, playing]);
-
   const [playing, setPlaying] = useState(false);
   useEffect(() => {
+    console.log("PLAYING EFFECT");
+    console.log("playing, ", playing);
     if (playing) {
       setCurrent(0);
     } else {
-      console.log("THE PLAYING EFFECT");
       setCurrent(undefined);
       setPaused(false);
       setElapsedOncurrent(0);
       clearInterval(timerRef.current);
     }
   }, [playing]);
+
+  const [current, setCurrent] = useState(undefined);
+  useEffect(() => {
+    console.log("CURRENT EFFECT");
+    console.log("current is, ", current);
+    if (playing && actions[current]) {
+      setElapsedOncurrent(0);
+      playAction(actions[current].title);
+    }
+
+    if (playing && current && !actions[current]) {
+      speech("Your sequence is over.");
+      setPlaying(false);
+      setCurrent(undefined);
+      setElapsedOncurrent(0);
+    }
+  }, [current, playing]);
 
   const [elapsedOncurrent, setElapsedOncurrent] = useState(0);
   useEffect(() => {
