@@ -1,4 +1,4 @@
 module.exports = {
-  User: require("./user"),
-  Sequence: require("./sequence")
+  Sequence: require("./sequence"),
+  User: require("./user")
 };
