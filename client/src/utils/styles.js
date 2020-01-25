@@ -76,7 +76,7 @@ export const border = {
   style: "solid"
 };
 
-export const keyframes = {
+export const animations = {
   fadeIn: keyframes`
   0% {
     opacity: 0;
