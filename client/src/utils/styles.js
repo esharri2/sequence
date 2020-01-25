@@ -1,3 +1,5 @@
+import { keyframes } from "styled-components";
+
 export const colors = {
   shark: "#1B1E21",
   black: "#272c30",
@@ -72,4 +74,16 @@ export const border = {
   radius: "4px",
   size: "1px",
   style: "solid"
+};
+
+export const keyframes = {
+  fadeIn: keyframes`
+  0% {
+    opacity: 0;
+  }
+
+  100 {
+    opacity: 1;
+  }
+`
 };

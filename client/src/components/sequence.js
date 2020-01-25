@@ -110,6 +110,18 @@ const Sequence = ({
 
   const [actions, setActions] = useState(initialActions);
 
+  const [playing, setPlaying] = useState(false);
+  useEffect(() => {
+    if (playing) {
+      setCurrent(0);
+    } else {
+      setCurrent(undefined);
+      setPaused(false);
+      setElapsedOncurrent(0);
+      clearInterval(timerRef.current);
+    }
+  }, [playing]);
+
   const [current, setCurrent] = useState(undefined);
   useEffect(() => {
     if (playing && actions[current]) {
@@ -136,18 +148,6 @@ const Sequence = ({
       }
     }
   }, [elapsedOncurrent, playing]);
-
-  const [playing, setPlaying] = useState(false);
-  useEffect(() => {
-    if (playing) {
-      setCurrent(0);
-    } else {
-      setCurrent(undefined);
-      setPaused(false);
-      setElapsedOncurrent(0);
-      clearInterval(timerRef.current);
-    }
-  }, [playing]);
 
   const [paused, setPaused] = useState(false);
   useEffect(() => {
