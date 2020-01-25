@@ -16,7 +16,13 @@ import MoveButtons from "../components/move-buttons";
 import TimeInputs from "../components/time-inputs";
 
 import speech from "../utils/speech";
-import { border, colors, spacing } from "../utils/styles";
+import {
+  animations,
+  border,
+  colors,
+  spacing,
+  transitions
+} from "../utils/styles";
 import { getTaskById } from "../utils/api";
 
 const HeaderLinks = styled.div`
@@ -52,6 +58,8 @@ const Action = styled.div`
   grid-gap: ${spacing.xs};
   grid-template-areas: "number title title title minutes seconds up down copy remove";
   grid-template-columns: repeat(10, 1fr);
+  animation: ${transitions.slow} ${animations.fadeIn}
+    ${animations.defaultTimingFunction};
   ${props => {
     if (props.isPlaying) {
       return `div:first-child > span {
@@ -110,18 +118,6 @@ const Sequence = ({
 
   const [actions, setActions] = useState(initialActions);
 
-  const [playing, setPlaying] = useState(false);
-  useEffect(() => {
-    if (playing) {
-      setCurrent(0);
-    } else {
-      setCurrent(undefined);
-      setPaused(false);
-      setElapsedOncurrent(0);
-      clearInterval(timerRef.current);
-    }
-  }, [playing]);
-
   const [current, setCurrent] = useState(undefined);
   useEffect(() => {
     if (playing && actions[current]) {
@@ -130,12 +126,26 @@ const Sequence = ({
     }
 
     if (playing && !actions[current]) {
+      console.log("THE CURRENT EFFECT");
       speech("Your sequence is over.");
       setPlaying(false);
       setCurrent(undefined);
       setElapsedOncurrent(0);
     }
   }, [current, playing]);
+
+  const [playing, setPlaying] = useState(false);
+  useEffect(() => {
+    if (playing) {
+      setCurrent(0);
+    } else {
+      console.log("THE PLAYING EFFECT");
+      setCurrent(undefined);
+      setPaused(false);
+      setElapsedOncurrent(0);
+      clearInterval(timerRef.current);
+    }
+  }, [playing]);
 
   const [elapsedOncurrent, setElapsedOncurrent] = useState(0);
   useEffect(() => {
@@ -249,7 +259,10 @@ const Sequence = ({
       />
       <Actions>
         {actions.map((action, index) => (
-          <Action key={index} data-index={index} isPlaying={index === current}>
+          <Action
+            key={action._id}
+            data-index={index}
+            isPlaying={index === current}>
             {/* <DragHandle>move handle</DragHandle> */}
             <ActionNumber>
               <span>{index + 1}</span>

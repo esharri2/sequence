@@ -54,7 +54,9 @@ export const shadows = {
 };
 
 export const transitions = {
-  fast: "0.2s"
+  fast: "0.2s",
+  medium: ".5s,",
+  slow: "1s"
 };
 
 export const zIndexes = {
@@ -77,6 +79,7 @@ export const border = {
 };
 
 export const animations = {
+  defaultTimingFunction: "ease-out",
   fadeIn: keyframes`
   0% {
     opacity: 0;

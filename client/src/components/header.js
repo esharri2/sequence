@@ -34,7 +34,6 @@ const HeaderTag = styled.header`
 `;
 
 const LogoLink = styled(Link)`
-  color: red;
   text-transform: lowercase;
   font-size: 2rem;
 
@@ -44,7 +43,6 @@ const LogoLink = styled(Link)`
 `;
 
 const Nav = styled.nav`
-  /* background-color: red; */
   display: flex;
 
   *:not(:last-child) {

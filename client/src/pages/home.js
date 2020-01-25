@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 
 import Heading from "../components/heading";
 import Layout from "../components/layout";
@@ -14,9 +14,10 @@ const Home = ({ location = {} }) => {
 
   const id = location.state ? location.state.id : null;
 
-  // console.log("i")
-
-  console.log("id is ", id);
+  // Use for Sequence key when there is no id.
+  // This ensures\ a fresh component when use hits "Create new."
+  const key = useRef(1);
+  key.current++;
 
   const parameters = id ? { _id: id } : null;
   const { response, loading, error } = useUserData("/sequence", parameters);
@@ -30,12 +31,11 @@ const Home = ({ location = {} }) => {
     ]
   };
 
-  console.log(placeholder.title);
-
   return (
     <Layout authenticated={email}>
       {!id && (
         <Sequence
+          key={key.current}
           authenticated={email}
           title={placeholder.title}
           actions={placeholder.actions}
@@ -44,6 +44,7 @@ const Home = ({ location = {} }) => {
       {id && loading && <Spinner />}
       {id && response && (
         <Sequence
+          key={id}
           authenticated={email}
           id={id}
           title={response.title}
