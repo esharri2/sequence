@@ -1,7 +1,7 @@
 import React from "react";
 import { UserProvider } from "./src/context/UserContext";
 import { createGlobalStyle } from "styled-components";
-import { colors, fonts } from "./src/utils/styles";
+import { breakpoints, colors, fonts } from "./src/utils/styles";
 require("typeface-open-sans");
 require("typeface-shrikhand");
 require("@openfonts/alata_all");
@@ -19,11 +19,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  form:focus {
-    background-color: lime;
-  }
-
-  body {
+   body {
     background-color: ${colors.black};
     color: ${colors.lavender};
     font-family: ${fonts.body};
@@ -33,6 +29,10 @@ const GlobalStyle = createGlobalStyle`
     *, *:before, *:after {
       box-sizing: inherit;
     }
+
+    /* @media screen and (max-width: ${breakpoints.md}) {
+      font-size: .8rem;
+    } */
   }
 `;
 

@@ -25,9 +25,9 @@ const Home = ({ location = {} }) => {
   const placeholder = {
     title: "",
     actions: [
-      { title: "", duration: 30 },
-      { title: "", duration: 30 },
-      { title: "", duration: 30 }
+      { title: "", duration: 30, _id: "1" },
+      { title: "", duration: 30, _id: "2" },
+      { title: "", duration: 30, _id: "3" }
     ]
   };
 

@@ -13,7 +13,7 @@ const StyledGatsbyLink = styled(GatsbyLink)`
   &:hover,
   &:focus {
     text-decoration: underline;
-    outline-color: ${colors.accent2};
+    outline-color: ${colors.brightlavender};
   }
   &:visited {
     color: inherit;

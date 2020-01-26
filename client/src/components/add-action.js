@@ -13,7 +13,10 @@ const ButtonText = styled.span`
 const AddAction = ({ actions, playing, setActions }) => {
   const handleAdd = event => {
     event.preventDefault();
-    setActions([...actions, { title: "", duration: 30 }]);
+    setActions([
+      ...actions,
+      { title: "", duration: 30, _id: actions.length + 1 }
+    ]);
   };
   return (
     <Button disabled={playing} reverse onClick={handleAdd}>

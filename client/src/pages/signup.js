@@ -5,6 +5,8 @@ import AlertMessage from "../components/alert-message";
 import Back from "../components/back";
 import Heading from "../components/heading";
 import Layout from "../components/layout";
+import Link from "../components/link";
+import Paragraph from "../components/paragraph";
 import AuthForm from "../components/auth-form";
 import SpinnerOverlay from "../components/spinner-overlay";
 
@@ -71,6 +73,9 @@ export default props => {
         error={errorMessage ? <AlertMessage message={errorMessage} /> : false}
         setErrorMessage={setErrorMessage}
       />
+      <Paragraph>
+        Already have an account? <Link to="/login/">Log in here.</Link>
+      </Paragraph>
     </Layout>
   );
 };

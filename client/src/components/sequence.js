@@ -1,22 +1,20 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { navigate } from "gatsby";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import UserContext from "../context/UserContext";
 
-import Add from "../components/icons/add";
-import AddAction from "../components/add-action";
-import BackToTop from "../components/back-to-top";
-import Button from "../components/button";
-import Controls from "../components/controls";
-import Copy from "../components/icons/copy";
-import Close from "../components/icons/close";
-import Input from "../components/input";
-import Link from "../components/link";
-import List from "../components/icons/list";
-import LinkButton from "../components/link-button";
-import MoveButtons from "../components/move-buttons";
-import SlideInX from "../components/slide-in-x";
-import TimeInputs from "../components/time-inputs";
+import Add from "./icons/add";
+import AddAction from "./add-action";
+import BackToTop from "./back-to-top";
+import Button from "./button";
+import Controls from "./controls";
+import Copy from "./icons/copy";
+import Close from "./icons/close";
+import DesktopOnly from "./desktop-only";
+import Input from "./input";
+import List from "./icons/list";
+import LinkButton from "./link-button";
+import MoveButtons from "./move-buttons";
+import SlideInX from "./slide-in-x";
+import TimeInputs from "./time-inputs";
 
 import speech from "../utils/speech";
 import {
@@ -27,7 +25,6 @@ import {
   spacing,
   transitions
 } from "../utils/styles";
-import { getTaskById } from "../utils/api";
 
 const HeaderLinks = styled.div`
   display: flex;
@@ -253,7 +250,9 @@ const Sequence = ({
         {authenticated && (
           <LinkButton reverse to="/my-sequences/">
             <List />
-            <ButtonText>Saved sequences</ButtonText>
+            <ButtonText>
+              Saved <DesktopOnly>sequences</DesktopOnly>
+            </ButtonText>
           </LinkButton>
         )}
       </HeaderLinks>
@@ -299,6 +298,7 @@ const Sequence = ({
               placeholder="Action title"
             />
             <TimeInputs
+              id={index + action._id}
               handleActionChange={handleActionChange}
               duration={action.duration}
             />

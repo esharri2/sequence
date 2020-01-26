@@ -35,7 +35,6 @@ const useUserData = (route, parameters) => {
   // On first render, find out whether user is signed in on client and server
   useEffect(() => {
     if (!parameters) {
-      console.log("there are no params, abort.");
       // There are no params, abort.
       return;
     }
@@ -90,7 +89,6 @@ const useUserData = (route, parameters) => {
             throw Error();
           }
           const json = await response.json();
-          console.log(json);
           setLoading(false);
           setResponse(json);
         } catch (error) {

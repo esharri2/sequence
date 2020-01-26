@@ -39,6 +39,8 @@ const FormField = props => {
       placeholder={props.placeholder}
       value={value}
       autocomplete={props.autocomplete || "off"}
+      min={props.min}
+      max={props.max}
       {...checked}
     />
   );

@@ -29,7 +29,7 @@ const SecondsInput = styled(TimeInput)`
 `;
 
 const TimeInputs = props => {
-  const { duration, handleActionChange } = props;
+  const { duration, id, handleActionChange } = props;
 
   // Quotes are added to these to prevent leading zeros.
   // See: github.com/facebook/react/issues/9402#issuecomment-447891987
@@ -46,6 +46,7 @@ const TimeInputs = props => {
         placeholder="M"
         min="0"
         label="m"
+        id={"m" + id}
       />
       <SecondsInput
         onChange={handleActionChange}
@@ -55,6 +56,7 @@ const TimeInputs = props => {
         placeholder="S"
         min="0"
         label="s"
+        id={"s" + id}
       />
     </>
   );

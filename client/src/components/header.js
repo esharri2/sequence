@@ -36,6 +36,7 @@ const HeaderTag = styled.header`
 const LogoLink = styled(Link)`
   text-transform: lowercase;
   font-size: 2rem;
+  padding-bottom: ${spacing.xs};
 
   &:hover {
     text-decoration: none;
@@ -47,6 +48,10 @@ const Nav = styled.nav`
 
   *:not(:last-child) {
     margin-right: ${spacing.md};
+  }
+
+  @media screen and (max-width: ${breakpoints.md}) {
+    font-size: 0.8rem;
   }
 `;
 
@@ -60,52 +65,10 @@ const NavLink = styled(Link)`
   }
 `;
 
-// const CustomMenuButton = styled(MenuButton)`
-//   background-color: transparent;
-//   border: none;
-//   fill: ${colors.black};
-//   cursor: pointer;
-//   &:focus {
-//     outline-color: ${colors.accent2};
-//   }
-// `;
-
-// const CustomMenuList = styled(MenuList)`
-//   background: ${colors.lavender} !important;
-//   color: ${colors.black};
-//   box-shadow: ${shadows.small};
-//   border-radius: ${border.radius};
-
-//   [data-reach-menu-item] {
-//     width: 250px;
-//     font-family: ${fonts.body};
-//     &:hover,
-//     &:focus {
-//       * {
-//         color: ${colors.lightest};
-//         fill: ${colors.lightest};
-//       }
-//     }
-//   }
-
-//   [data-reach-menu-item][data-selected] {
-//     background-color: ${colors.accent1};
-//     text-decoration: none;
-//     color: ${colors.lightest}!important;
-//   }
-// `;
-
-// const MenuTitle = styled.div`
-//   width: 100%;
-//   text-align: center;
-//   font-size: larger;
-//   height: 30px;
-// `;
-
 const Header = props => {
   const links = props.authenticated ? (
     <Nav>
-      <NavLink to="/my-sequences/">Sequences</NavLink>
+      {/* <NavLink to="/my-sequences/">Sequences</NavLink> */}
       <NavLink to="/settings/">Settings</NavLink>
       <NavLink to="/about/">About</NavLink>
       <LogOutButton />
@@ -116,7 +79,7 @@ const Header = props => {
       <NavLink to="/about/">About</NavLink>
       <span> | </span>
       <NavLink to="/signup/">Sign up</NavLink>
-      <NavLink to="/login/">Log in</NavLink>
+      {/* <NavLink to="/login/">Log in</NavLink> */}
     </Nav>
   );
 
