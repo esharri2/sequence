@@ -64,9 +64,11 @@ const Action = styled.div`
 
   @media screen and (max-width: ${breakpoints.md}) {
     grid-template-areas:
-      "number title title title minutes seconds"
-      ".... ..... copy up down remove";
-    grid-template-rows: 1fr 1fr;
+      "number title title title title title"
+      ".... .... minutes minutes seconds seconds"
+      ".... .... copy up down remove";
+    grid-gap: 0 ${spacing["3xs"]};
+    grid-template-rows: 1fr 1fr 1fr;
     grid-template-columns: 0.5fr repeat(5, 1fr);
     border-radius: ${border.radius};
     border: ${border.style} ${border.size} ${colors.lavender};
