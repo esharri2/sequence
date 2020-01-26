@@ -25,8 +25,4 @@ const AlertMessage = props => {
   );
 };
 
-AlertMessage.propTypes = {
-  message: PropTypes.any.isRequired
-};
-
 export default AlertMessage;

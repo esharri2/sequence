@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import AddAction from "../components/add-action";
 import Button from "../components/button";
@@ -9,7 +9,14 @@ import Spinner from "../components/spinner";
 import Stop from "../components/icons/stop";
 import Upload from "../components/icons/upload";
 
-import { breakpoints, colors, shadows, spacing } from "../utils/styles";
+import {
+  animations,
+  breakpoints,
+  colors,
+  shadows,
+  spacing,
+  transitions
+} from "../utils/styles";
 import { postData } from "../utils/http";
 
 const ButtonBar = styled.div`
@@ -41,29 +48,16 @@ const ButtonText = styled.span`
   margin-left: ${spacing.xs};
 `;
 
-const SaveButton = styled(Button)`
-  @keyframes animatedGradient {
-    0% {
-      background-position: 0% 00%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
+const changeBackgroundColor = keyframes`
     100% {
-      background-position: 0% 50%;
-      /* transform: translateY(-1px); */
-      box-shadow: ${shadows.sm};
+      background-color: ${colors.brightlavender};
     }
-  }
+`;
 
+const SaveButton = styled(Button)`
   &:not(:disabled) {
-    background: linear-gradient(
-      270deg,
-      ${colors.lavender},
-      ${colors.brightlavender}
-    );
-    background-size: 200% 200%;
-    animation: animatedGradient 1.5s infinite linear alternate;
+    animation: ${changeBackgroundColor} ${transitions.md} infinite alternate
+      ${animations.defaultTimingFunction};
   }
 `;
 

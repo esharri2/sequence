@@ -29,32 +29,10 @@ const ButtonContainer = styled.div`
 
 export default () => {
   const user = useContext(UserContext).user;
-  const id = user ? (user.home ? user.home.id : null) : null;
 
   const [loading, setLoading] = useState(false);
 
-  const handleClick = event => {
-    setLoading(true);
-    const fileType = event.target.dataset.type;
-    getExport({ id, fileType })
-      .then(response => {
-        console.log(response.data);
-        const fileName = fileType === "pdf" ? "export.pdf" : "export.json";
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", fileName);
-        document.body.appendChild(link);
-        link.click();
-      })
-      .catch(error => {
-        alert(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
+  // TODO update this use fetch hook.
   const handleDeleteClick = event => {
     setLoading(true);
     deleteAccount()
@@ -73,25 +51,6 @@ export default () => {
     <Layout>
       {loading && <SpinnerOverlay />}
       <Heading level={1}>Settings</Heading>
-      <Section>
-        <Heading level={2}>Manage homes</Heading>
-        <Link to="/Homes/">
-          Add new homes, edit existing home details, or change your default home
-          <ChevronRight dark={true} />
-        </Link>
-      </Section>
-      <Section>
-        <Heading level={2}>Export home data</Heading>
-        <Paragraph>Export all of the details about your.</Paragraph>
-        <ButtonContainer>
-          <Button onClick={handleClick} data-type="pdf">
-            Save as PDF
-          </Button>
-          <Button onClick={handleClick} data-type="json">
-            Export raw data
-          </Button>
-        </ButtonContainer>
-      </Section>
       <Section>
         <Heading level={2}>Change Password</Heading>
         <Link to="/ChangePassword/">

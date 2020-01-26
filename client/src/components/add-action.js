@@ -15,7 +15,7 @@ const AddAction = ({ actions, playing, setActions }) => {
     event.preventDefault();
     setActions([
       ...actions,
-      { title: "", duration: 30, _id: actions.length + 1 }
+      { title: "", duration: 30, placeholderId: actions.length + 1 }
     ]);
   };
   return (

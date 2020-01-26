@@ -15,9 +15,9 @@ const StyledGatsbyLink = styled(GatsbyLink)`
     text-decoration: underline;
     outline-color: ${colors.brightlavender};
   }
-  &:visited {
+  /* &:visited {
     color: inherit;
-  }
+  } */
   &.isActiveSub {
     font-weight: ${fonts.mediumWeight};
   }

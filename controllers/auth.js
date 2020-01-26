@@ -25,7 +25,7 @@ module.exports = {
         .then(user => res.json(user.email))
         .catch(err => {
           console.error(err);
-          res.status(422).json(err);
+          res.status(401).json(err);
         });
     }
   },

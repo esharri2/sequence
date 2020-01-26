@@ -120,7 +120,6 @@ const RemoveButton = styled(Button)`
 const BottomButtons = styled.div`
   display: flex;
   justify-content: space-between;
-  /* background-color: lime; */
 `;
 
 const Sequence = ({
@@ -147,7 +146,7 @@ const Sequence = ({
     } else {
       setCurrent(undefined);
       setPaused(false);
-      setElapsedOncurrent(0);
+      setElapsedOnCurrent(0);
       clearInterval(timerRef.current);
     }
   }, [playing]);
@@ -155,7 +154,7 @@ const Sequence = ({
   const [current, setCurrent] = useState(undefined);
   useEffect(() => {
     if (playing && actions[current]) {
-      setElapsedOncurrent(0);
+      setElapsedOnCurrent(0);
       playAction(actions[current].title);
     }
 
@@ -163,21 +162,23 @@ const Sequence = ({
       speech("Your sequence is over.");
       setPlaying(false);
       setCurrent(undefined);
-      setElapsedOncurrent(0);
+      setElapsedOnCurrent(0);
     }
   }, [current, playing]);
 
-  const [elapsedOncurrent, setElapsedOncurrent] = useState(0);
+  const currentActionRef = useRef(null);
+
+  const [elapsedOnCurrent, setElapsedOnCurrent] = useState(0);
   useEffect(() => {
     if (playing) {
       const duration = current !== undefined ? actions[current].duration : null;
-      if (elapsedOncurrent === duration + 1) {
+      if (elapsedOnCurrent === duration) {
         const newcurrent = current + 1;
         clearInterval(timerRef.current);
         setCurrent(newcurrent);
       }
     }
-  }, [elapsedOncurrent, playing]);
+  }, [elapsedOnCurrent, playing]);
 
   const [paused, setPaused] = useState(false);
   useEffect(() => {
@@ -189,11 +190,14 @@ const Sequence = ({
   const timerRef = useRef();
 
   const playAction = title => {
+    if (currentActionRef.current) {
+      currentActionRef.current.scrollIntoView(false);
+    }
     if (title) {
       speech(title);
     }
     const timerId = setInterval(() => {
-      setElapsedOncurrent(prev => prev + 1);
+      setElapsedOnCurrent(prev => prev + 1);
     }, 1000);
     timerRef.current = timerId;
   };
@@ -240,6 +244,7 @@ const Sequence = ({
       }
     }
     setActions(actionsClone);
+    setHasChanged(true);
   };
 
   return (
@@ -258,7 +263,7 @@ const Sequence = ({
           </LinkButton>
         )}
       </HeaderLinks>
-      {/* <div>Elapsed: {elapsedOncurrent}</div>
+      {/* <div>Elapsed: {elapsedOnCurrent}</div>
       <div>Current Action: {current}</div> */}
       <SequenceTitleInput
         type="text"
@@ -283,42 +288,48 @@ const Sequence = ({
         title={title}
       />
       <Actions>
-        {actions.map((action, index) => (
-          <Action
-            key={action._id}
-            data-index={index}
-            isPlaying={index === current}>
-            {/* <DragHandle>move handle</DragHandle> */}
-            <ActionNumber>
-              <span>{index + 1}</span>
-            </ActionNumber>
-            <ActionTitleInput
-              onChange={handleActionChange}
-              type="text"
-              name="title"
-              value={action.title}
-              placeholder="Action title"
-            />
-            <TimeInputs
-              id={index + action._id}
-              handleActionChange={handleActionChange}
-              duration={action.duration}
-            />
-            <CopyButton disabled={playing} reverse onClick={handleCopy}>
-              <Copy />
-            </CopyButton>
-            <MoveButtons
-              disabled={playing}
-              actions={actions}
-              index={index}
-              getIndex={getIndex}
-              setActions={setActions}
-            />
-            <RemoveButton disabled={playing} reverse onClick={handleDelete}>
-              <Close />
-            </RemoveButton>
-          </Action>
-        ))}
+        {actions.map((action, index) => {
+          const isPlaying = index === current;
+          const ref = isPlaying ? { ref: currentActionRef } : null;
+          return (
+            <Action
+              key={action._id || action.placeholderId}
+              data-index={index}
+              isPlaying={isPlaying}
+              {...ref}>
+              <ActionNumber>
+                <span>{index + 1}</span>
+              </ActionNumber>
+              <ActionTitleInput
+                onChange={handleActionChange}
+                type="text"
+                name="title"
+                value={action.title}
+                placeholder="Action title"
+              />
+              <TimeInputs
+                id={index + (action._id || action.placeholderId)}
+                handleActionChange={handleActionChange}
+                duration={action.duration}
+                isPlaying={isPlaying}
+                elapsedOnCurrent={elapsedOnCurrent}
+              />
+              <CopyButton disabled={playing} reverse onClick={handleCopy}>
+                <Copy />
+              </CopyButton>
+              <MoveButtons
+                disabled={playing}
+                actions={actions}
+                index={index}
+                getIndex={getIndex}
+                setActions={setActions}
+              />
+              <RemoveButton disabled={playing} reverse onClick={handleDelete}>
+                <Close />
+              </RemoveButton>
+            </Action>
+          );
+        })}
       </Actions>
       {actions.length > 12 && (
         <BottomButtons>

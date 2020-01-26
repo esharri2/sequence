@@ -18,11 +18,10 @@ const GridList = styled(List)`
 
 const GridRow = styled(ListItem)`
   display: grid;
-  grid-template-columns: 350px 100px 200px;
-  border-bottom: 1px solid ${colors.lavender};
+  grid-template-columns: 500px 50px;
 
   @media screen and (max-width: ${breakpoints.md}) {
-    grid-template-columns: 100%;
+    grid-template-columns: 7fr 1fr;
   }
 `;
 
@@ -32,11 +31,18 @@ const Duration = styled.div`
 `;
 
 const StyledLink = styled(Link)`
+  padding-left: ${spacing.sm};
+  border-bottom: 1px solid ${colors.lavender};
+
   &:hover,
   &:focus {
     text-decoration: none;
-    color: ${colors.brightlavender};
+    background-color: ${colors.plumppurple};
   }
+`;
+
+const Title = styled.div`
+  width: 75%;
 `;
 
 export default ({ sequences: initialSequences }) => {
@@ -70,15 +76,16 @@ export default ({ sequences: initialSequences }) => {
         const durations = actions.map(action => action.duration);
         const totalTime = durations.reduce((a, b) => a + b, 0);
         const minutes = Math.floor(totalTime / 60);
-        const seconds = totalTime % 60;
+        const seconds = ("0" + (totalTime % 60)).slice(-2);
+
         return (
           <GridRow>
             <StyledLink to="/home/" state={{ id: _id }}>
-              {title}
+              <Title>{title}</Title>
+              <Duration>
+                {minutes}:{seconds}
+              </Duration>
             </StyledLink>
-            <Duration>
-              {minutes}:{seconds}
-            </Duration>
             <Button
               reverse
               aria-label={`Delete your sequence titled ${title}`}

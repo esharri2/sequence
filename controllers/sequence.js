@@ -4,11 +4,20 @@ const mongoose = require("mongoose");
 module.exports = {
   getAllSequences: async (req, res) => {
     try {
-      const sequences = await db.User.findOne({
+      const response = await db.User.findOne({
         email: req.query.email
       }).populate("sequences");
-
-      res.json(sequences);
+      response.sequences.sort((a, b) => {
+        const titleA = a.title.toUpperCase();
+        const titleB = b.title.toUpperCase();
+        if (titleA > titleB) {
+          return 1;
+        } else if (titleA < titleB) {
+          return -1;
+        }
+        return 0;
+      });
+      res.json(response);
     } catch (error) {
       console.error(error);
       res.status(422).json(error);

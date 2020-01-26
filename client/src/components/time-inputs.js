@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import FormField from "../components/form-field";
 
-import { colors, spacing } from "../utils/styles";
+import { breakpoints, colors, spacing } from "../utils/styles";
 
 const TimeInput = styled(FormField)`
   margin: 0;
@@ -28,36 +28,74 @@ const SecondsInput = styled(TimeInput)`
   grid-area: seconds;
 `;
 
-const TimeInputs = props => {
-  const { duration, id, handleActionChange } = props;
+const TimeDisplay = styled.div`
+  /* background-color: green; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  color: ${colors.brightlavender};
+  grid-area: seconds;
 
+  @media screen and (max-width: ${breakpoints.md}) {
+    justify-content: flex-end;
+  }
+`;
+
+const PlaceholderDisplay = styled(TimeDisplay)`
+  grid-area: minutes;
+`;
+
+const SecondsDisplay = styled(TimeDisplay)``;
+
+const TimeInputs = ({
+  duration,
+  id,
+  handleActionChange,
+  isPlaying,
+  elapsedOnCurrent
+}) => {
   // Quotes are added to these to prevent leading zeros.
   // See: github.com/facebook/react/issues/9402#issuecomment-447891987
-  const minutes = Math.floor(duration / 60) + "";
-  const seconds = (duration % 60) + "";
+
+  const adjustedDuration = isPlaying ? duration - elapsedOnCurrent : duration;
+
+  const minutes = Math.floor(adjustedDuration / 60) + "";
+  const seconds = (adjustedDuration % 60) + "";
 
   return (
     <>
-      <MinutesInput
-        onChange={handleActionChange}
-        name="minutes"
-        type="number"
-        value={minutes}
-        placeholder="M"
-        min="0"
-        label="m"
-        id={"m" + id}
-      />
-      <SecondsInput
-        onChange={handleActionChange}
-        type="number"
-        name="seconds"
-        value={seconds}
-        placeholder="S"
-        min="0"
-        label="s"
-        id={"s" + id}
-      />
+      {isPlaying ? (
+        <>
+          <PlaceholderDisplay />
+          <TimeDisplay>
+            {minutes}:{seconds}
+          </TimeDisplay>
+        </>
+      ) : (
+        <>
+          <MinutesInput
+            onChange={handleActionChange}
+            name="minutes"
+            type="number"
+            value={minutes}
+            placeholder="M"
+            min="0"
+            label="m"
+            id={"m" + id}
+          />
+          <SecondsInput
+            onChange={handleActionChange}
+            type="number"
+            name="seconds"
+            value={seconds}
+            placeholder="S"
+            min="0"
+            label="s"
+            id={"s" + id}
+          />
+        </>
+      )}
     </>
   );
 };
