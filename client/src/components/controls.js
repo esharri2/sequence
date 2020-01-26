@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import Add from "../components/icons/add";
+import AddAction from "../components/add-action";
 import Button from "../components/button";
 import Pause from "../components/icons/pause";
 import Play from "../components/icons/play";
@@ -86,11 +86,6 @@ const Controls = props => {
 
   const [loading, setLoading] = useState(false);
 
-  const handleAdd = event => {
-    event.preventDefault();
-    setActions([...actions, { title: "", duration: 30 }]);
-  };
-
   const handlePlay = event => {
     event.preventDefault();
     if (playing) {
@@ -148,8 +143,8 @@ const Controls = props => {
         <Stop dark />
         <ButtonText>Stop</ButtonText>
       </Button>
-      {authenticated && !playing && (
-        <SaveButton onClick={handleSave} disabled={!hasChanged}>
+      {authenticated && (
+        <SaveButton onClick={handleSave} disabled={!hasChanged || playing}>
           {loading ? (
             <Spinner />
           ) : (
@@ -160,12 +155,7 @@ const Controls = props => {
           )}
         </SaveButton>
       )}
-      {!playing && (
-        <Button reverse onClick={handleAdd}>
-          <Add />
-          <ButtonText>Add an action</ButtonText>
-        </Button>
-      )}
+      <AddAction actions={actions} setActions={setActions} playing={playing} />
     </ButtonBar>
   );
 };

@@ -81,12 +81,34 @@ export const border = {
 export const animations = {
   defaultTimingFunction: "ease-out",
   fadeIn: keyframes`
-  0% {
-    opacity: 0;
-  }
+    0% {
+      opacity: 0;
+    }
 
-  100 {
-    opacity: 1;
-  }
+    100 {
+      opacity: 1;
+    }
+`,
+  slideInFromRight: keyframes`
+    0% {
+      opacity: 0;
+      transform: translateX(100px)
+    }
+
+    100% {
+      opacity: 1
+      transform: translateX(0)
+    }
+`,
+  slideInFromLeft: keyframes`
+    0% {
+      opacity: 0;
+      transform: translateX(-100px)
+    }
+
+    100% {
+      opacity: 1
+      transform: translateX(0)
+    }
 `
 };

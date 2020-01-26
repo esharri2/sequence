@@ -4,6 +4,8 @@ import styled from "styled-components";
 import UserContext from "../context/UserContext";
 
 import Add from "../components/icons/add";
+import AddAction from "../components/add-action";
+import BackToTop from "../components/back-to-top";
 import Button from "../components/button";
 import Controls from "../components/controls";
 import Copy from "../components/icons/copy";
@@ -13,12 +15,14 @@ import Link from "../components/link";
 import List from "../components/icons/list";
 import LinkButton from "../components/link-button";
 import MoveButtons from "../components/move-buttons";
+import SlideInX from "../components/slide-in-x";
 import TimeInputs from "../components/time-inputs";
 
 import speech from "../utils/speech";
 import {
   animations,
   border,
+  breakpoints,
   colors,
   spacing,
   transitions
@@ -56,23 +60,41 @@ const Actions = styled.div`
 const Action = styled.div`
   display: grid;
   grid-gap: ${spacing.xs};
-  grid-template-areas: "number title title title minutes seconds up down copy remove";
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-areas: "number title minutes seconds copy up down remove";
+  grid-template-columns: 1fr 8fr 1fr 1fr 1fr 1fr 1fr 1fr;
   animation: ${transitions.slow} ${animations.fadeIn}
     ${animations.defaultTimingFunction};
-  ${props => {
-    if (props.isPlaying) {
-      return `div:first-child > span {
+
+  @media screen and (max-width: ${breakpoints.md}) {
+    grid-template-areas:
+      "number title title title minutes seconds"
+      ".... ..... copy up down remove";
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 0.5fr repeat(5, 1fr);
+    border-radius: ${border.radius};
+    border: ${border.style} ${border.size} ${colors.lavender};
+    padding: ${spacing.xs};
+    margin-bottom: ${spacing.xs};
+
+    &:first-child {
+      margin-top: ${spacing.xs};
+    }
+  }
+
+  ${props =>
+    props.isPlaying &&
+    `
+    border-color: ${colors.brightlavender}!important;
+    div:first-child > span {
     background-color: ${colors.brightlavender};
     border-color: ${colors.brightlavender};
-    color: ${colors.black};`;
-    }
-  }}
+    color: ${colors.black};`}
 `;
 
 const ActionNumber = styled.div`
   display: flex;
   align-items: center;
+  grid-area: number;
   span {
     border: ${border.style} ${border.size} ${colors.lavender};
     border-radius: 50%;
@@ -82,10 +104,6 @@ const ActionNumber = styled.div`
     align-items: center;
     justify-content: center;
   }
-`;
-
-const DragHandle = styled.div`
-  background-color: red;
 `;
 
 const ActionTitleInput = styled(Input)`
@@ -98,6 +116,12 @@ const CopyButton = styled(Button)`
 
 const RemoveButton = styled(Button)`
   grid-area: remove;
+`;
+
+const BottomButtons = styled.div`
+  display: flex;
+  justify-content: space-between;
+  /* background-color: lime; */
 `;
 
 const Sequence = ({
@@ -119,8 +143,6 @@ const Sequence = ({
 
   const [playing, setPlaying] = useState(false);
   useEffect(() => {
-    console.log("PLAYING EFFECT");
-    console.log("playing, ", playing);
     if (playing) {
       setCurrent(0);
     } else {
@@ -133,8 +155,6 @@ const Sequence = ({
 
   const [current, setCurrent] = useState(undefined);
   useEffect(() => {
-    console.log("CURRENT EFFECT");
-    console.log("current is, ", current);
     if (playing && actions[current]) {
       setElapsedOncurrent(0);
       playAction(actions[current].title);
@@ -207,15 +227,18 @@ const Sequence = ({
     const actionsClone = [...actions];
     if (name === "title") {
       actionsClone[index].title = value;
-    }
-    if (name === "minutes") {
-      const seconds = event.target.parentNode.querySelector(
-        "input[name='seconds']"
-      ).value;
-      actionsClone[index].duration = Number(value) * 60 + Number(seconds);
-    }
-    if (name === "seconds") {
-      // do that
+    } else {
+      const prevDuration = actionsClone[index].duration;
+      const prevSeconds = prevDuration % 60;
+      const prevMinutes = Math.floor(prevDuration / 60);
+
+      if (name === "minutes") {
+        actionsClone[index].duration = Number(value) * 60 + prevSeconds;
+      }
+
+      if (name === "seconds") {
+        actionsClone[index].duration = Number(value) + prevMinutes * 60;
+      }
     }
     setActions(actionsClone);
   };
@@ -279,27 +302,36 @@ const Sequence = ({
               handleActionChange={handleActionChange}
               duration={action.duration}
             />
-            {!playing && (
-              <MoveButtons
-                actions={actions}
-                index={index}
-                getIndex={getIndex}
-                setActions={setActions}
-              />
-            )}
-            {!playing && (
-              <CopyButton reverse onClick={handleCopy}>
-                <Copy />
-              </CopyButton>
-            )}
-            {!playing && (
-              <RemoveButton reverse onClick={handleDelete}>
-                <Close />
-              </RemoveButton>
-            )}
+            <CopyButton disabled={playing} reverse onClick={handleCopy}>
+              <Copy />
+            </CopyButton>
+            <MoveButtons
+              disabled={playing}
+              actions={actions}
+              index={index}
+              getIndex={getIndex}
+              setActions={setActions}
+            />
+            <RemoveButton disabled={playing} reverse onClick={handleDelete}>
+              <Close />
+            </RemoveButton>
           </Action>
         ))}
       </Actions>
+      {actions.length > 12 && (
+        <BottomButtons>
+          <SlideInX from="left">
+            <AddAction
+              actions={actions}
+              setActions={setActions}
+              playing={playing}
+            />
+          </SlideInX>
+          <SlideInX from="right">
+            <BackToTop />
+          </SlideInX>
+        </BottomButtons>
+      )}
     </form>
   );
 };

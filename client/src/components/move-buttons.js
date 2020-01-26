@@ -1,11 +1,20 @@
 import React from "react";
+import styled from "styled-components";
 
 import Button from "../components/button";
 import ChevronUp from "../components/icons/chevron-up";
 import ChevronDown from "../components/icons/chevron-down";
 
+const Up = styled(Button)`
+  grid-area: up;
+`;
+
+const Down = styled(Button)`
+  grid-area: down;
+`;
+
 const MoveButtons = props => {
-  const { actions, getIndex, index, setActions } = props;
+  const { actions, disabled, getIndex, index, setActions } = props;
 
   const handleMove = event => {
     event.preventDefault();
@@ -20,20 +29,20 @@ const MoveButtons = props => {
 
   return (
     <>
-      <Button
+      <Up
         reverse
-        disabled={index === 0}
+        disabled={index === 0 || disabled}
         data-direction="up"
         onClick={handleMove}>
         <ChevronUp />
-      </Button>
-      <Button
+      </Up>
+      <Down
         reverse
-        disabled={index === actions.length - 1}
+        disabled={index === actions.length - 1 || disabled}
         data-direction="down"
         onClick={handleMove}>
         <ChevronDown />
-      </Button>
+      </Down>
     </>
   );
 };
