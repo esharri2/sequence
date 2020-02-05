@@ -54,7 +54,7 @@ export default () => {
       <Section>
         <Heading level={2}>Change Password</Heading>
         <Link to="/ChangePassword/">
-          Change your password <ChevronRight dark={true} />
+          Change your password <ChevronRight color={colors.lavender} />
         </Link>
       </Section>
       <Section>

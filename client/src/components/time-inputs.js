@@ -53,7 +53,8 @@ const TimeInputs = ({
   id,
   handleActionChange,
   isPlaying,
-  elapsedOnCurrent
+  elapsedOnCurrent,
+  playing
 }) => {
   // Quotes are added to these to prevent leading zeros.
   // See: github.com/facebook/react/issues/9402#issuecomment-447891987
@@ -83,6 +84,7 @@ const TimeInputs = ({
             min="0"
             label="m"
             id={"m" + id}
+            disabled={playing}
           />
           <SecondsInput
             onChange={handleActionChange}
@@ -93,6 +95,7 @@ const TimeInputs = ({
             min="0"
             label="s"
             id={"s" + id}
+            disabled={playing}
           />
         </>
       )}

@@ -50,7 +50,6 @@ export default ({ sequences: initialSequences }) => {
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async event => {
-    console.log(event.target);
     const { id, index } = event.target.dataset;
     setLoading(true);
     const response = await deleteData("/sequence", {

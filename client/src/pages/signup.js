@@ -41,7 +41,6 @@ export default props => {
     });
     if (response.error) {
       // TODO may need to work on this
-      console.log(response);
       const message =
         response.status === 401
           ? errorMessages.credentialsAlreadyExist

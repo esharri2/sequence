@@ -10,8 +10,6 @@ module.exports = {
     // Update username and password if user already is on a demo account
     if (isDemo) {
       const user = await db.User.findOne({ email: currentEmail });
-      console.log("user is...");
-      console.log(user);
       user.email = email;
       user.password = password;
       user
@@ -31,10 +29,16 @@ module.exports = {
   },
 
   logIn: function(req, res) {
-    console.log(req.user);
     if (req.user) {
       db.User.findOne({ email: req.user.email })
-        .then(user => res.json(user))
+        .populate("sequences")
+        .then(user => {
+          const userData = {
+            email: user.email,
+            hasSequences: user.sequences.length > 0 ? true : false
+          };
+          return res.json(userData);
+        })
         .catch(error => {
           res.status(422).json(err);
         });
@@ -91,7 +95,6 @@ module.exports = {
 
   requestPasswordReset: function(req, res) {
     const email = req.body.email;
-    console.log(email);
     db.User.findOne({ email }, (error, user) => {
       if (!user) {
         res.status(422).json({ message: "There is no user with that email." });
@@ -104,7 +107,6 @@ module.exports = {
             // TODO send generic error?
           } else {
             var transporter = emailUtils.getTransporter();
-            console.log(transporter);
             var mailOptions = {
               from: process.env.TRANSPORTER_EMAIL,
               to: email,
@@ -131,7 +133,6 @@ module.exports = {
 
   deleteAccount: async function(req, res) {
     const email = req.user.email;
-    console.log(email);
     // todo bail if null
     const userData = await db.User.findOne({ email })
       .select("_id email")
@@ -171,11 +172,6 @@ module.exports = {
         }
       }
     }
-
-    console.log(homeIds);
-    console.log(itemIds);
-    console.log(taskIds);
-    console.log(instanceIds);
 
     let deletedData;
 

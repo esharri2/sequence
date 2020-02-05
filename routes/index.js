@@ -8,6 +8,7 @@ const sequenceRoutes = require("./sequence");
 
 const isCorsAllowed = (origin, req) => {
   const environment = express().get("env");
+  console.log(origin);
   if (environment === "development") {
     return true;
   } else {

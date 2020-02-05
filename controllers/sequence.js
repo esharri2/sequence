@@ -26,8 +26,6 @@ module.exports = {
   getSequence: async (req, res) => {
     try {
       const sequence = await db.Sequence.findOne({ _id: req.query._id });
-      console.log("YO");
-      console.log(sequence);
       res.json(sequence);
     } catch (error) {
       console.error(error);

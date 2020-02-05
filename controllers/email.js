@@ -22,7 +22,7 @@ module.exports = {
 
     transporter.sendMail(mailOptions, function(error, info) {
       if (error) {
-        console.log(error);
+        console.error(error);
         res.send(error);
       } else {
         console.log(info.response);

@@ -306,6 +306,7 @@ const Sequence = ({
                 name="title"
                 value={action.title}
                 placeholder="Action title"
+                disabled={playing}
               />
               <TimeInputs
                 id={index + (action._id || action.placeholderId)}
@@ -313,6 +314,7 @@ const Sequence = ({
                 duration={action.duration}
                 isPlaying={isPlaying}
                 elapsedOnCurrent={elapsedOnCurrent}
+                playing={playing}
               />
               <CopyButton disabled={playing} reverse onClick={handleCopy}>
                 <Copy />

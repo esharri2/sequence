@@ -13,8 +13,7 @@ const IconWrapper = styled.span`
   height: 1rem;
   margin-right: ${props => (props.padding === "right" ? spacing.xs : 0)};
   margin-left: ${props => (props.padding === "left" ? spacing.xs : 0)};
-  fill: inherit;
-
+  fill: ${props => (props.color ? props.color : "inherit")};
   svg {
     height: 125%;
     width: 125%;

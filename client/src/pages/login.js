@@ -55,7 +55,11 @@ export default props => {
       setLoading(false);
     } else {
       clientLogIn(userContext, response.email);
-      navigate("/home/");
+      if (response.hasSequences) {
+        navigate("/my-sequences/");
+      } else {
+        navigate("/home/");
+      }
     }
   };
 

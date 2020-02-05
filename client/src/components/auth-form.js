@@ -13,7 +13,6 @@ const AuthFormWrapper = styled.form`
 const AuthForm = props => {
   const handleOnFocus = () => {
     if (props.error) {
-      console.log("im focused!");
       props.setErrorMessage(false);
     }
   };
