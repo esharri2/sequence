@@ -39,7 +39,11 @@ export const postData = async (route, body) => {
     const json = await response.json();
     return json;
   } catch (error) {
-    return error;
+    if (error.status) {
+      return error;
+    } else {
+      return { error: true };
+    }
   }
 };
 
