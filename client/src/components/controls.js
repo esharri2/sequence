@@ -48,16 +48,27 @@ const ButtonText = styled.span`
   margin-left: ${spacing.xs};
 `;
 
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
 const changeBackgroundColor = keyframes`
-    100% {
+
+    to{
       background-color: ${colors.brightlavender};
     }
 `;
 
 const SaveButton = styled(Button)`
   &:not(:disabled) {
-    animation: ${changeBackgroundColor} ${transitions.md} infinite alternate
-      ${animations.defaultTimingFunction};
+    animation: ${changeBackgroundColor} ${transitions.slow} linear alternate
+      infinite;
   }
 `;
 
