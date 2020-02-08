@@ -5,6 +5,7 @@ import { graphql } from "gatsby";
 import Link from "../components/link";
 
 import {
+  animations,
   border,
   breakpoints,
   colors,
@@ -17,6 +18,8 @@ import {
 const SplashWrapper = styled.div`
   overflow: hidden;
   color: ${colors.black};
+  animation: ${transitions.medium} ${animations.fadeIn}
+    ${animations.defaultTimingFunction};
 `;
 
 const SplashImgWrapper = styled.div`
@@ -24,7 +27,9 @@ const SplashImgWrapper = styled.div`
   top: 0;
   width: 100vw;
   height: 100vh;
-
+  background-color: ${colors.lavender};
+  animation: ${transitions.slow} ${animations.fadeIn}
+    ${animations.defaultTimingFunction};
   img {
     object-fit: cover;
     object-position: center bottom;
@@ -35,12 +40,13 @@ const SplashImgWrapper = styled.div`
 
 const Logo = styled.h1`
   text-transform: lowercase;
+  text-shadow: 3px 3px 1px ${colors.brightlavender};
   font-size: 5rem;
   margin: 0;
   line-height: 0.8;
-
   @media screen and (min-width: ${breakpoints.md}) {
     font-size: 8rem;
+    margin-top: 8rem;
   }
 
   @media screen and (max-width: ${breakpoints.sm}) {
@@ -63,18 +69,19 @@ const Main = styled.main`
 `;
 
 const TagLine = styled.p`
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-align: center;
   margin: 0;
   padding: ${spacing.md} 0;
+  line-height: 1;
   @media screen and (min-width: ${breakpoints.md}) {
     text-align: left;
-    font-size: 1.2rem;
+    font-size: 2rem;
+    max-width: 50vw;
   }
 `;
 
 const LinkWrapper = styled.div`
-  width: 240px;
   margin-bottom: ${spacing.md};
   a {
     width: 100%;
@@ -84,9 +91,14 @@ const LinkWrapper = styled.div`
       padding-bottom: ${spacing.md};
     }
   }
+
+  @media screen and (min-width: ${breakpoints.md}) {
+    margin-top: 2rem;
+    width: 25vw;
+  }
 `;
 
-const HomeButton = styled.button`
+const StyledButton = styled.button`
   padding: ${spacing.sm} ${spacing.md};
   border: ${colors.black} ${border.style} ${border.size};
   background-color: transparent;
@@ -96,22 +108,13 @@ const HomeButton = styled.button`
   transition: background-color ${transitions.fast};
   text-decoration: none;
   width: 100%;
+
   cursor: pointer;
 
   &:hover,
   &:focus {
     background-color: ${colors.black};
     color: ${colors.lavender};
-  }
-`;
-
-const SignUpButton = styled(HomeButton)`
-  background-color: ${colors.black};
-  color: ${colors.lavender};
-
-  &:hover,
-  &:focus {
-    background-color: ${colors.shark};
   }
 `;
 
@@ -144,11 +147,11 @@ export default ({ data }) => {
         <TagLine>A talking timer for yoga and exercise.</TagLine>
 
         <LinkWrapper>
-          <Link buttonColor="transparent" to="/signup/">
-            <SignUpButton tabIndex="-1">Create a free account</SignUpButton>
-          </Link>
           <Link to="/home/">
-            <HomeButton tabIndex="-1">Try it out</HomeButton>
+            <StyledButton tabIndex="-1">Start</StyledButton>
+          </Link>
+          <Link buttonColor="transparent" to="/signup/">
+            <StyledButton tabIndex="-1">Create an account</StyledButton>
           </Link>
         </LinkWrapper>
       </Main>
