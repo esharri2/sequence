@@ -14,14 +14,19 @@ import { deleteData } from "../utils/http";
 import { breakpoints, colors, spacing } from "../utils/styles";
 
 const StyledLinkButton = styled(LinkButton)`
-  display: inline-block;
-  align-self: flex-end;
   border: solid 1px ${colors.lavender};
   &:hover,
   &:focus {
     border-color: ${colors.brightlavender};
   }
   margin-top: ${spacing.lg};
+  width: 100%;
+
+  button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const ButtonText = styled.span`

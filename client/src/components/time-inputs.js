@@ -59,7 +59,7 @@ const TimeInputs = ({
   // Quotes are added to these to prevent leading zeros.
   // See: github.com/facebook/react/issues/9402#issuecomment-447891987
 
-  console.log(playing);
+  const handleFocus = event => event.target.select();
   const adjustedDuration = isPlaying ? duration - elapsedOnCurrent : duration;
 
   const minutes = Math.floor(adjustedDuration / 60) + "";
@@ -86,6 +86,7 @@ const TimeInputs = ({
             label="m"
             id={"m" + id}
             disabled={playing}
+            onFocus={handleFocus}
           />
           <SecondsInput
             onChange={handleActionChange}
@@ -97,6 +98,7 @@ const TimeInputs = ({
             label="s"
             id={"s" + id}
             disabled={playing}
+            onFocus={handleFocus}
           />
         </>
       )}
