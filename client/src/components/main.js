@@ -12,9 +12,9 @@ const MainTag = styled.main`
 };
   max-width: ${props => (props.mobileSized ? breakpoints.sm : breakpoints.lg)};
 
-  @media screen and (max-width: ${breakpoints.small}) {
-    padding: ${spacing.lg} ${spacing.xs} ${dimensions.footerHeightPlus} ${
-  spacing.xs
+  @media screen and (max-width: ${breakpoints.sm}) {
+    padding: ${spacing.lg} ${spacing.sm} ${dimensions.footerHeightPlus} ${
+  spacing.sm
 };
   }
 `;

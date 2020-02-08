@@ -20,7 +20,7 @@ export default () => {
   const { response, loading, error } = useUserData("/sequence/all", parameters);
 
   return (
-    <Layout>
+    <Layout mobileSized={true}>
       <Back />
       <Heading level={1}>My Sequences</Heading>
       {loading && <Spinner />}

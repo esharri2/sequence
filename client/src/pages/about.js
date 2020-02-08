@@ -6,7 +6,7 @@ import Layout from "../components/layout";
 import Paragraph from "../components/paragraph";
 
 export default () => (
-  <Layout>
+  <Layout mobileSized={true}>
     <Back />
     <Heading level={1}>About</Heading>
     <Paragraph>

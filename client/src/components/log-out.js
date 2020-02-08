@@ -14,10 +14,6 @@ const StyledButtonLinkStyle = styled(ButtonLinkStyle)`
   text-transform: uppercase;
 `;
 
-const PaddedExitIcon = styled(ExitIcon)`
-  margin-left: ${spacing.xs};
-`;
-
 const LogOutButton = () => {
   const userContext = useContext(UserContext);
 

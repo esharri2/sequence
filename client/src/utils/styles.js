@@ -68,7 +68,7 @@ export const zIndexes = {
 export const breakpoints = {
   lg: "1280px",
   md: "880px",
-  sm: "680px",
+  sm: "500px",
   xs: "340px"
 };
 

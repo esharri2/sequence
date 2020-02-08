@@ -7,7 +7,7 @@ import Layout from "../components/layout";
 
 const Contact = () => {
   return (
-    <Layout hideNav={true}>
+    <Layout mobileSized={true}>
       <Back />
       <Heading center={true} level={1}>
         Contact

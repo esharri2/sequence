@@ -14,7 +14,7 @@ const InputTag = styled.input`
   border-bottom: ${border.size} ${border.style} ${colors.medium};
   background-color: transparent;
   color: ${colors.lavender};
-  border-radius: ${border.radius} ${border.radius} 0 0;
+  /* border-radius: ${border.radius}; */
 
   &:focus {
     border-bottom-color: ${colors.brightlavender};

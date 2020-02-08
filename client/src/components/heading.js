@@ -2,12 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { colors, fonts, spacing } from "../utils/styles";
+import { breakpoints, fonts, spacing } from "../utils/styles";
 
 const HeadingTag = styled.h1`
   font-family: ${fonts.heading};
   margin: ${spacing.sm} 0;
   text-align: ${props => (props.center === true ? "center" : "left")};
+
+  @media screen and (max-width: ${breakpoints.md}) {
+    text-align: center;
+  }
 `;
 
 const Heading = props => {

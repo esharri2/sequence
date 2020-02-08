@@ -62,6 +62,7 @@ const Button = props => {
 
   return (
     <ButtonTag
+      className={props.className}
       reverse={props.reverse}
       buttonColor={buttonColor}
       textColor={textColor}

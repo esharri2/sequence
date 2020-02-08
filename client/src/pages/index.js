@@ -128,7 +128,6 @@ const HeaderLinks = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  /* text-decoration: underline; */
   text-transform: uppercase;
 `;
 

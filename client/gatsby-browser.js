@@ -30,10 +30,6 @@ const GlobalStyle = createGlobalStyle`
     *, *:before, *:after {
       box-sizing: inherit;
     }
-
-    /* @media screen and (max-width: ${breakpoints.md}) {
-      font-size: .8rem;
-    } */
   }
 `;
 

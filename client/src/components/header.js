@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 
+import Gear from "./icons/gear";
+import Info from "./icons/info";
 import Link from "./link";
 import LogOutButton from "./log-out";
 
@@ -65,20 +67,32 @@ const NavLink = styled(Link)`
   }
 `;
 
+const SignupNavLink = styled(NavLink)`
+  color: ${colors.plumppurple};
+`;
+
 const Header = props => {
   const links = props.authenticated ? (
     <Nav>
-      {/* <NavLink to="/my-sequences/">Sequences</NavLink> */}
-      <NavLink to="/settings/">Settings</NavLink>
-      <NavLink to="/about/">About</NavLink>
+      <NavLink aria-label="Settings" to="/settings/">
+        <Gear />
+      </NavLink>
+      <NavLink aria-label="About" to="/about/">
+        <Info />
+      </NavLink>
+      <span> </span>
       <LogOutButton />
     </Nav>
   ) : (
     <Nav>
-      <NavLink to="/settings/">Settings</NavLink>
-      <NavLink to="/about/">About</NavLink>
-      <span> | </span>
-      <NavLink to="/signup/">Sign up</NavLink>
+      <NavLink aria-label="Settings" to="/settings/">
+        <Gear />
+      </NavLink>
+      <NavLink aria-label="About" to="/about/">
+        <Info />
+      </NavLink>
+      <span> </span>
+      <SignupNavLink to="/signup/">Sign up</SignupNavLink>
       {/* <NavLink to="/login/">Log in</NavLink> */}
     </Nav>
   );
@@ -94,24 +108,3 @@ const Header = props => {
 };
 
 export default Header;
-
-// <Menu>
-//   <CustomMenuButton aria-label="View user settings options">
-//     <GearIcon dark={true} />
-//   </CustomMenuButton>
-//   <CustomMenuList>
-//     <MenuTitle>Hi {email}!</MenuTitle>
-//     <MenuLink as={Link} to="/my-sequences/">
-//       My Sequences
-//     </MenuLink>
-//     <MenuLink as={Link} to="/settings/">
-//       Settings
-//     </MenuLink>
-//     <MenuLink as={Link} to="/about/">
-//       About
-//     </MenuLink>
-//     <MenuItem onSelect={() => {}}>
-//       {email ? <LogOutButton /> : <Link to="/login/">Login</Link>}
-//     </MenuItem>
-//   </CustomMenuList>
-// </Menu>;

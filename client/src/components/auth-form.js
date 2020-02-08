@@ -4,10 +4,16 @@ import styled from "styled-components";
 import Button from "./button";
 import FormField from "./form-field";
 
-import { spacing } from "../utils/styles";
+import { breakpoints, spacing } from "../utils/styles";
 
 const AuthFormWrapper = styled.form`
   margin: 0 auto ${spacing.md} 0;
+`;
+
+const WideButton = styled(Button)`
+  @media screen and (max-width: ${breakpoints.md}) {
+    width: 100%;
+  }
 `;
 
 const AuthForm = props => {
@@ -16,6 +22,7 @@ const AuthForm = props => {
       props.setErrorMessage(false);
     }
   };
+
   return (
     <AuthFormWrapper>
       <FormField
@@ -35,8 +42,8 @@ const AuthForm = props => {
         {...props.password}
       />
       {props.error || (
-        <Button
-          as="input"
+        <WideButton
+          forwardedAs="input"
           disabled={!props.isEmailValid || !props.isPasswordValid}
           type="submit"
           value="Submit"

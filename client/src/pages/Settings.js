@@ -48,7 +48,7 @@ export default () => {
   };
 
   return (
-    <Layout>
+    <Layout mobileSized={true}>
       {loading && <SpinnerOverlay />}
       <Heading level={1}>Settings</Heading>
       <Section>

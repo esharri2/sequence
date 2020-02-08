@@ -12,6 +12,7 @@ import DesktopOnly from "./desktop-only";
 import Input from "./input";
 import List from "./icons/list";
 import LinkButton from "./link-button";
+import MobileOnly from "./mobile-only";
 import MoveButtons from "./move-buttons";
 import SlideInX from "./slide-in-x";
 import TimeInputs from "./time-inputs";
@@ -48,6 +49,11 @@ const ButtonText = styled.span`
 
 const SequenceTitleInput = styled(Input)`
   font-size: 2rem;
+  border-radius: ${border.radius} ${border.radius} 0 0;
+
+  @media screen and (max-width: ${breakpoints.md}) {
+    font-size: 1.5rem;
+  }
 `;
 
 const Actions = styled.div`
@@ -61,17 +67,20 @@ const Action = styled.div`
   grid-template-columns: 1fr 8fr 1fr 1fr 1fr 1fr 1fr 1fr;
   animation: ${transitions.slow} ${animations.fadeIn}
     ${animations.defaultTimingFunction};
+  input {
+    border-radius: ${border.radius} ${border.radius} 0 0;
+  }
 
   @media screen and (max-width: ${breakpoints.md}) {
     grid-template-areas:
       "number title title title title title"
-      ".... .... minutes minutes seconds seconds"
+      ".... .... .... .... minutes seconds"
       ".... .... copy up down remove";
     grid-gap: 0 ${spacing["3xs"]};
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-columns: 0.5fr repeat(5, 1fr);
-    border-radius: ${border.radius};
-    border: ${border.style} ${border.size} ${colors.lavender};
+    /* border-radius: ${border.radius}; */
+    border-bottom: dashed ${border.size} ${colors.oslogray};
     padding: ${spacing.xs};
     margin-bottom: ${spacing.xs};
 
@@ -80,10 +89,17 @@ const Action = styled.div`
     }
   }
 
+  @media screen and (max-width: ${breakpoints.sm}) {
+    grid-template-areas:
+      "number title title title title title"
+      ".... .... minutes minutes seconds seconds"
+      ".... .... copy up down remove";
+  }
+
   ${props =>
     props.isPlaying &&
     `
-    border-color: ${colors.brightlavender}!important;
+    background-color: ${colors.darkpurple}!important;
     div:first-child > span {
     background-color: ${colors.brightlavender};
     border-color: ${colors.brightlavender};
@@ -191,6 +207,7 @@ const Sequence = ({
 
   const playAction = title => {
     if (currentActionRef.current) {
+      console.log("im scrolling!");
       currentActionRef.current.scrollIntoView(false);
     }
     if (title) {
@@ -334,6 +351,22 @@ const Sequence = ({
         })}
       </Actions>
       {actions.length > 12 && (
+        <DesktopOnly>
+          <BottomButtons>
+            <SlideInX from="left">
+              <AddAction
+                actions={actions}
+                setActions={setActions}
+                playing={playing}
+              />
+            </SlideInX>
+            <SlideInX from="right">
+              <BackToTop />
+            </SlideInX>
+          </BottomButtons>
+        </DesktopOnly>
+      )}
+      <MobileOnly>
         <BottomButtons>
           <SlideInX from="left">
             <AddAction
@@ -346,7 +379,7 @@ const Sequence = ({
             <BackToTop />
           </SlideInX>
         </BottomButtons>
-      )}
+      </MobileOnly>
     </form>
   );
 };

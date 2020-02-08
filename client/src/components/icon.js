@@ -8,7 +8,9 @@ import { colors, hexTransparencies, spacing } from "../utils/styles";
 const IconWrapper = styled.span`
   background-color: transparent;
   pointer-events: none;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   width: 1.2rem;
   height: 1rem;
   margin-right: ${props => (props.padding === "right" ? spacing.xs : 0)};
