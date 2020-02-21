@@ -43,7 +43,7 @@ export default () => {
       <Heading level={1}>Settings</Heading>
       <Section>
         <Heading level={2}>Change Password</Heading>
-        <Link to="/ChangePassword/">
+        <Link to="/change-password/">
           Change your password <ChevronRight color={colors.lavender} />
         </Link>
       </Section>
