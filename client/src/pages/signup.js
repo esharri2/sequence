@@ -34,26 +34,25 @@ export default props => {
   const handleSubmit = async event => {
     event.preventDefault();
     setLoading(true);
-    const response = await postData("/auth/signup", {
-      email: email.value,
-      password: password.value,
-      isDemo
-    });
-    if (response.error) {
-      // TODO may need to work on this
-      const message =
-        response.status === 401
-          ? errorMessages.credentialsAlreadyExist
-          : errorMessages.generic;
-      setErrorMessage(message);
-      setLoading(false);
-    } else {
+    try {
+      await postData("/auth/signup", {
+        email: email.value,
+        password: password.value,
+        isDemo
+      });
       navigate("/login/", {
         replace: true,
         state: {
           isNewUser: true
         }
       });
+    } catch (error) {
+      const message =
+        error.code === 401
+          ? errorMessages.credentialsAlreadyExist
+          : errorMessages.generic;
+      setErrorMessage(message);
+      setLoading(false);
     }
   };
 

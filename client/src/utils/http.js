@@ -1,7 +1,9 @@
 const handleErrors = response => {
   if (!response.ok) {
     const { status, statusText } = response;
-    throw { error: true, status, statusText };
+    const error = new Error(statusText);
+    error.code = status;
+    throw error;
   }
   return response;
 };
@@ -23,7 +25,7 @@ export const getData = async route => {
     handleErrors(response);
     return response;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -39,11 +41,7 @@ export const postData = async (route, body) => {
     const json = await response.json();
     return json;
   } catch (error) {
-    if (error.status) {
-      return error;
-    } else {
-      return { error: true };
-    }
+    throw error;
   }
 };
 
@@ -59,6 +57,6 @@ export const deleteData = async (route, body) => {
     const json = await response.json();
     return json;
   } catch (error) {
-    return error;
+    throw error;
   }
 };

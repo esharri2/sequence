@@ -106,7 +106,7 @@ export default ({ sequences: initialSequences }) => {
           const seconds = ("0" + (totalTime % 60)).slice(-2);
 
           return (
-            <GridRow>
+            <GridRow key={_id}>
               <StyledLink to="/home/" state={{ id: _id }}>
                 <Title>{title}</Title>
                 <Duration>

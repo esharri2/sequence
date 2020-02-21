@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import Gear from "./icons/gear";
@@ -8,15 +8,7 @@ import LogOutButton from "./log-out";
 
 import "@reach/menu-button/styles.css";
 
-import {
-  border,
-  breakpoints,
-  colors,
-  dimensions,
-  fonts,
-  shadows,
-  spacing
-} from "../utils/styles";
+import { breakpoints, colors, dimensions, spacing } from "../utils/styles";
 
 const HeaderWrapper = styled.div`
   width: 100%;
@@ -85,10 +77,10 @@ const Header = props => {
     </Nav>
   ) : (
     <Nav>
-      <NavLink aria-label="Settings" to="/settings/">
+      <NavLink title="Settings" to="/settings/">
         <Gear />
       </NavLink>
-      <NavLink aria-label="About" to="/about/">
+      <NavLink title="About" to="/about/">
         <Info />
       </NavLink>
       <span> </span>

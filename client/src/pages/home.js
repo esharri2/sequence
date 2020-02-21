@@ -1,6 +1,5 @@
 import React, { useContext, useRef } from "react";
 
-import Heading from "../components/heading";
 import Layout from "../components/layout";
 import Sequence from "../components/sequence";
 import Spinner from "../components/spinner";
@@ -15,7 +14,7 @@ const Home = ({ location = {} }) => {
   const id = location.state ? location.state.id : null;
 
   // Use for Sequence key when there is no id.
-  // This ensures\ a fresh component when use hits "Create new."
+  // This ensures a fresh component when use hits "Create new."
   const key = useRef(1);
   key.current++;
 

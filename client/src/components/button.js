@@ -1,13 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  border,
-  colors,
-  hexTransparencies,
-  fonts,
-  spacing,
-  transitions
-} from "../utils/styles";
+import { border, colors, fonts, spacing, transitions } from "../utils/styles";
 
 const ButtonTag = styled.button`
   display: flex;

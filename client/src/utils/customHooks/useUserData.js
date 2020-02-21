@@ -46,13 +46,17 @@ const useUserData = (route, parameters) => {
       const checkServer = async () => {
         const isLoggedInOnServer = await checkIsLoggedInOnServer();
         if (!isLoggedInOnServer) {
-          navigate("/Login/", { replace: true });
+          navigate("/Login/", {
+            replace: true
+          });
           return false;
         }
         const { email } = isLoggedInOnServer.data;
 
         if (!email) {
-          navigate("/Login/", { replace: true });
+          navigate("/Login/", {
+            replace: true
+          });
           return false;
         }
         clientLogIn(userContext, email);
@@ -61,8 +65,11 @@ const useUserData = (route, parameters) => {
       checkServer();
     } else {
       // The user isn't logged in on a client or returning, they need to log in.
-      navigate("/Login/", { replace: true });
+      navigate("/Login/", {
+        replace: true
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps,
   }, []);
 
   // FETCH
@@ -98,6 +105,7 @@ const useUserData = (route, parameters) => {
       };
       fetchData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps,
   }, [isLoggedIn]);
 
   return {

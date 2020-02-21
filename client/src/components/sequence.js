@@ -180,7 +180,7 @@ const Sequence = ({
       setCurrent(undefined);
       setElapsedOnCurrent(0);
     }
-  }, [current, playing]);
+  }, [actions, current, playing]);
 
   const currentActionRef = useRef(null);
 
@@ -194,7 +194,8 @@ const Sequence = ({
         setCurrent(newcurrent);
       }
     }
-  }, [elapsedOnCurrent, playing]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps,
+  }, [actions, elapsedOnCurrent, playing]);
 
   const [paused, setPaused] = useState(false);
   useEffect(() => {
@@ -333,7 +334,11 @@ const Sequence = ({
                 elapsedOnCurrent={elapsedOnCurrent}
                 playing={playing}
               />
-              <CopyButton disabled={playing} reverse onClick={handleCopy}>
+              <CopyButton
+                aria-label="copy"
+                disabled={playing}
+                reverse
+                onClick={handleCopy}>
                 <Copy />
               </CopyButton>
               <MoveButtons

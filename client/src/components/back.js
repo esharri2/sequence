@@ -44,7 +44,7 @@ const Back = props => {
   };
 
   return (
-    <StyledButton reverse={true} onClick={handleClick}>
+    <StyledButton reverse onClick={handleClick}>
       <PositionedIcon />
       Back
     </StyledButton>

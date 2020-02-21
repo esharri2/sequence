@@ -15,20 +15,6 @@ const rotate = keyframes`
   }
 `;
 
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 100;
-  }
-`;
-
 const Ring = styled.div`
   height: 1rem;
   width: 1rem;

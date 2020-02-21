@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { colors, hexTransparencies, spacing } from "../utils/styles";
+import { spacing } from "../utils/styles";
 
 //TODO used prop types to control padding prop options
 

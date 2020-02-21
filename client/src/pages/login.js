@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { navigate } from "gatsby";
 import styled from "styled-components";
 
@@ -42,24 +42,25 @@ export default props => {
   const handleSubmit = async event => {
     event.preventDefault();
     setLoading(true);
-    const response = await postData("/auth/login", {
-      email: email.value,
-      password: password.value
-    });
-    if (response.error) {
-      const message =
-        response.status === 401
-          ? errorMessages.badCredentials
-          : errorMessages.generic;
-      setErrorMessage(message);
-      setLoading(false);
-    } else {
+    try {
+      const response = await postData("/auth/login", {
+        email: email.value,
+        password: password.value
+      });
+      console.log(response);
       clientLogIn(userContext, response.email);
       if (response.hasSequences) {
         navigate("/my-sequences/");
       } else {
         navigate("/home/");
       }
+    } catch (error) {
+      const message =
+        error.code === 401
+          ? errorMessages.badCredentials
+          : errorMessages.generic;
+      setErrorMessage(message);
+      setLoading(false);
     }
   };
 

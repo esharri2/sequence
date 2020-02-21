@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 import Alert from "@reach/alert";
 
-import { border, breakpoints, colors, shadows, spacing } from "../utils/styles";
+import { border, colors, shadows, spacing } from "../utils/styles";
 
 const AlertWrapper = styled(Alert)`
   background-color: ${colors.yellow};

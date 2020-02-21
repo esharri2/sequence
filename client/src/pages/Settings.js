@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { navigate } from "gatsby";
 
@@ -10,8 +10,7 @@ import Layout from "../components/layout";
 import Link from "../components/link";
 import SpinnerOverlay from "../components/spinner-overlay";
 
-import UserContext from "../context/UserContext";
-import { deleteAccount, getExport } from "../utils/api";
+import { deleteAccount } from "../utils/api";
 import { border, colors, spacing } from "../utils/styles";
 
 const Section = styled.section`
@@ -20,16 +19,7 @@ const Section = styled.section`
   border-bottom: ${border.size} ${border.style} ${colors.medium};
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  button {
-    margin-right: ${spacing.md};
-  }
-`;
-
 export default () => {
-  const user = useContext(UserContext).user;
-
   const [loading, setLoading] = useState(false);
 
   // TODO update this use fetch hook.

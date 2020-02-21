@@ -1,9 +1,7 @@
 import React from "react";
 import { UserProvider } from "./src/context/UserContext";
 import { createGlobalStyle } from "styled-components";
-import { breakpoints, colors, fonts } from "./src/utils/styles";
-require("typeface-open-sans");
-require("typeface-shrikhand");
+import { colors, fonts } from "./src/utils/styles";
 require("@openfonts/alata_all");
 
 const GlobalStyle = createGlobalStyle`
@@ -11,7 +9,6 @@ const GlobalStyle = createGlobalStyle`
   html {
     height: 100%;
     scroll-behavior: smooth;
-    /* overflow-y: scroll; */
   }
 
   html, body {

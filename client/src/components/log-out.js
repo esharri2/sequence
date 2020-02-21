@@ -3,12 +3,10 @@ import styled from "styled-components";
 import { navigate } from "gatsby";
 
 import ButtonLinkStyle from "./button-link-style";
-import ExitIcon from "./icons/exit";
 
 import UserContext from "../context/UserContext";
 import { getData } from "../utils/http";
 import { clientLogOut } from "../utils/auth";
-import { colors, spacing } from "../utils/styles";
 
 const StyledButtonLinkStyle = styled(ButtonLinkStyle)`
   text-transform: uppercase;
@@ -30,10 +28,7 @@ const LogOutButton = () => {
   };
 
   return (
-    <StyledButtonLinkStyle onClick={handleClick}>
-      Log out
-      {/* <PaddedExitIcon color={colors.accent1} /> */}
-    </StyledButtonLinkStyle>
+    <StyledButtonLinkStyle onClick={handleClick}>Log out</StyledButtonLinkStyle>
   );
 };
 

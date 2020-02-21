@@ -7,12 +7,14 @@ const Link = styled(GatsbyLink)`
   text-decoration: none;
 `;
 
-const LinkButton = props => (
-  <Link {...props}>
-    <Button tabIndex="0" reverse={props.reverse}>
-      {props.children}
-    </Button>
-  </Link>
-);
+const LinkButton = props => {
+  return (
+    <Link to={props.to}>
+      <Button tabIndex="0" reverse={props.reverse}>
+        {props.children}
+      </Button>
+    </Link>
+  );
+};
 
 export default LinkButton;

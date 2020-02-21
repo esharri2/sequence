@@ -46,8 +46,6 @@ const PlaceholderDisplay = styled(TimeDisplay)`
   grid-area: minutes;
 `;
 
-const SecondsDisplay = styled(TimeDisplay)``;
-
 const TimeInputs = ({
   duration,
   id,

@@ -30,6 +30,7 @@ const MoveButtons = props => {
   return (
     <>
       <Up
+        aria-label="Move this action up in the sequence"
         reverse
         disabled={index === 0 || disabled}
         data-direction="up"
@@ -37,6 +38,7 @@ const MoveButtons = props => {
         <ChevronUp />
       </Up>
       <Down
+        aria-label="Move this action down in the sequence"
         reverse
         disabled={index === actions.length - 1 || disabled}
         data-direction="down"

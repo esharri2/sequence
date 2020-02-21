@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { graphql } from "gatsby";
 
 import Link from "../components/link";
+import SEO from "../components/seo";
 
 import {
   animations,
@@ -18,6 +19,14 @@ import {
 const SplashWrapper = styled.div`
   overflow: hidden;
   color: ${colors.black};
+  height: 100vh;
+  background-color: ${colors.lavender};
+  background-image: linear-gradient(
+    170deg,
+    ${colors.lavender} 20%,
+    ${colors.brightlavender} 99%
+  );
+
   animation: ${transitions.medium} ${animations.fadeIn}
     ${animations.defaultTimingFunction};
 `;
@@ -36,11 +45,15 @@ const SplashImgWrapper = styled.div`
     width: 100%;
     height: 100%;
   }
+
+  @media screen and (min-width: ${breakpoints.md}) {
+    display: none;
+  }
 `;
 
 const Logo = styled.h1`
   text-transform: lowercase;
-  text-shadow: 3px 3px 1px ${colors.brightlavender};
+  /* text-shadow: 3px 3px 1px ${colors.brightlavender}; */
   font-size: 5rem;
   margin: 0;
   line-height: 0.8;
@@ -64,7 +77,7 @@ const Main = styled.main`
 
   @media screen and (min-width: ${breakpoints.md}) {
     padding-left: ${spacing.xl};
-    align-items: flex-start;
+    /* align-items: flex-start; */
   }
 `;
 
@@ -75,9 +88,7 @@ const TagLine = styled.p`
   padding: ${spacing.md} 0;
   line-height: 1;
   @media screen and (min-width: ${breakpoints.md}) {
-    text-align: left;
     font-size: 2rem;
-    max-width: 50vw;
   }
 `;
 
@@ -93,7 +104,7 @@ const LinkWrapper = styled.div`
   }
 
   @media screen and (min-width: ${breakpoints.md}) {
-    margin-top: 2rem;
+    margin-top: 1rem;
     width: 25vw;
   }
 `;
@@ -136,15 +147,17 @@ const StyledLink = styled(Link)`
 
 export default ({ data }) => {
   const srcSet = data.file.childImageSharp.fluid.srcSet;
+  const { title, description } = data.site.siteMetadata;
   return (
     <SplashWrapper>
+      <SEO />
       <Main>
         <HeaderLinks>
           <StyledLink to="/about/">About</StyledLink>
           <StyledLink to="/login/">Log in</StyledLink>
         </HeaderLinks>
-        <Logo>Vois</Logo>
-        <TagLine>A talking timer for yoga and exercise.</TagLine>
+        <Logo>{title}</Logo>
+        <TagLine>{description}</TagLine>
 
         <LinkWrapper>
           <Link to="/home/">
@@ -171,6 +184,13 @@ export const query = graphql`
         fluid {
           ...GatsbyImageSharpFluid
         }
+      }
+    }
+    site {
+      siteMetadata {
+        title
+        description
+        author
       }
     }
   }

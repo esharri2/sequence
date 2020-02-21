@@ -9,14 +9,7 @@ import Spinner from "../components/spinner";
 import Stop from "../components/icons/stop";
 import Upload from "../components/icons/upload";
 
-import {
-  animations,
-  breakpoints,
-  colors,
-  shadows,
-  spacing,
-  transitions
-} from "../utils/styles";
+import { breakpoints, colors, spacing, transitions } from "../utils/styles";
 import { postData } from "../utils/http";
 
 const ButtonBar = styled.div`
@@ -46,16 +39,6 @@ const ButtonBar = styled.div`
 
 const ButtonText = styled.span`
   margin-left: ${spacing.xs};
-`;
-
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
 `;
 
 const changeBackgroundColor = keyframes`
