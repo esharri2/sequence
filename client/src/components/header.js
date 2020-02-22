@@ -6,8 +6,6 @@ import Info from "./icons/info";
 import Link from "./link";
 import LogOutButton from "./log-out";
 
-import "@reach/menu-button/styles.css";
-
 import { breakpoints, colors, dimensions, spacing } from "../utils/styles";
 
 const HeaderWrapper = styled.div`
