@@ -79,6 +79,7 @@ const LinkWrapper = styled.div`
   a {
     width: 100%;
     text-decoration: none !important;
+    max-width: 500px;
 
     &:first-child {
       padding-bottom: ${spacing.md};

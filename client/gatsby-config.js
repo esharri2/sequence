@@ -31,7 +31,7 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/ResetPassword/*`] }
+      options: { prefixes: [`/reset-password/*`] }
     },
     {
       resolve: "gatsby-plugin-react-svg",

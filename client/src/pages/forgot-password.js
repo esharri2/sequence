@@ -41,7 +41,8 @@ export default () => {
       <Back />
       {loading && <SpinnerOverlay />}
       <Heading center={true} level={1}>
-        Forgot your password? No problem.
+        Forgot your password?
+        <br /> No problem.
       </Heading>
       {wasEmailSent === undefined && (
         <>
