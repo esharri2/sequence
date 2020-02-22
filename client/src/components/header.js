@@ -77,9 +77,6 @@ const Header = props => {
     </Nav>
   ) : (
     <Nav>
-      <NavLink title="Settings" to="/settings/">
-        <Gear />
-      </NavLink>
       <NavLink title="About" to="/about/">
         <Info />
       </NavLink>

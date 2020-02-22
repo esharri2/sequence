@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { navigate } from "gatsby";
 
+import Back from "../components/back";
 import Button from "../components/button";
 import ChevronRight from "../components/icons/chevron-right";
 import Heading from "../components/heading";
@@ -17,6 +18,14 @@ const Section = styled.section`
   margin: ${spacing.xl} 0;
   padding-bottom: ${spacing.xl};
   border-bottom: ${border.size} ${border.style} ${colors.medium};
+`;
+
+const Subheading = styled(Heading)`
+  text-align: left;
+`;
+
+const StyledButton = styled(Button)`
+  margin-top: ${spacing.md};
 `;
 
 export default () => {
@@ -39,18 +48,21 @@ export default () => {
 
   return (
     <Layout mobileSized={true}>
+      <Back />
       {loading && <SpinnerOverlay />}
       <Heading level={1}>Settings</Heading>
       <Section>
-        <Heading level={2}>Change Password</Heading>
+        <Subheading level={2}>Change Password</Subheading>
         <Link to="/change-password/">
           Change your password <ChevronRight color={colors.lavender} />
         </Link>
       </Section>
       <Section>
-        <Heading level={2}>Delete Account</Heading>
+        <Subheading level={2}>Delete Account</Subheading>
         <Paragraph>Completely delete your account from our systems.</Paragraph>
-        <Button onClick={handleDeleteClick}>Delete your account</Button>
+        <StyledButton onClick={handleDeleteClick}>
+          Delete your account
+        </StyledButton>
       </Section>
     </Layout>
   );

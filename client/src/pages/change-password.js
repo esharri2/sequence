@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { navigate } from "gatsby";
 import styled from "styled-components";
 
+import Back from "../components/back";
 import Button from "../components/button";
 import FormField from "../components/form-field";
 
@@ -14,8 +15,6 @@ import useFormInput from "../utils/customHooks/useFormInput";
 import SpinnerOverlay from "../components/spinner-overlay";
 
 import { breakpoints } from "../utils/styles";
-
-//TODO refactor SignUp / Login to remove code duplication
 
 const WideButton = styled(Button)`
   @media screen and (max-width: ${breakpoints.md}) {
@@ -56,10 +55,11 @@ export default () => {
 
   return (
     <Layout mobileSized={true}>
+      <Back />
       <Heading level={1}>Change Password</Heading>
       {loading && <SpinnerOverlay />}
       {/* TODO improve this */}
-      {error && "there is an error."}
+      {error && "There is an error."}
       <form>
         <FormField
           id="newPassword"

@@ -4,28 +4,22 @@ const crypto = require("crypto");
 const emailUtils = require("./helpers/emailUtils");
 
 module.exports = {
-  signUp: async (req, res) => {
-    const currentEmail = req.user ? req.user.email : null;
-    const { email, password, isDemo } = req.body;
-    // Update username and password if user already is on a demo account
-    if (isDemo) {
-      const user = await db.User.findOne({ email: currentEmail });
-      user.email = email;
-      user.password = password;
-      user
-        .save()
-        .then(user => {
-          res.json(user);
-        })
-        .catch(err => res.status(422).json(err));
+  checkAuthentication: function(req, res) {
+    if (req.user) {
+      res.json(req.user);
     } else {
-      db.User.create({ email, password })
-        .then(user => res.json(user.email))
-        .catch(err => {
-          console.error(err);
-          res.status(401).json(err);
-        });
+      res.json(false);
     }
+  },
+
+  signUp: async (req, res) => {
+    const { email, password } = req.body;
+    db.User.create({ email, password })
+      .then(user => res.json(user.email))
+      .catch(err => {
+        console.error(err);
+        res.status(401).json(err);
+      });
   },
 
   logIn: function(req, res) {
@@ -134,43 +128,18 @@ module.exports = {
   deleteAccount: async function(req, res) {
     const email = req.user.email;
     // todo bail if null
+    // TODO rewrite for sequences
     const userData = await db.User.findOne({ email })
       .select("_id email")
       .lean()
       .populate({
-        path: "homes",
-        select: "_id name ",
-        populate: {
-          path: "items",
-          select: "_id name",
-          populate: {
-            path: "tasks",
-            select: "_id name",
-            populate: {
-              path: "instances",
-              select: "_id"
-            }
-          }
-        }
+        path: "sequences"
       });
 
-    const homeIds = [];
-    const itemIds = [];
-    const taskIds = [];
-    const instanceIds = [];
+    const sequenceIds = [];
 
-    // Fill ID arrays for each model
-    for (let home of userData.homes) {
-      homeIds.push(home._id);
-      for (let item of home.items) {
-        itemIds.push(item._id);
-        for (let task of item.tasks) {
-          taskIds.push(task._id);
-          for (let instance of task.instances) {
-            instanceIds.push(instance._id);
-          }
-        }
-      }
+    for (let sequence of userData.sequences) {
+      sequenceIds.push(sequence._id);
     }
 
     let deletedData;
@@ -178,19 +147,13 @@ module.exports = {
     try {
       deletedData = await Promise.all([
         db.User.deleteOne({ email }),
-        db.Home.deleteMany({ _id: homeIds }),
-        db.Item.deleteMany({ _id: itemIds }),
-        db.Task.deleteMany({ _id: taskIds }),
-        db.Instance.deleteMany({ _id: instanceIds })
+        db.Sequence.deleteMany({ _id: sequenceIds })
       ]);
+      console.log(deletedData);
+      res.send(true);
     } catch (error) {
-      res.send({ error: error });
+      console.error(error);
+      res.send(error);
     }
-
-    console.log(deletedData);
-
-    res.send({
-      done: "done"
-    });
   }
 };

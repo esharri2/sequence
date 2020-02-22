@@ -40,9 +40,9 @@ const Footer = () => {
   return (
     <FooterWrapper>
       <FooterLinksSection>
-        <Link to="/Contact/">Contact</Link>
-        <Link to="/About/">About</Link>
-        <Link to="/Terms/">Terms of Service</Link>
+        <Link to="/contact/">Contact</Link>
+        <Link to="/about/">About</Link>
+        <Link to="/terms/">Terms of Service</Link>
       </FooterLinksSection>
       <FooterLinksSection>
         <Copyright>Ⓒ {new Date().getFullYear()} Lorem Ipsum</Copyright>

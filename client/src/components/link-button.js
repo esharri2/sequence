@@ -9,7 +9,7 @@ const Link = styled(GatsbyLink)`
 
 const LinkButton = props => {
   return (
-    <Link to={props.to}>
+    <Link className={props.className} to={props.to}>
       <Button tabIndex="0" reverse={props.reverse}>
         {props.children}
       </Button>

@@ -9,5 +9,6 @@ router.post("/signup", controller.signUp);
 router.post("/changepassword", controller.changePassword);
 router.put("/requestpasswordreset", controller.requestPasswordReset);
 router.get("/delete", controller.deleteAccount);
+router.get("/check", controller.checkAuthentication);
 
 module.exports = router;

@@ -14,18 +14,10 @@ import { deleteData } from "../utils/http";
 import { breakpoints, colors, spacing } from "../utils/styles";
 
 const StyledLinkButton = styled(LinkButton)`
-  border: solid 1px ${colors.lavender};
-  &:hover,
-  &:focus {
-    border-color: ${colors.brightlavender};
-  }
-  margin-top: ${spacing.lg};
-  width: 100%;
+  margin-top: 1rem;
 
   button {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    padding-left: 0;
   }
 `;
 
@@ -127,7 +119,7 @@ export default ({ sequences: initialSequences }) => {
       </GridList>
       <StyledLinkButton reverse to="/home/" state={{ id: null }}>
         <Add />
-        <ButtonText>Create new</ButtonText>
+        <ButtonText>Create new sequence</ButtonText>
       </StyledLinkButton>
     </Wrapper>
   );

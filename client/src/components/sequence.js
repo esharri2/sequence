@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import Add from "./icons/add";
 import AddAction from "./add-action";
@@ -9,12 +9,13 @@ import Controls from "./controls";
 import Copy from "./icons/copy";
 import Close from "./icons/close";
 import DesktopOnly from "./desktop-only";
+import FadeIn from "./animators/fade-in";
 import Input from "./input";
 import List from "./icons/list";
 import LinkButton from "./link-button";
 import MobileOnly from "./mobile-only";
 import MoveButtons from "./move-buttons";
-import SlideInX from "./slide-in-x";
+import SlideInX from "./animators/slide-in-x";
 import TimeInputs from "./time-inputs";
 
 import speech from "../utils/speech";
@@ -65,8 +66,8 @@ const Action = styled.div`
   grid-gap: ${spacing.xs};
   grid-template-areas: "number title minutes seconds copy up down remove";
   grid-template-columns: 1fr 8fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  animation: ${transitions.slow} ${animations.fadeIn}
-    ${animations.defaultTimingFunction};
+  /* animation: ${transitions.slow} ${animations.fadeIn}
+    ${animations.defaultTimingFunction}; */
   input {
     border-radius: ${border.radius} ${border.radius} 0 0;
   }
@@ -98,8 +99,8 @@ const Action = styled.div`
 
   ${props =>
     props.isPlaying &&
-    `
-    background-color: ${colors.darkpurple}!important;
+    css`
+    color: ${colors.brightlavender};
     div:first-child > span {
     background-color: ${colors.brightlavender};
     border-color: ${colors.brightlavender};
@@ -270,7 +271,7 @@ const Sequence = ({
       <HeaderLinks>
         <LinkButton reverse to="/home/" state={{ id: null }}>
           <Add />
-          <ButtonText>Create new</ButtonText>
+          <ButtonText>Create new sequence</ButtonText>
         </LinkButton>
         {authenticated && (
           <LinkButton reverse to="/my-sequences/">
@@ -310,48 +311,51 @@ const Sequence = ({
           const isPlaying = index === current;
           const ref = isPlaying ? { ref: currentActionRef } : null;
           return (
-            <Action
-              key={action._id || action.placeholderId}
-              data-index={index}
-              isPlaying={isPlaying}
-              {...ref}>
-              <ActionNumber>
-                <span>{index + 1}</span>
-              </ActionNumber>
-              <ActionTitleInput
-                onChange={handleActionChange}
-                type="text"
-                name="title"
-                value={action.title}
-                placeholder="Action title"
-                disabled={playing}
-              />
-              <TimeInputs
-                id={index + (action._id || action.placeholderId)}
-                handleActionChange={handleActionChange}
-                duration={action.duration}
+            <FadeIn>
+              <Action
+                key={action._id || action.placeholderId}
+                data-index={index}
                 isPlaying={isPlaying}
-                elapsedOnCurrent={elapsedOnCurrent}
-                playing={playing}
-              />
-              <CopyButton
-                aria-label="copy"
-                disabled={playing}
-                reverse
-                onClick={handleCopy}>
-                <Copy />
-              </CopyButton>
-              <MoveButtons
-                disabled={playing}
-                actions={actions}
-                index={index}
-                getIndex={getIndex}
-                setActions={setActions}
-              />
-              <RemoveButton disabled={playing} reverse onClick={handleDelete}>
-                <Close />
-              </RemoveButton>
-            </Action>
+                {...ref}>
+                <ActionNumber>
+                  <span>{index + 1}</span>
+                </ActionNumber>
+                <ActionTitleInput
+                  onChange={handleActionChange}
+                  type="text"
+                  name="title"
+                  value={action.title}
+                  placeholder="Action title"
+                  disabled={playing}
+                />
+                <TimeInputs
+                  id={index + (action._id || action.placeholderId)}
+                  handleActionChange={handleActionChange}
+                  duration={action.duration}
+                  isPlaying={isPlaying}
+                  elapsedOnCurrent={elapsedOnCurrent}
+                  playing={playing}
+                />
+                <CopyButton
+                  aria-label="copy"
+                  title="copy"
+                  disabled={playing}
+                  reverse
+                  onClick={handleCopy}>
+                  <Copy />
+                </CopyButton>
+                <MoveButtons
+                  disabled={playing}
+                  actions={actions}
+                  index={index}
+                  getIndex={getIndex}
+                  setActions={setActions}
+                />
+                <RemoveButton disabled={playing} reverse onClick={handleDelete}>
+                  <Close />
+                </RemoveButton>
+              </Action>
+            </FadeIn>
           );
         })}
       </Actions>

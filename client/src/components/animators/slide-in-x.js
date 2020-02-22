@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-import { animations, transitions } from "../utils/styles";
+import { animations, transitions } from "../../utils/styles";
 
 const Wrapper = styled.span`
   ${props =>

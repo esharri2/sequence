@@ -14,5 +14,9 @@ export default () => (
       set a duration for each action, and then listen to the timer guide you
       from one action to the next.
     </Paragraph>
+    <Paragraph>
+      Vois was created by{" "}
+      <a href="https://www.evan-harrison.com">Evan Harrison</a>.
+    </Paragraph>
   </Layout>
 );

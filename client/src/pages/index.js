@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { graphql } from "gatsby";
+import { graphql, navigate } from "gatsby";
 
+import FadeIn from "../components/animators/fade-in";
 import Link from "../components/link";
 import SEO from "../components/seo";
+import Spinner from "../components/spinner";
+
+import UserContext from "../context/UserContext";
+import { clientLogIn, isReturningUser } from "../utils/auth";
+import { getData } from "../utils/http";
 
 import {
-  animations,
   border,
   breakpoints,
   colors,
@@ -26,40 +31,15 @@ const SplashWrapper = styled.div`
     ${colors.lavender} 20%,
     ${colors.brightlavender} 99%
   );
-
-  animation: ${transitions.medium} ${animations.fadeIn}
-    ${animations.defaultTimingFunction};
-`;
-
-const SplashImgWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: ${colors.lavender};
-  animation: ${transitions.slow} ${animations.fadeIn}
-    ${animations.defaultTimingFunction};
-  img {
-    object-fit: cover;
-    object-position: center bottom;
-    width: 100%;
-    height: 100%;
-  }
-
-  @media screen and (min-width: ${breakpoints.md}) {
-    display: none;
-  }
 `;
 
 const Logo = styled.h1`
   text-transform: lowercase;
-  /* text-shadow: 3px 3px 1px ${colors.brightlavender}; */
   font-size: 5rem;
   margin: 0;
   line-height: 0.8;
-  @media screen and (min-width: ${breakpoints.md}) {
+  @media screen and (min-width: ${breakpoints.sm}) {
     font-size: 8rem;
-    margin-top: 8rem;
   }
 
   @media screen and (max-width: ${breakpoints.sm}) {
@@ -74,11 +54,8 @@ const Main = styled.main`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-
-  @media screen and (min-width: ${breakpoints.md}) {
-    padding-left: ${spacing.xl};
-    /* align-items: flex-start; */
-  }
+  height: 95vh;
+  padding: 0 ${spacing.xs};
 `;
 
 const TagLine = styled.p`
@@ -93,7 +70,12 @@ const TagLine = styled.p`
 `;
 
 const LinkWrapper = styled.div`
-  margin-bottom: ${spacing.md};
+  margin: ${spacing.md} 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
   a {
     width: 100%;
     text-decoration: none !important;
@@ -104,8 +86,8 @@ const LinkWrapper = styled.div`
   }
 
   @media screen and (min-width: ${breakpoints.md}) {
-    margin-top: 1rem;
-    width: 25vw;
+    /* margin-top: 1rem; */
+    width: 30vw;
   }
 `;
 
@@ -119,6 +101,7 @@ const StyledButton = styled.button`
   transition: background-color ${transitions.fast};
   text-decoration: none;
   width: 100%;
+  border-radius: ${border.radius};
 
   cursor: pointer;
 
@@ -146,46 +129,71 @@ const StyledLink = styled(Link)`
 `;
 
 export default ({ data }) => {
-  const srcSet = data.file.childImageSharp.fluid.srcSet;
   const { title, description } = data.site.siteMetadata;
+  const userContext = useContext(UserContext);
+
+  const [authCheck, setAuthCheck] = useState(false);
+
+  useEffect(() => {
+    isReturningUser ? setAuthCheck(true) : setAuthCheck(false);
+  }, []);
+
+  useEffect(() => {
+    if (authCheck) {
+      async function checkAuthentication() {
+        try {
+          const response = await getData("/auth/check");
+          if (!response) {
+            setAuthCheck(false);
+          } else {
+            setTimeout(function() {
+              clientLogIn(userContext, response.email);
+              navigate("/my-sequences/");
+            }, 2000);
+          }
+        } catch (error) {
+          setAuthCheck(false);
+          console.error("oh no");
+        }
+      }
+      checkAuthentication();
+    }
+  }, [authCheck]);
+
   return (
     <SplashWrapper>
       <SEO />
-      <Main>
-        <HeaderLinks>
-          <StyledLink to="/about/">About</StyledLink>
-          <StyledLink to="/login/">Log in</StyledLink>
-        </HeaderLinks>
-        <Logo>{title}</Logo>
-        <TagLine>{description}</TagLine>
+      <FadeIn>
+        <Main>
+          <HeaderLinks>
+            <StyledLink to="/about/">About</StyledLink>
+            <StyledLink to="/login/">Log in</StyledLink>
+          </HeaderLinks>
+          <Logo>{title}</Logo>
+          <TagLine>{description}</TagLine>
 
-        <LinkWrapper>
-          <Link to="/home/">
-            <StyledButton tabIndex="-1">Start</StyledButton>
-          </Link>
-          <Link buttonColor="transparent" to="/signup/">
-            <StyledButton tabIndex="-1">Create an account</StyledButton>
-          </Link>
-        </LinkWrapper>
-      </Main>
-      <SplashImgWrapper>
-        <img srcSet={srcSet} sizes="100vw" alt="" />
-      </SplashImgWrapper>
+          <LinkWrapper>
+            {authCheck ? (
+              <Spinner />
+            ) : (
+              <>
+                <Link to="/home/">
+                  <StyledButton tabIndex="-1">Start</StyledButton>
+                </Link>
+                <Link buttonColor="transparent" to="/signup/">
+                  <StyledButton tabIndex="-1">Create an account</StyledButton>
+                </Link>
+              </>
+            )}
+          </LinkWrapper>
+        </Main>
+      </FadeIn>
     </SplashWrapper>
   );
 };
 
 export const query = graphql`
   query {
-    file(relativePath: { eq: "yoga_xl.jpg" }) {
-      childImageSharp {
-        # Specify a fluid image and fragment
-        # The default maxWidth is 800 pixels
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
     site {
       siteMetadata {
         title

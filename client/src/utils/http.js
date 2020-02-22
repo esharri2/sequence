@@ -23,7 +23,8 @@ export const getData = async route => {
     };
     const response = await fetch(baseURL + route, options);
     handleErrors(response);
-    return response;
+    const data = await response.json();
+    return data;
   } catch (error) {
     throw error;
   }
