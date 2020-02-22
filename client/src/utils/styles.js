@@ -57,7 +57,6 @@ export const transitions = {
   fast: "0.2s",
   medium: ".5s,",
   slow: "1s"
-  // slowest:
 };
 
 export const zIndexes = {
