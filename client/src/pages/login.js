@@ -89,7 +89,7 @@ export default props => {
         setErrorMessage={setErrorMessage}
       />
 
-      <Link to="/ForgotPassword/">Forgot password?</Link>
+      <Link to="/forgot-password/">Forgot password?</Link>
     </Layout>
   );
 };
