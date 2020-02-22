@@ -12,7 +12,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`
+        path: `${__dirname}/src/images/`
       }
     },
     `gatsby-transformer-sharp`,
@@ -20,13 +20,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Vois Talker Timer`,
+        short_name: `Vois`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#EAE0f3`,
+        theme_color: `#EAE0f3`,
         display: `minimal-ui`,
-        icon: `src/app_icons/logo.png` // This path is relative to the root of the site.
+        icon: `src/logo.png` // This path is relative to the root of the site.
       }
     },
     {
