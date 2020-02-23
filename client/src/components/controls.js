@@ -74,7 +74,7 @@ const Controls = props => {
   } = props;
 
   const [loading, setLoading] = useState(false);
-  const noSleep = useRef(new NoSleep());
+  const noSleep = useRef(document && new NoSleep());
 
   const handlePlay = event => {
     event.preventDefault();
