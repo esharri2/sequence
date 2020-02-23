@@ -11,7 +11,7 @@ import Layout from "../components/layout";
 import Link from "../components/link";
 import SpinnerOverlay from "../components/spinner-overlay";
 
-import { deleteAccount } from "../utils/api";
+import { getData } from "../utils/http";
 import { border, colors, spacing } from "../utils/styles";
 
 const Section = styled.section`
@@ -31,19 +31,16 @@ const StyledButton = styled(Button)`
 export default () => {
   const [loading, setLoading] = useState(false);
 
-  // TODO update this use fetch hook.
-  const handleDeleteClick = event => {
+  const handleDeleteClick = async () => {
     setLoading(true);
-    deleteAccount()
-      .then(response => {
-        navigate("/");
-      })
-      .catch(error => {
-        alert(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    try {
+      await getData(`/auth/delete`);
+      navigate("/");
+    } catch (error) {
+      alert(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

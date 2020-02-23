@@ -1,5 +1,5 @@
 import { navigate } from "gatsby";
-import { getUser } from "../utils/api";
+import { getData } from "./http";
 
 const localStorageKeys = {
   email: "email"
@@ -32,10 +32,12 @@ export const checkIsLoggedInOnClient = userContext => {
 
 export const checkIsLoggedInOnServer = async userContext => {
   const email = isReturningUser();
-  const response = await getUser(email);
-  if (response) {
+  try {
+    const url = new URL("/user");
+    url.searchParams.append("email", email);
+    const response = await getData(url);
     return response;
-  } else {
+  } catch (error) {
     clientLogOut(userContext);
     return false;
   }
