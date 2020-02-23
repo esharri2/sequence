@@ -80,7 +80,6 @@ const Header = props => {
       </NavLink>
       <span> </span>
       <SignupNavLink to="/signup/">Sign up</SignupNavLink>
-      {/* <NavLink to="/login/">Log in</NavLink> */}
     </Nav>
   );
 
