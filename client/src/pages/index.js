@@ -82,12 +82,11 @@ const LinkWrapper = styled.div`
     max-width: 500px;
 
     &:first-child {
-      padding-bottom: ${spacing.md};
+      margin-bottom: ${spacing.md};
     }
   }
 
   @media screen and (min-width: ${breakpoints.md}) {
-    /* margin-top: 1rem; */
     width: 30vw;
   }
 `;
@@ -167,11 +166,11 @@ export default ({ data }) => {
       }
       checkAuthentication();
     }
-  }, [authCheck]);
+  }, [authCheck, userContext]);
 
   return (
     <SplashWrapper>
-      <SEO />
+      <SEO title="Home" />
       <FadeIn>
         <Main>
           <HeaderLinks>
@@ -192,7 +191,7 @@ export default ({ data }) => {
                 <Link to="/home/">
                   <StyledButton tabIndex="-1">Start</StyledButton>
                 </Link>
-                <Link buttonColor="transparent" to="/signup/">
+                <Link to="/signup/">
                   <StyledButton tabIndex="-1">Create an account</StyledButton>
                 </Link>
               </>

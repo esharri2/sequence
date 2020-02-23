@@ -11,8 +11,8 @@ import Link from "../components/link";
 import SpinnerOverlay from "../components/spinner-overlay";
 
 import { errorMessages } from "../utils/errorMessages";
-import { changePassword } from "../utils/api";
 import useFormInput from "../utils/customHooks/useFormInput";
+import { postData } from "../utils/http";
 
 //TODO refactor SignUp / Login to remove code duplication
 
@@ -31,30 +31,25 @@ export default props => {
   }
 
   const handleSubmit = event => {
-    setLoading(true);
     event.preventDefault();
-    changePassword(newPassword.value, token)
-      .then(response => {
-        navigate("/Login/", {
-          replace: true,
-          state: {
-            isNewPassword: true
-          }
-        });
-      })
-      .catch(error => {
-        setError(
-          error.status === 401
-            ? errorMessages.badCredentials
-            : errorMessages.generic
-        );
-      })
-      .finally(() => {
-        setLoading(false);
+    setLoading(true);
+    try {
+      postData("/auth/changepassword", {
+        newPassword: newPassword.value,
+        token
       });
+      navigate("/login/", {
+        replace: true,
+        state: {
+          isNewPassword: true
+        }
+      });
+    } catch (error) {
+      setError(errorMessages.generic);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  //
 
   return (
     <Layout mobileSized={true} hideFooter={true} hideNav={true}>

@@ -4,23 +4,6 @@ axios.defaults.withCredentials = true;
 
 //API calls
 
-export const sendEmail = data => axios.post("/email/contactForm", data);
-
-export const getExport = query =>
-  axios.get("/home/all", { params: query, responseType: "blob" });
-
-export const signUp = (email, password, isDemo) =>
-  axios.post(`/auth/signup`, { email, password, isDemo });
-
-export const logIn = (email, password) =>
-  axios.post(`/auth/login`, { email, password });
-
-export const changePassword = (newPassword, token) =>
-  axios.post(`/auth/changepassword`, { newPassword, token });
-
-export const requestPasswordReset = email =>
-  axios.put(`/auth/requestpasswordreset`, { email });
-
 export const deleteAccount = () => axios.get(`/auth/delete`);
 
 export const logOut = () => axios.get("/auth/logout");

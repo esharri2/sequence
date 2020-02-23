@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-import { animations, transitions } from "../../utils/styles";
+import { transitions } from "../../utils/styles";
 
 const animation = keyframes`
    0% {

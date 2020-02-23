@@ -3,23 +3,17 @@ import styled from "styled-components";
 
 import Link from "./link";
 
-import { breakpoints, colors, dimensions, spacing } from "../utils/styles";
+import { colors, dimensions, spacing } from "../utils/styles";
 
 const FooterWrapper = styled.footer`
   height: ${dimensions.footerHeight};
-  /* position: absolute; */
-  /* right: 0; */
-  /* bottom: 0; */
-  /* left: 0; */
   background-color: ${colors.lavender};
   color: ${colors.black};
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: ${spacing.xs};
-  @media screen and (max-width: ${breakpoints.small}) {
-    flex-direction: column;
-  }
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
 `;
 
 const FooterLinksSection = styled.div`
@@ -28,12 +22,13 @@ const FooterLinksSection = styled.div`
 
   a {
     color: ${colors.lightest};
-    padding-right: ${spacing.md};
+    padding-left: ${spacing.md};
   }
 `;
 
 const Copyright = styled.span`
   color: ${colors.lightest};
+  margin-top: ${spacing.sm};
 `;
 
 const Footer = () => {
@@ -45,7 +40,7 @@ const Footer = () => {
         <Link to="/terms/">Terms of Service</Link>
       </FooterLinksSection>
       <FooterLinksSection>
-        <Copyright>Ⓒ {new Date().getFullYear()} Lorem Ipsum</Copyright>
+        <Copyright>Ⓒ {new Date().getFullYear()}</Copyright>
       </FooterLinksSection>
     </FooterWrapper>
   );

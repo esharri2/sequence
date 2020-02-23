@@ -10,9 +10,9 @@ import { errorMessages } from "../utils/errorMessages";
 import useFormInput from "../utils/customHooks/useFormInput";
 import useValidityCheck from "../utils/customHooks/useValidityCheck";
 import { validateEmail } from "../utils/validators";
-import { sendEmail } from "../utils/api";
 import UserContext from "../context/UserContext";
 import { breakpoints } from "../utils/styles";
+import { postData } from "../utils/http";
 
 const ContactFormWrapper = styled.form`
   margin: 0 auto;
@@ -21,12 +21,8 @@ const ContactFormWrapper = styled.form`
 
 const ContactForm = props => {
   const name = useFormInput("");
-  //TODO fill in by default for signed in users
   const user = useContext(UserContext).user;
-  const currentUserEmail = user ? user.email : null;
-
-  const email = useFormInput(currentUserEmail ? currentUserEmail : "");
-
+  const email = useFormInput(user ? user.email : null);
   const message = useFormInput("");
 
   const [error, setError] = useState(false);
@@ -38,23 +34,26 @@ const ContactForm = props => {
   const handleSubmit = event => {
     event.preventDefault();
     setIsSending(true);
-    sendEmail({ name: name.value, email: email.value, message: message.value })
-      .then(() => {
-        if (typeof window === "undefined") {
-          setIsSent(true);
-          return;
-        }
-        setIsSent(true);
-        setTimeout(() => {
-          window.history.back();
-        }, 3000);
-      })
-      .catch(() => {
-        setError(errorMessages.generic);
-      })
-      .finally(() => {
-        setIsSending(false);
+    try {
+      postData("/email/contactForm", {
+        name: name.value,
+        email: email.value,
+        message: message.value
       });
+
+      if (typeof window === "undefined") {
+        setIsSent(true);
+        return;
+      }
+      setIsSent(true);
+      setTimeout(() => {
+        window.history.back();
+      }, 3000);
+    } catch (error) {
+      setError(errorMessages.generic);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (

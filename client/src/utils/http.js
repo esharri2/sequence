@@ -46,6 +46,22 @@ export const postData = async (route, body) => {
   }
 };
 
+export const putData = async (route, body) => {
+  try {
+    const options = {
+      body: JSON.stringify(body),
+      method: "PUT",
+      ...defaultOptions
+    };
+    const response = await fetch(baseURL + route, options);
+    handleErrors(response);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const deleteData = async (route, body) => {
   try {
     const options = {

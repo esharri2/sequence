@@ -4,16 +4,14 @@ import styled from "styled-components";
 
 import Back from "../components/back";
 import Button from "../components/button";
-import FormField from "../components/form-field";
-
 import Heading from "../components/heading";
+import FormField from "../components/form-field";
 import Layout from "../components/layout";
-
-import { errorMessages } from "../utils/errorMessages";
-import { changePassword } from "../utils/api";
-import useFormInput from "../utils/customHooks/useFormInput";
 import SpinnerOverlay from "../components/spinner-overlay";
 
+import { errorMessages } from "../utils/errorMessages";
+import useFormInput from "../utils/customHooks/useFormInput";
+import { postData } from "../utils/http";
 import { breakpoints } from "../utils/styles";
 
 const WideButton = styled(Button)`
@@ -30,27 +28,23 @@ export default () => {
   const [error, setError] = useState(false);
 
   const handleSubmit = event => {
-    setLoading(true);
     event.preventDefault();
-    changePassword(newPassword.value)
-      .then(response => {
-        navigate("/login/", {
-          replace: true,
-          state: {
-            isNewPassword: true
-          }
-        });
-      })
-      .catch(error => {
-        setError(
-          error.status === 401
-            ? errorMessages.badCredentials
-            : errorMessages.generic
-        );
-      })
-      .finally(() => {
-        setLoading(false);
+    setLoading(true);
+    try {
+      postData("/auth/changepassword", {
+        newPassword: newPassword.value
       });
+      navigate("/login/", {
+        replace: true,
+        state: {
+          isNewPassword: true
+        }
+      });
+    } catch (error) {
+      setError(errorMessages.generic);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

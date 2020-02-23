@@ -11,7 +11,7 @@ import SpinnerOverlay from "../components/spinner-overlay";
 import useFormInput from "../utils/customHooks/useFormInput";
 import useValidityCheck from "../utils/customHooks/useValidityCheck";
 import { validateEmail } from "../utils/validators";
-import { requestPasswordReset } from "../utils/api";
+import { putData } from "../utils/http";
 
 export default () => {
   const email = useFormInput("");
@@ -21,19 +21,18 @@ export default () => {
   const [wasEmailSent, setWasEmailSent] = useState(undefined);
 
   const handleSubmit = event => {
-    setLoading(true);
     event.preventDefault();
-    requestPasswordReset(email.value)
-      .then(response => {
-        //TODO use alert msg componet
-        setWasEmailSent(true);
-      })
-      .catch(error => {
-        setWasEmailSent(false);
-      })
-      .finally(() => {
-        setLoading(false);
+    setLoading(true);
+    try {
+      putData(`/auth/requestpasswordreset`, {
+        email: email.value
       });
+      setWasEmailSent(true);
+    } catch (error) {
+      setWasEmailSent(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

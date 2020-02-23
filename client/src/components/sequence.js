@@ -237,6 +237,11 @@ const Sequence = ({
     const index = getIndex(event);
     const actionsClone = [...actions];
     const newAction = { ...actions[index] };
+    const placeholderId = newAction.placeholderId;
+    // Modify placeholder id to prevent duplicate keys
+    if (placeholderId) {
+      newAction.placeholderId = placeholderId + new Date().getTime();
+    }
     actionsClone.splice(index, 0, newAction);
     setActions(actionsClone);
   };
@@ -310,12 +315,8 @@ const Sequence = ({
           const isPlaying = index === current;
           const ref = isPlaying ? { ref: currentActionRef } : null;
           return (
-            <FadeIn>
-              <Action
-                key={action._id || action.placeholderId}
-                data-index={index}
-                isPlaying={isPlaying}
-                {...ref}>
+            <FadeIn key={action._id || action.placeholderId}>
+              <Action data-index={index} isPlaying={isPlaying} {...ref}>
                 <ActionNumber>
                   <span>{index + 1}</span>
                 </ActionNumber>
@@ -336,7 +337,7 @@ const Sequence = ({
                   playing={playing}
                 />
                 <CopyButton
-                  aria-label="copy"
+                  aria-label="Copy this action"
                   title="copy"
                   disabled={playing}
                   reverse
@@ -350,7 +351,12 @@ const Sequence = ({
                   getIndex={getIndex}
                   setActions={setActions}
                 />
-                <RemoveButton disabled={playing} reverse onClick={handleDelete}>
+                <RemoveButton
+                  disabled={playing}
+                  title="Remove"
+                  aria-label="Remove action from sequence"
+                  reverse
+                  onClick={handleDelete}>
                   <Close />
                 </RemoveButton>
               </Action>
