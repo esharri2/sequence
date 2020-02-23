@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
+import NoSleep from "nosleep.js";
 
 import AddAction from "../components/add-action";
 import Button from "../components/button";
@@ -73,9 +74,12 @@ const Controls = props => {
   } = props;
 
   const [loading, setLoading] = useState(false);
+  const noSleep = useRef(new NoSleep());
 
   const handlePlay = event => {
     event.preventDefault();
+    noSleep.current.enable();
+
     if (playing) {
       setPaused(false);
       playAction();
@@ -88,11 +92,13 @@ const Controls = props => {
 
   const handlePause = event => {
     event.preventDefault();
+    noSleep.current.disable();
     setPaused(true);
   };
 
   const handleStop = event => {
     event.preventDefault();
+    noSleep.current.disable();
     setPlaying(false);
   };
 

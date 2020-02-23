@@ -160,7 +160,7 @@ export default ({ data }) => {
           } else {
             setTimeout(function() {
               clientLogIn(userContext, response.email);
-              // navigate("/my-sequences/");
+              navigate("/my-sequences/");
             }, 2000);
           }
         } catch (error) {
