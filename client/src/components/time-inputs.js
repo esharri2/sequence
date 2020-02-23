@@ -36,7 +36,7 @@ const TimeDisplay = styled.div`
   font-size: 1.4rem;
   color: ${colors.brightlavender};
   grid-area: seconds;
-
+  font-variant-numeric: tabular-nums;
   @media screen and (max-width: ${breakpoints.md}) {
     justify-content: flex-end;
   }
@@ -61,7 +61,8 @@ const TimeInputs = ({
   const adjustedDuration = isPlaying ? duration - elapsedOnCurrent : duration;
 
   const minutes = Math.floor(adjustedDuration / 60) + "";
-  const seconds = adjustedDuration % 60;
+  // TODO abstract this
+  const seconds = ("0" + (adjustedDuration % 60)).slice(-2);
 
   return (
     <>

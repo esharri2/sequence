@@ -20,7 +20,7 @@ const HeaderTag = styled.header`
   justify-content: space-between;
   height: ${dimensions.headerHeight};
   padding: 0 ${spacing.lg};
-  @media screen and (max-width: ${breakpoints.small}) {
+  @media screen and (max-width: ${breakpoints.sm}) {
     padding: 0 ${spacing.xs};
   }
 `;
@@ -70,7 +70,6 @@ const Header = props => {
       <NavLink aria-label="About" to="/about/">
         <Info />
       </NavLink>
-      <span> </span>
       <LogOutButton />
     </Nav>
   ) : (

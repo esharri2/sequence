@@ -80,6 +80,8 @@ const Controls = props => {
       setPaused(false);
       playAction();
     } else {
+      // HACK: Trigger a sound once on action to allow timer to trigger sound subsequently.
+      speechSynthesis.speak(new SpeechSynthesisUtterance(""));
       setPlaying(true);
     }
   };

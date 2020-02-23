@@ -129,6 +129,15 @@ const StyledLink = styled(Link)`
   text-transform: uppercase;
 `;
 
+const Inline = styled.span`
+  display: flex;
+  align-items: center;
+
+  & > *:first-child {
+    margin-right: ${spacing.xs};
+  }
+`;
+
 export default ({ data }) => {
   const { title, description } = data.site.siteMetadata;
   const userContext = useContext(UserContext);
@@ -136,7 +145,7 @@ export default ({ data }) => {
   const [authCheck, setAuthCheck] = useState(false);
 
   useEffect(() => {
-    isReturningUser ? setAuthCheck(true) : setAuthCheck(false);
+    isReturningUser() ? setAuthCheck(true) : setAuthCheck(false);
   }, []);
 
   useEffect(() => {
@@ -144,12 +153,14 @@ export default ({ data }) => {
       async function checkAuthentication() {
         try {
           const response = await getData("/auth/check");
+          console.log("home page response is:");
+          console.log(response);
           if (!response) {
             setAuthCheck(false);
           } else {
             setTimeout(function() {
               clientLogIn(userContext, response.email);
-              navigate("/my-sequences/");
+              // navigate("/my-sequences/");
             }, 2000);
           }
         } catch (error) {
@@ -175,7 +186,10 @@ export default ({ data }) => {
 
           <LinkWrapper>
             {authCheck ? (
-              <Spinner />
+              <Inline>
+                <Spinner />
+                <span>Signing in...</span>
+              </Inline>
             ) : (
               <>
                 <Link to="/home/">
