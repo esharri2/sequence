@@ -209,7 +209,6 @@ const Sequence = ({
 
   const playAction = title => {
     if (currentActionRef.current) {
-      console.log("im scrolling!");
       currentActionRef.current.scrollIntoView(false);
     }
     if (title) {

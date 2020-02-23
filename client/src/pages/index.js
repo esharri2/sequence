@@ -153,8 +153,6 @@ export default ({ data }) => {
       async function checkAuthentication() {
         try {
           const response = await getData("/auth/check");
-          console.log("home page response is:");
-          console.log(response);
           if (!response) {
             setAuthCheck(false);
           } else {
@@ -165,7 +163,6 @@ export default ({ data }) => {
           }
         } catch (error) {
           setAuthCheck(false);
-          console.error("oh no");
         }
       }
       checkAuthentication();
