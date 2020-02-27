@@ -17,6 +17,16 @@ const FormFieldWrapper = styled.div`
   } */
 `;
 
+const InlineLabel = styled(Label)`
+  display: flex;
+  align-items: center;
+  input {
+    width: auto;
+    margin: 0;
+    margin-right: ${spacing.sm};
+  }
+`;
+
 const FormField = props => {
   //Need to convert all date string to date input friendly format
   const value =
@@ -49,10 +59,9 @@ const FormField = props => {
   return (
     <FormFieldWrapper className={props.className}>
       {checked ? (
-        <Label htmlFor={props.id} type={props.type}>
-          <span>{props.label}</span>
-          {InputComponent}
-        </Label>
+        <InlineLabel htmlFor={props.id} type={props.type}>
+          {InputComponent} <span>{props.label}</span>
+        </InlineLabel>
       ) : (
         <>
           {InputComponent}

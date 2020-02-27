@@ -13,7 +13,7 @@ export default function(initialValue) {
     } else if (event.target.type === "date") {
       value = convertToYYYYMMDD(event.target.value);
     } else if (event.target.type === "checkbox") {
-      value = event.target.value === "true" ? "false" : "true";
+      value = event.target.value === true ? false : true;
     } else {
       value = event.target.value;
     }

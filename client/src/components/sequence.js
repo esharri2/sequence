@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
+import NoSleep from "nosleep.js";
 
 import Add from "./icons/add";
 import AddAction from "./add-action";
@@ -147,6 +148,7 @@ const Sequence = ({
 }) => {
   const [sequenceId, setSequenceId] = useState(id);
   const [hasChanged, setHasChanged] = useState(false);
+  const noSleep = useRef(typeof window !== "undefined" && new NoSleep());
 
   const [title, setTitle] = useState(initialTitle);
   const handleTitleChange = event => {
@@ -159,8 +161,10 @@ const Sequence = ({
   const [playing, setPlaying] = useState(false);
   useEffect(() => {
     if (playing) {
+      noSleep.current.enable();
       setCurrent(0);
     } else {
+      noSleep.current.disable();
       setCurrent(undefined);
       setPaused(false);
       setElapsedOnCurrent(0);
@@ -202,6 +206,8 @@ const Sequence = ({
   useEffect(() => {
     if (paused) {
       clearInterval(timerRef.current);
+    } else {
+      noSleep.current.enable();
     }
   }, [paused]);
 

@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Vois`,
-    description: `A talking timer for yoga and exercise.`,
+    description: `A talking timer for yoga and exercise`,
     author: `Evan Harrison`
   },
   plugins: [

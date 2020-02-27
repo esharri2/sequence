@@ -179,7 +179,6 @@ export default ({ data }) => {
           </HeaderLinks>
           <Logo>{title}</Logo>
           <TagLine>{description}</TagLine>
-
           <LinkWrapper>
             {authCheck ? (
               <Inline>

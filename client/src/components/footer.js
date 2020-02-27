@@ -38,6 +38,7 @@ const Footer = () => {
         <Link to="/contact/">Contact</Link>
         <Link to="/about/">About</Link>
         <Link to="/terms/">Terms of Service</Link>
+        <Link to="/privacy/">Privacy</Link>
       </FooterLinksSection>
       <FooterLinksSection>
         <Copyright>Ⓒ {new Date().getFullYear()}</Copyright>
