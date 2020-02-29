@@ -50,11 +50,12 @@ const ButtonText = styled.span`
 `;
 
 const SequenceTitleInput = styled(Input)`
-  font-size: 2rem;
+  font-size: 1.5rem;
   border-radius: ${border.radius} ${border.radius} 0 0;
-
   @media screen and (max-width: ${breakpoints.md}) {
-    font-size: 1.5rem;
+    margin-top: ${spacing.sm};
+
+    font-size: 1.3rem;
   }
 `;
 
@@ -226,9 +227,20 @@ const Sequence = ({
     timerRef.current = timerId;
   };
 
+  /* useEffect(() => {
+    window.addEventListener("beforeunload", event => {
+      event.returnValue = `Are you sure you want to leave?`;
+    });
+  }, []); */
+
   const getIndex = event => {
     return event.target.closest("[data-index]").dataset.index;
   };
+
+  /* const handleExitWithUnsavedChanges = () => {
+    console.log("hi");
+    window.confirm("you sure");
+  }; */
 
   const handleDelete = event => {
     event.preventDefault();

@@ -37,7 +37,7 @@ const Footer = () => {
       <FooterLinksSection>
         <Link to="/contact/">Contact</Link>
         <Link to="/about/">About</Link>
-        <Link to="/terms/">Terms of Service</Link>
+        <Link to="/terms/">Terms</Link>
         <Link to="/privacy/">Privacy</Link>
       </FooterLinksSection>
       <FooterLinksSection>
