@@ -15,6 +15,7 @@ const rateLimit = require("express-rate-limit");
 //Private modules
 const routes = require("./routes");
 const db = require("./models");
+const bcryptUtil = require("./controllers/helpers/bcryptUtil");
 
 //Set up db
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/sequence", {
@@ -71,17 +72,27 @@ passport.use(
       passwordField: "password"
     },
     function(email, password, done) {
-      console.log("hey");
-      db.User.findOne({ email: email }, function(err, user) {
+      db.User.findOne({ email: email }, async function(err, user) {
+        // Hash password that was entered
+
         if (err) {
           return done(err);
         }
+
         if (!user) {
           //TODO pass this msg to controller
-          console.log("No user!");
+          console.log("No user with that email!");
           return done(null, false);
         }
-        if (user.password != password) {
+
+        const passwordCheck = await bcryptUtil.checkPassword(
+          password,
+          user.password
+        );
+
+        console.log("check says, ", passwordCheck);
+
+        if (!passwordCheck) {
           //TODO pass this msg to controller
           console.log("Wrong password!");
           return done(null, false);
