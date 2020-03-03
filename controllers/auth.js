@@ -1,7 +1,7 @@
 const db = require("../models");
 const crypto = require("crypto");
-
 const emailUtils = require("./helpers/emailUtils");
+const bcryptUtil = require("./helpers/bcryptUtil");
 
 module.exports = {
   checkAuthentication: function(req, res) {
@@ -14,7 +14,8 @@ module.exports = {
 
   signUp: async (req, res) => {
     const { email, password } = req.body;
-    db.User.create({ email, password })
+    const hashedPassword = await bcryptUtil.hashPassword(password);
+    db.User.create({ email, password: hashedPassword })
       .then(user => res.json(user.email))
       .catch(err => {
         console.error(err);
@@ -47,15 +48,17 @@ module.exports = {
     return res.json(req.user);
   },
 
-  changePassword: function(req, res) {
+  changePassword: async function(req, res) {
     const { newPassword, token } = req.body;
+    const hashedPassword = await bcryptUtil.hashPassword(newPassword);
+
     if (!token) {
       if (!req.user) {
         res.status(403).json({ error: "You are not signed in." });
       } else {
         db.User.findOneAndUpdate(
           { email: req.user.email },
-          { password: newPassword },
+          { password: hashedPassword },
           (error, user) => {
             if (error) {
               res.status(422).json({ error: "Whoops. Something is wrong." });
@@ -74,7 +77,7 @@ module.exports = {
             .status(422)
             .json({ error: "Your password reset window as expired." });
         } else {
-          user.password = newPassword;
+          user.password = hashedPassword;
           user.save(err => {
             if (err) {
               res.status(422).json({ error: "Whoops. Something is wrong." });

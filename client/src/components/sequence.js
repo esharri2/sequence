@@ -53,8 +53,7 @@ const SequenceTitleInput = styled(Input)`
   font-size: 1.5rem;
   border-radius: ${border.radius} ${border.radius} 0 0;
   @media screen and (max-width: ${breakpoints.md}) {
-    margin-top: ${spacing.sm};
-
+    margin-top: ${spacing.lg};
     font-size: 1.3rem;
   }
 `;
@@ -80,6 +79,7 @@ const Action = styled.div`
       ".... .... .... .... minutes seconds"
       ".... .... copy up down remove";
     grid-gap: 0 ${spacing["3xs"]};
+
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-columns: 0.5fr repeat(5, 1fr);
     /* border-radius: ${border.radius}; */
@@ -97,6 +97,8 @@ const Action = styled.div`
       "number title title title title title"
       ".... .... minutes minutes seconds seconds"
       ".... .... copy up down remove";
+    grid-gap: 0 ${spacing.xs};
+
   }
 
   ${props =>
