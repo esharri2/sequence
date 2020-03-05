@@ -20,7 +20,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Vois Talker Timer`,
+        name: `Vois Talking Timer`,
         short_name: `Vois`,
         start_url: `/`,
         background_color: `#EAE0f3`,
