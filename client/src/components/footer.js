@@ -13,7 +13,7 @@ const FooterWrapper = styled.footer`
   padding: ${spacing.xs};
   flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
 `;
 
 const FooterLinksSection = styled.div`
@@ -23,6 +23,7 @@ const FooterLinksSection = styled.div`
   a {
     color: ${colors.lightest};
     padding-left: ${spacing.md};
+    text-transform: uppercase;
   }
 `;
 
