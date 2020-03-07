@@ -285,7 +285,9 @@ const Sequence = ({
       <HeaderLinks>
         <LinkButton reverse to="/home/" state={{ id: null }}>
           <Add />
-          <ButtonText>Create new sequence</ButtonText>
+          <ButtonText>
+            Create new <DesktopOnly>sequence</DesktopOnly>
+          </ButtonText>
         </LinkButton>
         {authenticated && (
           <LinkButton reverse to="/my-sequences/">

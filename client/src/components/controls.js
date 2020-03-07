@@ -23,6 +23,10 @@ const ButtonBar = styled.div`
       margin-right: 0;
     }
 
+    @media screen and (max-width: ${breakpoints.xs}) {
+      padding: ${spacing.xs};
+    }
+
     @media screen and (max-width: ${breakpoints.md}) {
       &:nth-last-child(2) {
         margin-right: 0;
