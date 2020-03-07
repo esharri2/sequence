@@ -25,6 +25,7 @@ import {
   border,
   breakpoints,
   colors,
+  shadows,
   spacing,
   transitions
 } from "../utils/styles";
@@ -66,24 +67,23 @@ const Action = styled.div`
   display: grid;
   grid-gap: ${spacing.xs};
   grid-template-areas: "number title minutes seconds copy up down remove";
-  grid-template-columns: 1fr 8fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  /* animation: ${transitions.slow} ${animations.fadeIn}
-    ${animations.defaultTimingFunction}; */
+  grid-template-columns: 0.5fr 10fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  border-radius: ${border.radius};
+  transition: box-shadow 0.5s ease-in-out;
+
   input {
     border-radius: ${border.radius} ${border.radius} 0 0;
   }
 
   @media screen and (max-width: ${breakpoints.md}) {
     grid-template-areas:
-      "number title title title title title"
-      ".... .... .... .... minutes seconds"
-      ".... .... copy up down remove";
-    grid-gap: 0 ${spacing["3xs"]};
+      "title title title title minutes seconds"
+      "number .... copy up down remove";
+    grid-gap: 0 ${spacing.xs};
 
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     grid-template-columns: 0.5fr repeat(5, 1fr);
-    /* border-radius: ${border.radius}; */
-    border-bottom: dashed ${border.size} ${colors.oslogray};
+    box-shadow: ${shadows.sm};
     padding: ${spacing.xs};
     margin-bottom: ${spacing.xs};
 
@@ -92,18 +92,14 @@ const Action = styled.div`
     }
   }
 
-  @media screen and (max-width: ${breakpoints.sm}) {
-    grid-template-areas:
-      "number title title title title title"
-      ".... .... minutes minutes seconds seconds"
-      ".... .... copy up down remove";
+  /* @media screen and (max-width: ${breakpoints.sm}) {
     grid-gap: 0 ${spacing.xs};
-
-  }
+  } */
 
   ${props =>
     props.isPlaying &&
     css`
+    box-shadow: ${shadows.md} !important;
     color: ${colors.brightlavender};
     div:first-child > span {
     background-color: ${colors.brightlavender};
@@ -115,6 +111,7 @@ const ActionNumber = styled.div`
   display: flex;
   align-items: center;
   grid-area: number;
+  padding-left: ${spacing.xs};
   span {
     border: ${border.style} ${border.size} ${colors.lavender};
     border-radius: 50%;
@@ -218,7 +215,7 @@ const Sequence = ({
 
   const playAction = title => {
     if (currentActionRef.current) {
-      currentActionRef.current.scrollIntoView(false);
+      currentActionRef.current.scrollIntoView(true);
     }
     if (title) {
       speech(title);

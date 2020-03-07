@@ -8,15 +8,20 @@ import { breakpoints, colors, spacing } from "../utils/styles";
 const TimeInput = styled(FormField)`
   margin: 0;
   display: flex;
+
   input {
     text-align: right;
+    flex-grow: 1;
+    min-width: 0;
   }
+
   label {
     color: ${colors.oslogray};
+    flex-grow: 0;
     display: flex;
     align-items: flex-end;
     margin-bottom: ${spacing.xs};
-    padding-right: ${spacing.xs};
+    /* padding-right: ${spacing.xs}; */
   }
 `;
 
@@ -29,7 +34,6 @@ const SecondsInput = styled(TimeInput)`
 `;
 
 const TimeDisplay = styled.div`
-  /* background-color: green; */
   display: flex;
   justify-content: center;
   align-items: center;

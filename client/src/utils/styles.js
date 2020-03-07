@@ -55,7 +55,7 @@ export const shadows = {
 
 export const transitions = {
   fast: "0.2s",
-  medium: ".5s,",
+  medium: "0.5s,",
   slow: "1s"
 };
 

@@ -10,6 +10,7 @@ import useUserData from "../utils/customHooks/useUserData";
 const Home = ({ location = {} }) => {
   const user = useContext(UserContext).user;
   const email = user ? user.email : null;
+  console.log("home page render");
 
   const id = location.state ? location.state.id : null;
 
