@@ -20,15 +20,7 @@ import SlideInX from "./animators/slide-in-x";
 import TimeInputs from "./time-inputs";
 
 import speech from "../utils/speech";
-import {
-  animations,
-  border,
-  breakpoints,
-  colors,
-  shadows,
-  spacing,
-  transitions
-} from "../utils/styles";
+import { border, breakpoints, colors, shadows, spacing } from "../utils/styles";
 
 const HeaderLinks = styled.div`
   display: flex;
