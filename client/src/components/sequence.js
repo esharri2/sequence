@@ -229,26 +229,16 @@ const Sequence = ({
     timerRef.current = timerId;
   };
 
-  /* useEffect(() => {
-    window.addEventListener("beforeunload", event => {
-      event.returnValue = `Are you sure you want to leave?`;
-    });
-  }, []); */
-
   const getIndex = event => {
     return event.target.closest("[data-index]").dataset.index;
   };
-
-  /* const handleExitWithUnsavedChanges = () => {
-    console.log("hi");
-    window.confirm("you sure");
-  }; */
 
   const handleDelete = event => {
     event.preventDefault();
     const index = getIndex(event);
     const actionsClone = [...actions];
     actionsClone.splice(index, 1);
+    setHasChanged(true);
     setActions(actionsClone);
   };
 

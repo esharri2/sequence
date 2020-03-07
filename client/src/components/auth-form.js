@@ -36,11 +36,7 @@ const AuthForm = props => {
     </>
   );
 
-  const hasCheckboxes =
-    props.acceptsPasswordPolicy !== undefined &&
-    props.acceptsPolicies !== undefined;
-
-  console.log(props.acceptsPolicies);
+  const hasCheckboxes = props.acceptsPolicies !== undefined;
 
   return (
     <AuthFormWrapper>
@@ -68,22 +64,13 @@ const AuthForm = props => {
           {...props.acceptsPolicies}
         />
       )}
-      {hasCheckboxes && (
-        <FormField
-          id="acceptsPasswordPolicy"
-          type="checkbox"
-          label="I agree to not use a password I am already using elsewhere."
-          {...props.acceptsPasswordPolicy}
-        />
-      )}
       {props.error || (
         <WideButton
           forwardedAs="input"
           disabled={
             !props.isEmailValid ||
             !props.isPasswordValid ||
-            (hasCheckboxes && props.acceptsPolicies.value === false) ||
-            (hasCheckboxes && props.acceptsPasswordPolicy.value === false)
+            (hasCheckboxes && props.acceptsPolicies.value === false)
           }
           type="submit"
           value="Submit"

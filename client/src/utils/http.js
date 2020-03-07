@@ -15,13 +15,21 @@ export const defaultOptions = {
   headers: { "Content-Type": "application/json" }
 };
 
-export const getData = async route => {
+export const getData = async (route, params) => {
   try {
     const options = {
       method: "GET",
       ...defaultOptions
     };
-    const response = await fetch(baseURL + route, options);
+
+    const urlString = baseURL + route;
+    const searchParams = new URLSearchParams(params);
+
+    const url = searchParams
+      ? new URL(urlString + "?" + searchParams.toString())
+      : new URL(urlString);
+
+    const response = await fetch(url, options);
     handleErrors(response);
     const data = await response.json();
     return data;

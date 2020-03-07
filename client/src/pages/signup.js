@@ -23,7 +23,6 @@ export default props => {
   const email = useFormInput(process.env.GATSBY_TESTING_USERNAME || "");
   const password = useFormInput(process.env.GATSBY_TESTING_PASSWORD || "");
   const acceptsPolicies = useFormInput(false);
-  const acceptsPasswordPolicy = useFormInput(false);
   const isEmailValid = useValidityCheck(false, email, validateEmail);
   const isPasswordValid = useValidityCheck(false, password, validatePassword);
 
@@ -70,7 +69,6 @@ export default props => {
         email={email}
         password={password}
         acceptsPolicies={acceptsPolicies}
-        acceptsPasswordPolicy={acceptsPasswordPolicy}
         isEmailValid={isEmailValid}
         isPasswordValid={isPasswordValid}
         error={errorMessage ? <AlertMessage message={errorMessage} /> : false}

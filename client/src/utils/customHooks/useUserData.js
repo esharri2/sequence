@@ -46,15 +46,15 @@ const useUserData = (route, parameters) => {
       const checkServer = async () => {
         const isLoggedInOnServer = await checkIsLoggedInOnServer();
         if (!isLoggedInOnServer) {
-          navigate("/Login/", {
+          navigate("/login/", {
             replace: true
           });
           return false;
         }
-        const { email } = isLoggedInOnServer.data;
+        const { email } = isLoggedInOnServer;
 
         if (!email) {
-          navigate("/Login/", {
+          navigate("/login/", {
             replace: true
           });
           return false;
@@ -65,7 +65,7 @@ const useUserData = (route, parameters) => {
       checkServer();
     } else {
       // The user isn't logged in on a client or returning, they need to log in.
-      navigate("/Login/", {
+      navigate("/login/", {
         replace: true
       });
     }

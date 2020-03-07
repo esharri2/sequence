@@ -85,7 +85,7 @@ const Header = props => {
   return (
     <HeaderWrapper>
       <HeaderTag>
-        <LogoLink to="/">Vois</LogoLink>
+        <LogoLink to="/home">Vois</LogoLink>
         {!props.hideNav && links}
       </HeaderTag>
     </HeaderWrapper>

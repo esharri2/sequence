@@ -32,10 +32,9 @@ export const checkIsLoggedInOnClient = userContext => {
 
 export const checkIsLoggedInOnServer = async userContext => {
   const email = isReturningUser();
+  console.log("email is ", email);
   try {
-    const url = new URL("/user");
-    url.searchParams.append("email", email);
-    const response = await getData(url);
+    const response = await getData("/user", { email });
     return response;
   } catch (error) {
     clientLogOut(userContext);

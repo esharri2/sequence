@@ -47,7 +47,6 @@ export default props => {
         email: email.value,
         password: password.value
       });
-      console.log(response);
       clientLogIn(userContext, response.email);
       if (response.hasSequences) {
         navigate("/my-sequences/");
