@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.vois",
+      "sha256_cert_fingerprints": [
+        "CD:A6:D0:B9:E8:76:EE:CE:12:BD:47:A3:01:3B:62:E0:F2:E3:56:F0:A6:59:47:25:12:08:60:24:12:D7:C9:14"
+      ]
+    }
+  }
+]
