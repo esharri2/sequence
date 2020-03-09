@@ -10,7 +10,7 @@ const HeadingTag = styled.h1`
   text-align: ${props => (props.center === true ? "center" : "left")};
 
   @media screen and (max-width: ${breakpoints.md}) {
-    text-align: center;
+    /* text-align: center; */
   }
 `;
 
