@@ -2,7 +2,7 @@ import React from "react";
 import { UserProvider } from "./src/context/UserContext";
 import { createGlobalStyle } from "styled-components";
 import { colors, fonts } from "./src/utils/styles";
-require("typeface-alata");
+// require("typeface-alata");
 
 const GlobalStyle = createGlobalStyle`
 
