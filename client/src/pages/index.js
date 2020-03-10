@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { graphql, navigate } from "gatsby";
 
 import FadeIn from "../components/animators/fade-in";
+import GlobalStyle from "../components/global-style";
 import Link from "../components/link";
 import SEO from "../components/seo";
 import Spinner from "../components/spinner";
@@ -170,6 +171,7 @@ export default ({ data }) => {
 
   return (
     <SplashWrapper>
+      <GlobalStyle />
       <SEO title="Home" />
       <FadeIn>
         <Main>

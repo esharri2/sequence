@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 
 import Footer from "./footer";
+import GlobalStyle from "./global-style";
 import Header from "./header";
 import Main from "./main";
 
@@ -11,6 +12,7 @@ const Layout = props => {
   const email = user ? user.email : null;
   return (
     <>
+      <GlobalStyle />
       {props.hideNav ? (
         <Header hideNav={props.hideNav} />
       ) : (
