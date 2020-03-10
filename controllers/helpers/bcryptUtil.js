@@ -13,7 +13,6 @@ module.exports = {
   checkPassword: async (textPassword, hash) => {
     try {
       const compare = await bcrypt.compare(textPassword, hash);
-      console.log("compare is ", compare);
       return compare;
     } catch (error) {
       return error;

@@ -16,7 +16,6 @@ export const clientLogIn = (userContext, email) => {
 export const clientLogOut = userContext => {
   localStorage.clear();
   userContext.setUser(null);
-  navigate("/login/");
 };
 
 export const checkIsLoggedInOnClient = userContext => {
@@ -32,7 +31,6 @@ export const checkIsLoggedInOnClient = userContext => {
 
 export const checkIsLoggedInOnServer = async userContext => {
   const email = isReturningUser();
-  console.log("email is ", email);
   try {
     const response = await getData("/user", { email });
     return response;

@@ -76,6 +76,8 @@ const LinkWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  /* background-color: red; */
+  height: 150px;
 
   a {
     width: 100%;

@@ -25,7 +25,6 @@ module.exports = {
         console.error(error);
         res.send(error);
       } else {
-        console.log(info.response);
         res.send("Email sent: " + info.response);
       }
     });
