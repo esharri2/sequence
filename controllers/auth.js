@@ -152,7 +152,6 @@ module.exports = {
         db.User.deleteOne({ email }),
         db.Sequence.deleteMany({ _id: sequenceIds })
       ]);
-      console.log(deletedData);
       res.send(true);
     } catch (error) {
       console.error(error);
