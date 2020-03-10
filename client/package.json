@@ -5,7 +5,6 @@
   "version": "0.1.0",
   "author": "Evan Harrison",
   "dependencies": {
-    "@openfonts/alata_all": "0.0.1",
     "@reach/alert": "^0.1.5",
     "@reach/alert-dialog": "^0.2.9",
     "babel-plugin-styled-components": "^1.10.6",
