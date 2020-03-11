@@ -32,7 +32,7 @@ const Wrapper = styled.div`
 
 const GridList = styled(List)`
   display: grid;
-  grid-row-gap: ${spacing.lg};
+  grid-row-gap: ${spacing.md};
 `;
 
 const GridRow = styled(ListItem)`
@@ -51,7 +51,7 @@ const Duration = styled.div`
 
 const StyledLink = styled(Link)`
   padding-left: ${spacing.sm};
-  border-bottom: 1px solid ${colors.lavender};
+  /* border-bottom: 1px solid ${colors.lavender}; */
 
   &:hover,
   &:focus {
@@ -62,6 +62,7 @@ const StyledLink = styled(Link)`
 
 const Title = styled.div`
   width: 75%;
+  padding-right: ${spacing.sm};
 `;
 
 export default ({ sequences: initialSequences }) => {
