@@ -50,11 +50,10 @@ const Duration = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  padding-left: ${spacing.sm};
-  /* border-bottom: 1px solid ${colors.lavender}; */
-
   &:hover,
   &:focus {
+    padding-left: ${spacing.sm};
+
     text-decoration: none;
     background-color: ${colors.plumppurple};
   }
