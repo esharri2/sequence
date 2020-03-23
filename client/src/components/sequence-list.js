@@ -53,7 +53,6 @@ const StyledLink = styled(Link)`
   &:hover,
   &:focus {
     padding-left: ${spacing.sm};
-
     text-decoration: none;
     background-color: ${colors.plumppurple};
   }

@@ -236,11 +236,11 @@ const Sequence = ({
     const index = getIndex(event);
     const actionsClone = [...actions];
     const newAction = { ...actions[index] };
-    const placeholderId = newAction.placeholderId;
-    // Modify placeholder id to prevent duplicate keys
-    if (placeholderId) {
-      newAction.placeholderId = placeholderId + new Date().getTime();
+    console.log(newAction);
+    if (newAction._id) {
+      delete newAction._id;
     }
+    newAction.placeholderId = new Date().getTime();
     actionsClone.splice(index, 0, newAction);
     setActions(actionsClone);
   };
