@@ -42,7 +42,9 @@ module.exports = {
     }
   },
   saveSequence: async (req, res) => {
+    console.log("saving sequence...");
     console.log(req.user);
+    console.log(req.body);
     const { _id: postedId, title, actions } = req.body;
     const isNew = !postedId;
     const _id = postedId || mongoose.Types.ObjectId();
