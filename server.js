@@ -2,7 +2,7 @@ require("dotenv").config();
 
 //Public modules
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser");
 const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -27,7 +27,7 @@ mongoose.set("debug", false);
 const app = express();
 
 app.use(helmet());
-app.use(cookieParser(process.env.RANDOM_SECRET));
+// app.use(cookieParser(process.env.RANDOM_SECRET));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
