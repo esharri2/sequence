@@ -54,8 +54,7 @@ app.use(
     secret: process.env.RANDOM_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 7 * 24 * 60 * 60 * 1000, secure: true },
-    sameSite: "none",
+    cookie: { maxAge: 7 * 24 * 60 * 60 * 1000, secure: true, sameSite: "none" },
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
