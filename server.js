@@ -45,6 +45,9 @@ const limiter = rateLimit({
 //  apply to all requests
 app.use(limiter);
 
+console.log("connection is: ");
+console.log(mongoose.connection);
+
 // Set up sessions
 app.use(
   session({
