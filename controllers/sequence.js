@@ -5,7 +5,7 @@ module.exports = {
   getAllSequences: async (req, res) => {
     try {
       const response = await db.User.findOne({
-        email: req.query.email
+        email: req.query.email,
       }).populate("sequences");
       response.sequences.sort((a, b) => {
         const titleA = a.title.toUpperCase();
@@ -52,6 +52,7 @@ module.exports = {
         { new: true, upsert: true }
       );
       if (isNew) {
+        console.log(req);
         const user = await db.User.findOne({ email: req.user.email });
         user.sequences.push(sequence._id);
         await user.save();
@@ -61,5 +62,5 @@ module.exports = {
       console.error(error);
       res.status(422).json(error);
     }
-  }
+  },
 };

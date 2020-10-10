@@ -19,7 +19,7 @@ const bcryptUtil = require("./controllers/helpers/bcryptUtil");
 
 //Set up db
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/sequence", {
-  useNewUrlParser: true
+  useNewUrlParser: true,
 });
 mongoose.set("debug", false);
 
@@ -39,7 +39,7 @@ app.set("trust proxy", 1);
 
 const limiter = rateLimit({
   windowMs: 5 * 60 * 1000,
-  max: 200
+  max: 200,
 });
 
 //  apply to all requests
@@ -48,14 +48,14 @@ app.use(limiter);
 // Set up sessions
 app.use(
   session({
-    genid: function(req) {
+    genid: function (req) {
       return require("uuid/v1")();
     },
     secret: process.env.RANDOM_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 },
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
 
@@ -69,11 +69,12 @@ passport.use(
   new LocalStrategy(
     {
       usernameField: "email",
-      passwordField: "password"
+      passwordField: "password",
     },
-    function(email, password, done) {
-      db.User.findOne({ email: email }, async function(err, user) {
+    function (email, password, done) {
+      db.User.findOne({ email: email }, async function (err, user) {
         // Hash password that was entered
+        console.log("user is: ", user);
 
         if (err) {
           return done(err);
@@ -90,7 +91,7 @@ passport.use(
           user.password
         );
 
-        console.log("check says, ", passwordCheck);
+        console.log("check says: ", passwordCheck);
 
         if (!passwordCheck) {
           //TODO pass this msg to controller
@@ -105,12 +106,12 @@ passport.use(
 );
 
 // Configure Passport authenticated session persistence.
-passport.serializeUser(function(user, cb) {
+passport.serializeUser(function (user, cb) {
   cb(null, user.id);
 });
 
-passport.deserializeUser(function(id, cb) {
-  db.User.findById(id, function(err, user) {
+passport.deserializeUser(function (id, cb) {
+  db.User.findById(id, function (err, user) {
     if (err) {
       return cb(err);
     }
@@ -120,6 +121,6 @@ passport.deserializeUser(function(id, cb) {
 
 const PORT = process.env.PORT || 3001;
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log(`Server running at ${PORT}`);
 });
