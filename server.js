@@ -107,10 +107,12 @@ passport.use(
 
 // Configure Passport authenticated session persistence.
 passport.serializeUser(function (user, cb) {
+  console.log("serialize user: ", user);
   cb(null, user.id);
 });
 
 passport.deserializeUser(function (id, cb) {
+  console.log("deserialize user: ", id);
   db.User.findById(id, function (err, user) {
     if (err) {
       return cb(err);
