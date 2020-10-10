@@ -55,7 +55,6 @@ module.exports = {
         { new: true, upsert: true }
       );
       if (isNew) {
-        console.log(req);
         const user = await db.User.findOne({ email: req.user.email });
         user.sequences.push(sequence._id);
         await user.save();
