@@ -14,8 +14,8 @@ export const defaultOptions = {
   credentials: "include",
   headers: {
     "Content-Type": "application/json",
-    Accept: "application/json",
-    Cache: "no-cache",
+    // Accept: "application/json",
+    // Cache: "no-cache",
   },
 };
 
