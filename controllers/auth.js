@@ -25,6 +25,8 @@ module.exports = {
 
   logIn: function (req, res) {
     if (req.user) {
+      console.log("logIn time:");
+      console.log(req.user);
       db.User.findOne({ email: req.user.email })
         .populate("sequences")
         .then((user) => {
@@ -35,6 +37,7 @@ module.exports = {
           return res.json(userData);
         })
         .catch((error) => {
+          console.error(error);
           res.status(422).json(error);
         });
     } else {
