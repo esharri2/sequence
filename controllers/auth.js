@@ -34,6 +34,8 @@ module.exports = {
             email: user.email,
             hasSequences: user.sequences.length > 0 ? true : false,
           };
+          console.log("DERPPPP");
+          console.log(res.headers);
           return res.json(userData);
         })
         .catch((error) => {

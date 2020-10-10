@@ -46,6 +46,7 @@ module.exports = {
     console.log(req.user);
     console.log(req.headers);
     console.log(req.headers.cookie);
+    console.log(req.cookies);
     const { _id: postedId, title, actions } = req.body;
     const isNew = !postedId;
     const _id = postedId || mongoose.Types.ObjectId();
