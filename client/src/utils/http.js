@@ -1,4 +1,4 @@
-const handleErrors = response => {
+const handleErrors = (response) => {
   if (!response.ok) {
     const { status, statusText } = response;
     const error = new Error(statusText);
@@ -12,14 +12,18 @@ export const baseURL = process.env.GATSBY_API_URL;
 
 export const defaultOptions = {
   credentials: "include",
-  headers: { "Content-Type": "application/json" }
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    Cache: "no-cache",
+  },
 };
 
 export const getData = async (route, params) => {
   try {
     const options = {
       method: "GET",
-      ...defaultOptions
+      ...defaultOptions,
     };
 
     const urlString = baseURL + route;
@@ -43,7 +47,7 @@ export const postData = async (route, body) => {
     const options = {
       body: JSON.stringify(body),
       method: "POST",
-      ...defaultOptions
+      ...defaultOptions,
     };
     const response = await fetch(baseURL + route, options);
     handleErrors(response);
@@ -59,7 +63,7 @@ export const putData = async (route, body) => {
     const options = {
       body: JSON.stringify(body),
       method: "PUT",
-      ...defaultOptions
+      ...defaultOptions,
     };
     const response = await fetch(baseURL + route, options);
     handleErrors(response);
@@ -75,7 +79,7 @@ export const deleteData = async (route, body) => {
     const options = {
       body: JSON.stringify(body),
       method: "DELETE",
-      ...defaultOptions
+      ...defaultOptions,
     };
     const response = await fetch(baseURL + route, options);
     handleErrors(response);
