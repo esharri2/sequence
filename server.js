@@ -46,7 +46,11 @@ const limiter = rateLimit({
 app.use(limiter);
 
 console.log("connection is: ");
-console.log(mongoose.connection == true);
+if (mongoose.connection) {
+  console.log("there is a connection.");
+} else {
+  console.log("there is NO connection.");
+}
 
 // Set up sessions
 app.use(
