@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 
 // Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
 // see https://expressjs.com/en/guide/behind-proxies.html
-app.set("trust proxy", 1);
+app.set("trust proxy", true);
 
 const limiter = rateLimit({
   windowMs: 5 * 60 * 1000,
