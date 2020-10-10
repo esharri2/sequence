@@ -25,8 +25,6 @@ module.exports = {
 
   logIn: function (req, res) {
     if (req.user) {
-      console.log("logging in");
-      console.log("req user is ", req.user);
       db.User.findOne({ email: req.user.email })
         .populate("sequences")
         .then((user) => {
@@ -34,8 +32,6 @@ module.exports = {
             email: user.email,
             hasSequences: user.sequences.length > 0 ? true : false,
           };
-          console.log("DERPPPP");
-          console.log(res.headers);
           return res.json(userData);
         })
         .catch((error) => {

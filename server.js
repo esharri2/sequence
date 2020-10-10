@@ -45,13 +45,6 @@ const limiter = rateLimit({
 //  apply to all requests
 app.use(limiter);
 
-console.log("connection is: ");
-if (mongoose.connection) {
-  console.log("there is a connection.");
-} else {
-  console.log("there is NO connection.");
-}
-
 // Set up sessions
 app.use(
   session({
@@ -81,7 +74,6 @@ passport.use(
     function (email, password, done) {
       db.User.findOne({ email: email }, async function (err, user) {
         // Hash password that was entered
-        console.log("user is: ", user);
 
         if (err) {
           return done(err);
@@ -98,8 +90,6 @@ passport.use(
           user.password
         );
 
-        console.log("check says: ", passwordCheck);
-
         if (!passwordCheck) {
           //TODO pass this msg to controller
           console.log("Wrong password!");
@@ -114,12 +104,12 @@ passport.use(
 
 // Configure Passport authenticated session persistence.
 passport.serializeUser(function (user, cb) {
-  console.log("serialize user: ", user);
+  console.log("SERIALIZE user: ", user);
   cb(null, user.id);
 });
 
 passport.deserializeUser(function (id, cb) {
-  console.log("deserialize user: ", id);
+  console.log("DESERIALIZE user: ", id);
   db.User.findById(id, function (err, user) {
     if (err) {
       return cb(err);

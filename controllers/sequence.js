@@ -44,7 +44,6 @@ module.exports = {
   saveSequence: async (req, res) => {
     console.log("saving sequence...");
     console.log(req.user);
-    console.log(req.headers);
     console.log(req.headers.cookie);
     console.log(req.cookies);
     const { _id: postedId, title, actions } = req.body;

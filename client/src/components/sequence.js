@@ -88,7 +88,7 @@ const Action = styled.div`
     grid-gap: 0 ${spacing.xs};
   } */
 
-  ${props =>
+  ${(props) =>
     props.isPlaying &&
     css`
     box-shadow: ${shadows.md} !important;
@@ -136,14 +136,14 @@ const Sequence = ({
   id,
   authenticated,
   title: initialTitle,
-  actions: initialActions
+  actions: initialActions,
 }) => {
   const [sequenceId, setSequenceId] = useState(id);
   const [hasChanged, setHasChanged] = useState(false);
   const noSleep = useRef(typeof window !== "undefined" && new NoSleep());
 
   const [title, setTitle] = useState(initialTitle);
-  const handleTitleChange = event => {
+  const handleTitleChange = (event) => {
     setHasChanged(true);
     setTitle(event.target.value);
   };
@@ -205,7 +205,7 @@ const Sequence = ({
 
   const timerRef = useRef();
 
-  const playAction = title => {
+  const playAction = (title) => {
     if (currentActionRef.current) {
       currentActionRef.current.scrollIntoView(true);
     }
@@ -213,16 +213,16 @@ const Sequence = ({
       speech(title);
     }
     const timerId = setInterval(() => {
-      setElapsedOnCurrent(prev => prev + 1);
+      setElapsedOnCurrent((prev) => prev + 1);
     }, 1000);
     timerRef.current = timerId;
   };
 
-  const getIndex = event => {
+  const getIndex = (event) => {
     return event.target.closest("[data-index]").dataset.index;
   };
 
-  const handleDelete = event => {
+  const handleDelete = (event) => {
     event.preventDefault();
     const index = getIndex(event);
     const actionsClone = [...actions];
@@ -231,12 +231,11 @@ const Sequence = ({
     setActions(actionsClone);
   };
 
-  const handleCopy = event => {
+  const handleCopy = (event) => {
     event.preventDefault();
     const index = getIndex(event);
     const actionsClone = [...actions];
     const newAction = { ...actions[index] };
-    console.log(newAction);
     if (newAction._id) {
       delete newAction._id;
     }
@@ -245,7 +244,7 @@ const Sequence = ({
     setActions(actionsClone);
   };
 
-  const handleActionChange = event => {
+  const handleActionChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
     const index = getIndex(event);
