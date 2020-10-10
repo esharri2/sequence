@@ -27,7 +27,7 @@ mongoose.set("debug", false);
 const app = express();
 
 app.use(helmet());
-app.use(cookieParser());
+app.use(cookieParser(process.env.RANDOM_SECRET));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -46,7 +46,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 console.log("connection is: ");
-console.log(mongoose.connection);
+console.log(mongoose.connection == true);
 
 // Set up sessions
 app.use(
