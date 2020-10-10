@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 
 // Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
 // see https://expressjs.com/en/guide/behind-proxies.html
-app.set("trust proxy", true);
+app.set("trust proxy", 1);
 
 const limiter = rateLimit({
   windowMs: 5 * 60 * 1000,
@@ -46,6 +46,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // Set up sessions
+// TODO this needs different set up for dev/prod -- secure = false in dev
 app.use(
   session({
     genid: function (req) {
