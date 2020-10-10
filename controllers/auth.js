@@ -35,7 +35,7 @@ module.exports = {
           return res.json(userData);
         })
         .catch((error) => {
-          res.status(422).json(err);
+          res.status(422).json(error);
         });
     } else {
       console.error("There was an error logging in.");
