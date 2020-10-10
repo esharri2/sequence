@@ -18,7 +18,10 @@ const isCorsAllowed = (origin, req) => {
   }
 };
 
-const corsOptions = function(req, callback) {
+const corsOptions = function (req, callback) {
+  console.log("TEST");
+  console.log(req.headers.cookie);
+
   const options = { credentials: true };
   options.origin = isCorsAllowed(req.header("Origin"), req);
   if (!options.origin) {
